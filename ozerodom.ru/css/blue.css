@@ -195,7 +195,6 @@ background:#1570a6;
 		margin: 0;
 	}
 	.headPhone {
-		padding: 10px 0px 15px 0 !important;
 		text-align: center !important;
 	}
 	.headPhone span a {
@@ -204,6 +203,9 @@ background:#1570a6;
 	}
 }
 @media (max-width: 767px) {
+	.phoneHidden{
+		visibility: hidden;
+	}
 	.navbar {
 		position: absolute;
 		top: 0;

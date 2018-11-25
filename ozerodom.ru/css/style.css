@@ -2131,7 +2131,7 @@ footer .copy{
       max-width:300px;
    }
    .navbar .navbar-collapse{
-      padding-left:15px;
+	  padding-left:15px;
    }
    .navbar ul ul{
       margin-left:20px;
