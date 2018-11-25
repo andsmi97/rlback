@@ -1,0 +1,233 @@
+/* Blue */
+
+blockquote{
+	border-left: 4px solid #1570a6;
+}
+
+.color{
+	color: #1570a6;	
+}
+
+header{
+	border-top: 2px solid #1570a6;
+}
+
+.navbar button{
+background:#1570a6 !important;  
+}
+
+.navbar button:hover{
+background:#11608f !important;
+}
+
+.da-slider{
+	border-top: 3px solid #1570a6;
+	border-bottom: 3px solid #1570a6;
+}
+
+.da-slide h2 span{
+	background: url("../../../metromania45/blue/img/border-b.png") left bottom no-repeat;
+}
+
+.da-slide .da-link{
+	background: #1570a6;
+}	
+
+.da-slide .da-link:hover{
+	background: #11608f;
+}
+
+.da-dots span{
+	background: #1570a6;
+}
+
+.da-arrows span{
+	background: #1570a6;
+}
+
+.full-slider{
+	/*border-top: 5px solid #11608f;*/
+	background: #1570a6;
+	overflow: hidden;
+}
+
+.full-slider .button a{
+	background: #11608f;
+}
+
+.full-slider .button a:hover{
+	background: #11608f;
+}	
+
+.flex-back{
+	background: #11608f;	
+}
+
+.home-product{
+	background: #1570a6;
+}
+
+.home-product .home-prod-img{
+	border: 1px solid #11608f;
+}
+
+#portfolio .element{
+	background: #11608f;
+}
+
+#portfolio .pcap{
+	background:#1570a6;
+	border-top: 2px solid #11608f;
+}
+
+/* Events - Accordion*/
+
+.events .panel-heading h5{
+background:#1570a6;
+}
+
+.social-links{
+	background: #1570a6;	
+}
+
+.social-links i{
+	background: #11608f;
+}
+
+.formy{
+	background: #1570a6;
+}
+
+.service-two i{
+	color: #1570a6;	
+}
+
+.features-two .feat i, .features-three i{
+	color: #1570a6;
+}
+
+.about-two .asocial i{
+	background:#1570a6;
+}
+
+.career .nav-tabs > li > a:hover{
+	background: #1570a6;
+}
+
+.button a{
+	background: #1570a6;
+}
+
+.button a:hover{
+	background: #11608f;
+}	
+
+.paging a:hover{
+	background: #1570a6;
+}
+
+.paging .current{
+	background: #11608f;
+}
+.checkIcon {
+	font-size: 30px;
+}
+.features-three h5 {
+	font-size: 18px;
+}
+.comunBox {
+	
+}
+.comunBox ul {
+	
+}
+.comunBox ul li {
+	width: 170px;
+	height: 224px;
+	margin: 0 16px 20px 0;
+	vertical-align: top;
+	display: inline-block;
+}
+.comunBox ul li:last-child {
+	margin: 0 0 20px 0;
+}
+.comunBox ul li img {
+	position: absolute;
+}
+.comunBox ul li p {
+	color: #fff;
+	position: relative;
+	margin: 94px 0 0 0;
+	text-align:center;
+	padding: 10px;
+	z-index: 9;
+}
+.comunBlue {
+	background: #00a9b4;
+}
+.comunGreen {
+	background: #529201;
+}
+.comunFiolet {
+	background: #a070d5;
+}
+.comunLantern {
+	background: #d5a003;
+}
+.comunGray {
+	background: #596052;
+}
+@media (max-width: 320px) {
+	.features-three .feat-inner h2 {
+		font-size: 26px !important;
+	}
+}
+@media (max-width: 991px) {
+	.comunBox ul li {
+		width: 100%;
+		text-align: center;
+	}
+	.comunBox ul li img {
+		position: static;
+		z-index: 2;
+	}
+	.comunBox ul li p {
+		margin: 0;
+	}
+	.headPhone {
+		padding: 10px 0px 15px 0 !important;
+		text-align: center !important;
+	}
+	.headPhone span a {
+		font-size: 26px;
+		color: #666;
+	}
+}
+@media (max-width: 767px) {
+	.navbar {
+		position: absolute;
+		top: 0;
+		z-index: 9999;
+		width: 100%;
+	}
+	header {
+		margin: 50px 0 0 0;
+		position: relative;
+		z-index: 3;
+	}
+}
+.headPhone {
+	padding: 32px 15px 0 0;
+	text-align: right;
+}
+.headPhone a {
+	font-size: 16px;
+	text-decoration: underline;
+}
+.headPhone span {
+	font-size: 26px;
+}
+.navbar .nav > li.active > a, .active a:hover {
+	background: #34A3CE !important;
+	color: #FFF !important;
+}
