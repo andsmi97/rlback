@@ -131,15 +131,38 @@ for (var i = 0; i < acc.length; i++) {
 
 var topMenu = $("#navbarSticky");
 var topMenuHeight = topMenu.outerHeight() + 65;
-  menuItems = topMenu.find("a"),
+(menuItems = topMenu.find("a")),
   // Anchors corresponding to menu items
-  scrollItems = menuItems.map(function(item) {
+  console.log(menuItems);
+// console.log(
+var scrollItems = menuItems
+  .filter(function() {
+    return $(this)
+      .attr("href")
+      .match(/^(#[a-z\d-]+)$/g);
+  })
+  .map(function() {
     var item = $($(this).attr("href"));
     console.log(item);
-    if (item.length) {
-      return item;
-    }
+    return item;
   });
+
+// console.log(
+//   menuItems.map(function() {
+//     var item = $($(this).attr("href"));
+//     console.log(item);
+//     if (item.length) {
+//       return item;
+//     }
+//   })
+// );
+// scrollItems = menuItems.map(function() {
+//   var item = $($(this).attr("href"));
+//   console.log(item);
+//   if (item.length) {
+//     return item;
+//   }
+// });
 // Bind to scroll
 $(window).scroll(function() {
   navFunction();
@@ -148,8 +171,9 @@ $(window).scroll(function() {
 
   // Get id of current scroll item
   var cur = scrollItems.map(function() {
-    if ($(this).offset().top < fromTop) return this;
+    if ($(this).offset().top < fromTop + 300) return this;
   });
+  console.log(cur);
   // Get the id of the current element
   cur = cur[cur.length - 1];
   var id = cur && cur.length ? cur[0].id : "";
@@ -165,18 +189,21 @@ $(window).scroll(function() {
 
 $(".nav").on("click", "a", function(event) {
   //отменяем стандартную обработку нажатия по ссылке
-  event.preventDefault();
+  if ($(this).attr("href") !== "/news") {
+    event.preventDefault();
+    var id = $(this).attr("href"),
+      //узнаем высоту от начала страницы до блока на который ссылается якорь
+      top = $(id).offset().top - 85;
+    //анимируем переход на расстояние - top за 1500 мс
+    $("body,html").animate(
+      {
+        scrollTop: top
+      },
+      1500
+    );
+  }
+
   //забираем идентификатор бока с атрибута href
-  var id = $(this).attr("href"),
-    //узнаем высоту от начала страницы до блока на который ссылается якорь
-    top = $(id).offset().top - 85;
-  //анимируем переход на расстояние - top за 1500 мс
-  $("body,html").animate(
-    {
-      scrollTop: top
-    },
-    1500
-  );
 });
 
 // // When the user scrolls the page, execute myFunction
