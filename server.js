@@ -10,6 +10,7 @@ const tenant = require("./controllers/Tenant");
 const posts = require("./controllers/Posts");
 const settings = require("./controllers/Settings");
 const tariffs = require("./controllers/Tariffs");
+const auth = require("./controllers/Auth");
 const app = express();
 
 //Middleware
@@ -19,7 +20,7 @@ app.use(morgan("combined"));
 app.use(helmet());
 app.use("/admin", express.static("build"));
 app.use("/", express.static("ozerodom.ru"));
-app.use('/news',express.static("News"))
+app.use("/news", express.static("News"));
 //Routes
 
 // app.get("/",mainSite.getSite);
@@ -45,6 +46,7 @@ app.put("/updateemailcredentials", settings.updateEmailCredentials);
 //Tariffs
 app.put("/changetariffs", tariffs.changeTariffs);
 
+app.post("/login", auth.login);
 //Don't stop server in production
 process.on("uncaughtException", err => {
   console.log(err);
@@ -53,4 +55,3 @@ process.on("uncaughtException", err => {
 app.listen(process.env.PORT || 3001, () => {
   console.log(`server is running on port 3001`);
 });
-

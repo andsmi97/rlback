@@ -2272,3 +2272,6 @@ footer .copy{
     overflow: hidden;
     transition: max-height 0.2s ease-out;
 }
+.nav>li>a:focus{
+	background-color: transparent;
+}
