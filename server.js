@@ -52,6 +52,6 @@ process.on("uncaughtException", err => {
   console.log(err);
 });
 
-app.listen(process.env.PORT || 3001, () => {
-  console.log(`server is running on port 3001`);
+app.listen(process.env.PORT || 8080, () => {
+  console.log(`server is running on port 8080`);
 });
