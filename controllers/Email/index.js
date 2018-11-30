@@ -11,8 +11,7 @@ const connectionString = `mongodb://${config.DB.LOGIN}:${
 }`;
 
 mongoose.connect(
-  connectionString,
-  { useNewUrlParser: true }
+  connectionString
 );
 const db = mongoose.connection;
 let userSettings = new mongoose.Schema({

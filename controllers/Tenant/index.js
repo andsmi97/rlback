@@ -9,8 +9,7 @@ const connectionString = `mongodb://${config.DB.LOGIN}:${
   config.DB.NAME
 }`;
 mongoose.connect(
-  connectionString,
-  { useNewUrlParser: true }
+  connectionString
 );
 const db = mongoose.connection;
 let tenants = new mongoose.Schema({

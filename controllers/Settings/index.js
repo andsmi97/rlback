@@ -13,8 +13,7 @@ const isCorrectEmail = email => {
 
 const getEmailService = email => email.match(/(?<=@)[^.]+(?=\.)/g).join("");
 mongoose.connect(
-  connectionString,
-  { useNewUrlParser: true }
+  connectionString
 );
 const db = mongoose.connection;
 let userSettings = new mongoose.Schema({
