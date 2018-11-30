@@ -8,8 +8,7 @@ const mongoose = require("mongoose");
 
 const connectionString = `mongodb://localhost:27017/TenantsDB`;
 mongoose.connect(
-  connectionString,
-  { useNewUrlParser: true }
+  connectionString
 );
 const db = mongoose.connection;
 let news = new mongoose.Schema({

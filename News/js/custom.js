@@ -121,7 +121,7 @@ function append(parent, element) {
   return parent.appendChild(element);
 }
 
-fetch(`http://185.220.34.243:8080/getposts`, {
+fetch(`http://185.220.34.243/getposts`, {
   method: "POST",
   headers: {
     "Content-Type": "application/json"
