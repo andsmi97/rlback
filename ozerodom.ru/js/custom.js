@@ -235,8 +235,8 @@ fetch("http://185.220.34.243/getcontacts")
   })
   .then(function(settings) {
     return settings.map(function(contacts) {
-      var phone = getElementsByClassName("navPhone");
-      var mail = getElementsByClassName("navMail");
+      var phone = document.getElementsByClassName("navPhone");
+      var mail = document.getElementsByClassName("navMail");
       phone.innerHTML = contacts.phone;
       mail.innerHTML = contacts.mail;
       mail.href = "mailto:" + contacts.mail;
