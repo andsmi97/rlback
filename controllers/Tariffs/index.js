@@ -6,9 +6,7 @@ const mongoose = require("mongoose");
 //   config.DB.NAME
 // }`;
 const connectionString = `mongodb://localhost:27017/TenantsDB`;
-mongoose.connect(
-  connectionString
-);
+mongoose.connect(connectionString);
 const db = mongoose.connection;
 let userSettings = new mongoose.Schema({
   user: { type: String, unique: true, required: true, dropDups: true },
@@ -26,8 +24,8 @@ let userSettings = new mongoose.Schema({
 const changeTariffs = (req, res) => {
   const { user, gas } = req.body;
   console.log(gas);
-  let Config = mongoose.model("config", userSettings);
-  Config.findOneAndUpdate(user, { $set: { tariffs: { gas: gas } } })
+  let UserSettings = mongoose.model("UserSettings", userSettings);
+  UserSettings.findOneAndUpdate(user, { $set: { tariffs: { gas: gas } } })
     .then(() => res.status(200).json("Данные обновлены"))
     .catch(err => res.status(400).json(err));
 };
