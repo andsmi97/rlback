@@ -171,7 +171,7 @@ $(window).scroll(function() {
 
   // Get id of current scroll item
   var cur = scrollItems.map(function() {
-    if ($(this).offset().top < fromTop +300) return this;
+    if ($(this).offset().top < fromTop + 300) return this;
   });
   console.log(cur);
   // Get the id of the current element
@@ -237,12 +237,16 @@ fetch("http://185.220.34.243/getcontacts")
     return settings.map(function(contacts) {
       var phone = document.getElementsByClassName("navPhone");
       var mail = document.getElementsByClassName("navMail");
-      phone.innerHTML = contacts.phone;
-      mail.innerHTML = contacts.mail;
-      mail.href = "mailto:" + contacts.mail;
+      for (var i = 0; i < phone.length; i++) {
+        phone[i].innerHTML = contacts.phone;
+        mail[i].innerHTML = contacts.MAIL.USER;
+        mail[i].href = "mailto:" + contacts.MAIL.USER;
+      }
     });
   });
 
 $(".primary-link").click(function() {
-  $(".switchCopy").text($(".switchCopy").text() == "Скрыть" ? "Показать больше" : "Скрыть");
+  $(".switchCopy").text(
+    $(".switchCopy").text() == "Скрыть" ? "Показать больше" : "Скрыть"
+  );
 });
