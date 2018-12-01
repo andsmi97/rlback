@@ -14,9 +14,7 @@ const isCorrectEmail = email => {
 };
 
 const getEmailService = email => email.match(/(?<=@)[^.]+(?=\.)/g).join("");
-mongoose.connect(
-  connectionString
-);
+mongoose.connect(connectionString);
 const db = mongoose.connection;
 let userSettings = new mongoose.Schema({
   user: { type: String, unique: true, required: true, dropDups: true },
@@ -36,10 +34,12 @@ db.on("error", console.error.bind(console, "connection error:"));
 const changeAccountPassword = (req, res) => {
   console.log(req.body);
   const { user, currentPassword, newPassword } = req.body;
-  let Config = mongoose.model("config", userSettings);
-  Config.findOne({ user: user }, "password", (err, dbRes) => {
+  let UserSettings = mongoose.model("UserSettings", userSettings);
+  UserSettings.findOne({ user: user }, "password", (err, dbRes) => {
     if (dbRes.password === currentPassword) {
-      Config.findOneAndUpdate(user, { $set: { password: newPassword } })
+      UserSettings.findOneAndUpdate(user, {
+        $set: { password: newPassword }
+      })
         .then(() => res.status(200).json("Данные обновлены"))
         .catch(err => res.status(400).json(err));
     } else {
@@ -52,8 +52,8 @@ getEmailService("firstname@google.com");
 const updateEmailCredentials = (req, res) => {
   const { user, email, password } = req.body;
   if (isCorrectEmail(email)) {
-    let Config = mongoose.model("config", userSettings);
-    Config.findOneAndUpdate(user, {
+    let UserSettings = mongoose.model("UserSettings", userSettings);
+    UserSettings.findOneAndUpdate(user, {
       $set: {
         MAIL: {
           USER: email,
