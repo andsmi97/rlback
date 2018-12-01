@@ -8,23 +8,24 @@ const mongoose = require("mongoose");
 const connectionString = `mongodb://localhost:27017/TenantsDB`;
 mongoose.connect(connectionString);
 const db = mongoose.connection;
-let userSettings = new mongoose.Schema({
-  user: { type: String, unique: true, required: true, dropDups: true },
-  password: { type: String, required: true },
-  MAIL: {
-    USER: String,
-    PASSWORD: String,
-    SERVICE: String
-  },
-  tariffs: {
-    gas: { type: Number, default: 0 }
-  }
-});
+const UserSettings = require("../../Schemas/UserSettings");
+// let userSettings = new mongoose.Schema({
+//   user: { type: String, unique: true, required: true, dropDups: true },
+//   password: { type: String, required: true },
+//   MAIL: {
+//     USER: String,
+//     PASSWORD: String,
+//     SERVICE: String
+//   },
+//   tariffs: {
+//     gas: { type: Number, default: 0 }
+//   }
+// });
 
 const changeTariffs = (req, res) => {
   const { user, gas } = req.body;
   console.log(gas);
-  let UserSettings = mongoose.model("UserSettings", userSettings);
+  // let UserSettings = mongoose.model("UserSettings", userSettings);
   UserSettings.findOneAndUpdate(user, { $set: { tariffs: { gas: gas } } })
     .then(() => res.status(200).json("Данные обновлены"))
     .catch(err => res.status(400).json(err));
