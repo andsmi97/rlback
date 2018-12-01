@@ -13,9 +13,7 @@ const isCorrectEmail = email => {
 };
 
 const getEmailService = email => email.match(/(?<=@)[^.]+(?=\.)/g).join("");
-mongoose.connect(
-  connectionString
-);
+mongoose.connect(connectionString);
 const db = mongoose.connection;
 let userSettings = new mongoose.Schema({
   user: { type: String, unique: true, required: true, dropDups: true },
@@ -26,7 +24,7 @@ let userSettings = new mongoose.Schema({
     SERVICE: String
   },
   tariffs: {
-    gas: Number
+    gas: { type: Number, default: 0 }
   }
 });
 
@@ -37,6 +35,24 @@ const changeAccountPassword = (req, res) => {
   const { user, currentPassword, newPassword } = req.body;
 };
 
+const addUser = (req, res) => {
+  const { user, password, mailuser, mailpassword } = req.body;
+  let UserSettings = mongoose.model("UserSettings", userSettings);
+  let settings = new UserSettings({
+    user: user,
+    password: password,
+    MAIL: {
+      USER: mailuser,
+      PASSWORD,
+      mailpassword,
+      SERVICE: getEmailService(mailuser)
+    }
+  });
+  settings.save(err => {
+    if (err) res.status(400).json("Возникла ошибка при вставке");
+    res.status(200).json(settings);
+  });
+};
 const login = (req, res) => {
   const { user, password } = req.body;
   let Config = mongoose.model("config", userSettings);

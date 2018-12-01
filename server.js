@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
+
 //Controllers
 const email = require("./controllers/Email");
 const tenant = require("./controllers/Tenant");
@@ -11,6 +12,7 @@ const posts = require("./controllers/Posts");
 const settings = require("./controllers/Settings");
 const tariffs = require("./controllers/Tariffs");
 const auth = require("./controllers/Auth");
+
 const app = express();
 
 //Middleware
@@ -23,7 +25,6 @@ app.use("/", express.static("ozerodom.ru"));
 app.use("/news", express.static("News"));
 //Routes
 
-// app.get("/",mainSite.getSite);
 //Tenants
 app.post("/tenantinsert", tenant.handleInsert);
 app.post("/tenantupdate", tenant.handleUpdate);
@@ -46,7 +47,10 @@ app.put("/updateemailcredentials", settings.updateEmailCredentials);
 //Tariffs
 app.put("/changetariffs", tariffs.changeTariffs);
 
+//Auth
+app.post('/createuser', auth.adduser);
 app.post("/login", auth.login);
+
 //Don't stop server in production
 process.on("uncaughtException", err => {
   console.log(err);
