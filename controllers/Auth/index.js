@@ -73,8 +73,20 @@ const login = (req, res) => {
     }
   });
 };
+
+
+const deleteUser = (req, res) => {
+  const {user} = req.body;
+  console.log("deleteUser");
+  let UserSettings = mongoose.model("UserSettings", userSettings);
+  UserSettings.findOneAndDelete({ user })
+    .then(user => res.status(200).json(user))
+    .catch(err => res.status(400).json(err));
+};
+
 module.exports = {
   login,
   addUser,
-  getUsers
+  getUsers,
+  deleteUser
 };
