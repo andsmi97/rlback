@@ -52,6 +52,15 @@ const addUser = (req, res) => {
     res.status(200).json(settings);
   });
 };
+
+const getUsers = (req, res) => {
+  console.log("GETTING USERS");
+  let UserSettings = mongoose.model("UserSettings", userSettings);
+  UserSettings.find().then(users => {
+    res.status(200).json(users);
+  });
+};
+
 const login = (req, res) => {
   const { user, password } = req.body;
   let Config = mongoose.model("config", userSettings);
@@ -66,5 +75,6 @@ const login = (req, res) => {
 };
 module.exports = {
   login,
-  addUser
+  addUser,
+  getUsers
 };
