@@ -50,6 +50,8 @@ app.put("/changetariffs", tariffs.changeTariffs);
 //Auth
 app.post("/createuser", auth.addUser);
 app.post("/login", auth.login);
+
+//TODO: DELETE IN PRODUCTION
 app.get("/users", auth.getUsers);
 //Don't stop server in production
 process.on("uncaughtException", err => {

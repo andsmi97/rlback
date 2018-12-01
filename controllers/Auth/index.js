@@ -63,8 +63,8 @@ const getUsers = (req, res) => {
 
 const login = (req, res) => {
   const { user, password } = req.body;
-  let Config = mongoose.model("config", userSettings);
-  Config.findOne({ user, password }, "password", (err, dbRes) => {
+  let UserSettings = mongoose.model("UserSettings", userSettings);
+  UserSettings.findOne({ user, password }, "password", (err, dbRes) => {
     console.log(dbRes);
     if (dbRes !== null) {
       res.status(200).json(dbRes._id);
