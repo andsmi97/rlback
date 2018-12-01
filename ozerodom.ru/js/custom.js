@@ -228,3 +228,21 @@ function navFunction() {
     navNumber.classList.remove("phoneHidden");
   }
 }
+
+fetch("http://185.220.34.243/getcontacts")
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(settings) {
+    return settings.map(function(contacts) {
+      var phone = getElementsByClassName("navPhone");
+      var mail = getElementsByClassName("navMail");
+      phone.innerHTML = contacts.phone;
+      mail.innerHTML = contacts.mail;
+      mail.href = "mailto:" + contacts.mail;
+    });
+  });
+
+$(".primary-link").click(function() {
+  $(".switchCopy").text($(".switchCopy").text() == "Скрыть" ? "Показать больше" : "Скрыть");
+});
