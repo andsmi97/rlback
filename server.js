@@ -48,7 +48,7 @@ app.put("/updateemailcredentials", settings.updateEmailCredentials);
 app.put("/changetariffs", tariffs.changeTariffs);
 
 //Auth
-app.post('/createuser', auth.adduser);
+app.post("/createuser", auth.addUser);
 app.post("/login", auth.login);
 
 //Don't stop server in production
