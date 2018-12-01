@@ -11,22 +11,21 @@ const mongoose = require("mongoose");
 // }`;
 
 const connectionString = `mongodb://localhost:27017/TenantsDB`;
-mongoose.connect(
-  connectionString
-);
-const db = mongoose.connection;
-let userSettings = new mongoose.Schema({
-  user: { type: String, unique: true, required: true, dropDups: true },
-  password: { type: String, required: true },
-  MAIL: {
-    USER: String,
-    PASSWORD: String,
-    SERVICE: String
-  },
-  tariffs: {
-    gas: Number
-  }
-});
+mongoose.connect(connectionString);
+const UserSettings = require("../../Schemas/UserSettings");
+// const db = mongoose.connection;
+// let userSettings = new mongoose.Schema({
+//   user: { type: String, unique: true, required: true, dropDups: true },
+//   password: { type: String, required: true },
+//   MAIL: {
+//     USER: String,
+//     PASSWORD: String,
+//     SERVICE: String
+//   },
+//   tariffs: {
+//     gas: Number
+//   }
+// });
 
 const getUsersEmails = users => {
   let emails = {};
@@ -69,9 +68,9 @@ const handleSend = (req, res) => {
 
   //Вернуть ответ
   let form = new formidable.IncomingForm();
-  form.uploadDir = path.join(__dirname, "../../uploads");
+  // form.uploadDir = path.join(__dirname, "../../uploads");
   form.keepExtensions = true;
-  form.maxFieldsSize = 50 * 1024 * 1024; //10 MB
+  form.maxFieldsSize = 50 * 1024 * 1024; //50 MB
   form.multiples = true;
   form.on("file", (field, file) => {
     fs.rename(file.path, form.uploadDir + "/" + file.name, err => {
@@ -97,8 +96,8 @@ const handleSend = (req, res) => {
       const vals = Object.values(params);
       return new Function(...names, `return \`${this}\`;`)(...vals);
     };
-    let Config = mongoose.model("config", userSettings);
-    Config.findOne({ user: "admin" }, "MAIL", (err, dbRes) => {
+    // let Config = mongoose.model("config", userSettings);
+    UserSettings.findOne({ user: "admin" }, "MAIL", (err, dbRes) => {
       let transporter = nodemailer.createTransport({
         service: dbRes.MAIL.SERVICE,
         auth: {
@@ -106,11 +105,13 @@ const handleSend = (req, res) => {
           pass: dbRes.MAIL.PASSWORD
         }
       });
-      console.log(recreateTenantsObject(
-        Object.entries(fields).filter(field => {
-          return field[0] !== "subject" && field[0] !== "message";
-        })
-      ));
+      console.log(
+        recreateTenantsObject(
+          Object.entries(fields).filter(field => {
+            return field[0] !== "subject" && field[0] !== "message";
+          })
+        )
+      );
       Object.entries(
         recreateTenantsObject(
           Object.entries(fields).filter(field => {
