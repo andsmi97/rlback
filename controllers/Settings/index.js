@@ -51,11 +51,12 @@ const changeAccountPassword = (req, res) => {
 
 getEmailService("firstname@google.com");
 const updateEmailCredentials = (req, res) => {
-  const { user, email, password } = req.body;
+  const { user, email, password,phone } = req.body;
   if (isCorrectEmail(email)) {
     // let UserSettings = mongoose.model("UserSettings", userSettings);
     UserSettings.findOneAndUpdate(user, {
       $set: {
+        phone:phone,
         MAIL: {
           USER: email,
           PASSWORD: password,
