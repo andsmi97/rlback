@@ -54,6 +54,7 @@ app.post("/login", auth.login);
 //TODO: DELETE IN PRODUCTION
 app.get("/users", auth.getUsers);
 app.post("/deleteuser", auth.deleteUser);
+app.get("/getcontacts", auth.getContacts);
 //Don't stop server in production
 process.on("uncaughtException", err => {
   console.log(err);

@@ -17,11 +17,12 @@ const changeAccountPassword = (req, res) => {
 };
 
 const addUser = (req, res) => {
-  const { user, password, mailuser, mailpassword } = req.body;
+  const { user, password, mailuser, mailpassword, phone } = req.body;
   // let UserSettings = mongoose.model("UserSettings", userSettings);
   let settings = new UserSettings({
     user: user,
     password: password,
+    phone: phone,
     MAIL: {
       USER: mailuser,
       PASSWORD: mailpassword,
@@ -52,7 +53,12 @@ const login = (req, res) => {
     }
   });
 };
-
+const getContacts = (req,res) =>{
+    // let UserSettings = mongoose.model("UserSettings", userSettings);
+    UserSettings.find({user:"admin"},{_id:0,phone:1,MAIL:{email:1}}).then(users => {
+      res.status(200).json(users);
+    });
+}
 const deleteUser = (req, res) => {
   const { user } = req.body;
   let UserSettings = mongoose.model("UserSettings", userSettings);
