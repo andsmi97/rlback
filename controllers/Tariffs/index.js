@@ -17,7 +17,7 @@ let userSettings = new mongoose.Schema({
     SERVICE: String
   },
   tariffs: {
-    gas: Number
+    gas: { type: Number, default: 0 }
   }
 });
 
