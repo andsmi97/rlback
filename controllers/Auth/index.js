@@ -43,8 +43,7 @@ const addUser = (req, res) => {
     password: password,
     MAIL: {
       USER: mailuser,
-      PASSWORD,
-      mailpassword,
+      PASSWORD: mailpassword,
       SERVICE: getEmailService(mailuser)
     }
   });
