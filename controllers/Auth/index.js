@@ -30,7 +30,7 @@ const addUser = (req, res) => {
     }
   });
   settings.save(err => {
-    if (err) res.status(400).json("Возникла ошибка при вставке");
+    if (err) res.status(400).json(err);
     res.status(200).json(settings);
   });
 };

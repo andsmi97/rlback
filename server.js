@@ -12,7 +12,7 @@ const posts = require("./controllers/Posts");
 const settings = require("./controllers/Settings");
 const tariffs = require("./controllers/Tariffs");
 const auth = require("./controllers/Auth");
-
+const sections = require("./controllers/Sections");
 const app = express();
 
 //Middleware
@@ -55,6 +55,10 @@ app.post("/login", auth.login);
 app.get("/users", auth.getUsers);
 app.post("/deleteuser", auth.deleteUser);
 app.get("/getcontacts", auth.getContacts);
+
+app.post("/addimgcarousel", sections.addCarouselPhoto);
+app.post("/addsiteSections", sections.addSiteSections);
+app.post("/sectionPhotos", sections.sectionPhotos);
 //Don't stop server in production
 process.on("uncaughtException", err => {
   console.log(err);
