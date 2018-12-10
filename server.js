@@ -23,6 +23,7 @@ app.use(helmet());
 app.use("/admin", express.static("build"));
 app.use("/", express.static("ozerodom.ru"));
 app.use("/news", express.static("News"));
+app.use("/projects", express.static("Projects"));
 //Routes
 
 //Tenants

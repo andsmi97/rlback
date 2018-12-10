@@ -189,7 +189,7 @@ $(window).scroll(function() {
 
 $(".nav").on("click", "a", function(event) {
   //отменяем стандартную обработку нажатия по ссылке
-  if ($(this).attr("href") !== "/news") {
+  if ($(this).attr("href") !== "/news" && $(this).attr("href") !== "/projects")  {
     event.preventDefault();
     var id = $(this).attr("href"),
       //узнаем высоту от начала страницы до блока на который ссылается якорь
