@@ -125,7 +125,7 @@ function navFunction() {
   }
 }
 
-fetch("http://185.220.34.243/getcontacts")
+fetch("https://185.220.34.243/getcontacts")
   .then(function(response) {
     return response.json();
   })
