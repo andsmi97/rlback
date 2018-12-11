@@ -57,12 +57,12 @@ function append(parent, element) {
 //     });
 //   });
 
-fetch("http://185.220.34.243/getcontacts")
-  .then(function (response) {
+fetch("http://lesnayagavan.ru/getcontacts")
+  .then(function(response) {
     return response.json();
   })
-  .then(function (settings) {
-    return settings.map(function (contacts) {
+  .then(function(settings) {
+    return settings.map(function(contacts) {
       var phone = document.getElementsByClassName("navPhone");
       var mail = document.getElementsByClassName("navMail");
       for (var i = 0; i < phone.length; i++) {
