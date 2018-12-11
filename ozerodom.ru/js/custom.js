@@ -1,7 +1,4 @@
-/* Projects carousel */
-
-// $(".carousel").carousel();
-
+//TODO replace slider
 /* Slider 1 - Parallax slider*/
 $(window).load(function() {
   $(".flexslider").flexslider({
@@ -11,81 +8,14 @@ $(window).load(function() {
     slideshowSpeed: 2600
   });
 });
+//TODO replace prettyphoto
 /* Image slideshow */
-
-$("#s1").cycle({
-  fx: "fade",
-  speed: 2000,
-  timeout: 300,
-  pause: 1
-});
-
-/* Support */
-
-$("#slist a").click(function(e) {
-  e.preventDefault();
-  $(this)
-    .next("p")
-    .toggle(200);
-});
-// $(function() {
-//   $("#da-slider").cslider({
-//     autoplay: true,
-//     interval: 9000
-//   });
-// });
-/* prettyPhoto Gallery */
-
 jQuery(".prettyphoto").prettyPhoto({
   overlay_gallery: false,
   social_tools: false
 });
 
-/* Isotope */
-
-// cache container
-var $container = $("#portfolio");
-// initialize isotope
-$container.isotope({
-  // options...
-});
-
-// filter items when filter link is clicked
-$("#filters a").click(function() {
-  var selector = $(this).attr("data-filter");
-  $container.isotope({ filter: selector });
-  return false;
-});
-
-/* Flex slider */
-
-/* Image block effects */
-
-$(function() {
-  $("ul.hover-block li").hover(
-    function() {
-      $(this)
-        .find(".hover-content")
-        .animate({ top: "-3px" }, { queue: false, duration: 500 });
-    },
-    function() {
-      $(this)
-        .find(".hover-content")
-        .animate({ top: "155px" }, { queue: false, duration: 500 });
-    }
-  );
-});
-
-/* Slide up & Down */
-
-$(".dis-nav a").click(function(e) {
-  e.preventDefault();
-  var myClass = $(this).attr("id");
-  $(".dis-content ." + myClass).toggle("slow");
-});
-
 // Accordion
-
 var acc = document.getElementsByClassName("showMore");
 
 for (var i = 0; i < acc.length; i++) {
@@ -116,25 +46,11 @@ for (var i = 0; i < acc.length; i++) {
   });
 }
 
-// Cache selectors
-// var topMenu = $("#navbarSticky"),
-//   topMenuHeight = topMenu.outerHeight() + 65,
-//   // All list items
-//   menuItems = topMenu.find("a"),
-//   // Anchors corresponding to menu items
-//   scrollItems = menuItems.map(function() {
-//     var item = $($(this).attr("href"));
-//     if (item.length) {
-//       return item;
-//     }
-//   });
-
+//TODO: change jQuery
 var topMenu = $("#navbarSticky");
 var topMenuHeight = topMenu.outerHeight() + 65;
-(menuItems = topMenu.find("a")),
-  // Anchors corresponding to menu items
-  console.log(menuItems);
-// console.log(
+menuItems = topMenu.find("a");
+// Anchors corresponding to menu items
 var scrollItems = menuItems
   .filter(function() {
     return $(this)
@@ -143,26 +59,9 @@ var scrollItems = menuItems
   })
   .map(function() {
     var item = $($(this).attr("href"));
-    console.log(item);
     return item;
   });
 
-// console.log(
-//   menuItems.map(function() {
-//     var item = $($(this).attr("href"));
-//     console.log(item);
-//     if (item.length) {
-//       return item;
-//     }
-//   })
-// );
-// scrollItems = menuItems.map(function() {
-//   var item = $($(this).attr("href"));
-//   console.log(item);
-//   if (item.length) {
-//     return item;
-//   }
-// });
 // Bind to scroll
 $(window).scroll(function() {
   navFunction();
@@ -173,7 +72,7 @@ $(window).scroll(function() {
   var cur = scrollItems.map(function() {
     if ($(this).offset().top < fromTop + 300) return this;
   });
-  console.log(cur);
+
   // Get the id of the current element
   cur = cur[cur.length - 1];
   var id = cur && cur.length ? cur[0].id : "";
@@ -186,10 +85,13 @@ $(window).scroll(function() {
     .parent()
     .addClass("active");
 });
-
+//TODO: change jQuery
 $(".nav").on("click", "a", function(event) {
   //отменяем стандартную обработку нажатия по ссылке
-  if ($(this).attr("href") !== "/news" && $(this).attr("href") !== "/projects")  {
+  if (
+    $(this).attr("href") !== "/news" &&
+    $(this).attr("href") !== "/projects"
+  ) {
     event.preventDefault();
     var id = $(this).attr("href"),
       //узнаем высоту от начала страницы до блока на который ссылается якорь
@@ -202,22 +104,16 @@ $(".nav").on("click", "a", function(event) {
       1500
     );
   }
-
   //забираем идентификатор бока с атрибута href
 });
-
-// // When the user scrolls the page, execute myFunction
+// When the user scrolls the page, execute myFunction
 window.onscroll = function() {
   navFunction();
 };
 
 var navbar = document.getElementById("navbarSticky");
-
 var navNumber = document.getElementById("navPhone");
-
-// Get the offset position of the navbar
 var sticky = navbar.offsetTop;
-
 // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
 function navFunction() {
   if (window.pageYOffset >= sticky) {
@@ -245,8 +141,15 @@ fetch("http://185.220.34.243/getcontacts")
     });
   });
 
+//TODO: CHANGE jQuery
 $(".primary-link").click(function() {
   $(".switchCopy").text(
     $(".switchCopy").text() == "Скрыть" ? "Показать больше" : "Скрыть"
   );
+});
+
+$(".navbar-toggle").click(function() {
+  console.log("test");
+  var nav = document.querySelector(".navbar-collapse");
+  nav.classList.toggle("in");
 });
