@@ -57,7 +57,7 @@ function append(parent, element) {
 //     });
 //   });
 
-fetch("http://lesnayagavan.ru/getcontacts")
+fetch("https://lesnayagavan.ru/getcontacts")
   .then(function(response) {
     return response.json();
   })
