@@ -37,7 +37,7 @@ const addCarouselPhoto = (req, res) => {
     }
     arrayOfFiles.forEach(file => {
       console.log(file.path);
-      let regex = /^(.*?back)/g;
+      let regex = /^(.*?ozerodom.ru)/g;
       console.log(file.path.replace(regex, ""));
       SectionImages.findOneAndUpdate(
         { site },
