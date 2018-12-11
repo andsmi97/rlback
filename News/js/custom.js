@@ -57,7 +57,7 @@ fetch(`http://185.220.34.243/getposts`, {
     });
   });
 
-fetch("http://185.220.34.243/getcontacts")
+fetch("http://lesnayagavan.ru/getcontacts")
   .then(function (response) {
     return response.json();
   })
