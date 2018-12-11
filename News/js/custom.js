@@ -67,6 +67,8 @@ fetch("https://lesnayagavan.ru/getcontacts")
       var mail = document.getElementsByClassName("navMail");
       for (var i = 0; i < phone.length; i++) {
         phone[i].innerHTML = contacts.phone;
+      }
+      for (var i = 0; i < mail.length; i++) {
         mail[i].innerHTML = contacts.MAIL.USER;
         mail[i].href = "mailto:" + contacts.MAIL.USER;
       }
