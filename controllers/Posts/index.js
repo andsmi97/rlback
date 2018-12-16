@@ -1,21 +1,13 @@
-// const config = require("../../config");
 const mongoose = require("mongoose");
-// const connectionString = `mongodb://${config.DB.LOGIN}:${
-//   config.DB.PASSWORD
-// }@freecluster-shard-00-00-rec05.mongodb.net:27017,freecluster-shard-00-01-rec05.mongodb.net:27017,freecluster-shard-00-02-rec05.mongodb.net:27017/test?ssl=true&replicaSet=FreeCluster-shard-0&authSource=admin&retryWrites=true/${
-//   config.DB.NAME
-// }`;
-
 const connectionString = `mongodb://localhost:27017/TenantsDB`;
-mongoose.connect(
-  connectionString
-);
+mongoose.connect(connectionString);
 const db = mongoose.connection;
 let news = new mongoose.Schema({
   title: String,
   body: String,
   date: { type: Date, default: Date.now }
 });
+
 db.on("error", console.error.bind(console, "connection error:"));
 
 const addPost = (req, res) => {
@@ -34,7 +26,7 @@ const addPost = (req, res) => {
 
 const getPosts = (req, res) => {
   let { date } = req.body;
-  console.log('GETTING POSTS');
+  console.log("GETTING POSTS");
   let Post = mongoose.model("Post", news);
   Post.find({ date: { $lt: date } }, null, { limit: 50 })
     .sort({ date: "desc" })

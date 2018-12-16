@@ -15,6 +15,9 @@ const auth = require("./controllers/Auth");
 const sections = require("./controllers/Sections");
 const app = express();
 
+const ImageHandler = require("./controllers/ImageHandler");
+const sharp = require("sharp");
+
 //Middleware
 app.use(bodyParser.json());
 app.use(cors());
@@ -60,10 +63,21 @@ app.get("/getcontacts", auth.getContacts);
 app.post("/addimgcarousel", sections.addCarouselPhoto);
 app.post("/addsiteSections", sections.addSiteSections);
 app.post("/sectionPhotos", sections.sectionPhotos);
+app.delete("/deletePhoto",sections.deletePhoto);
+app.post("/updatePhoto", sections.updatePhoto);
 //Don't stop server in production
 process.on("uncaughtException", err => {
   console.log(err);
 });
+
+// ImageHandler.compress.then(images =>
+//   images.forEach(image => {
+//     sharp(image.data)
+//       .resize(200)
+//       .toFile(image.path);
+//   })
+// );
+
 
 app.listen(process.env.PORT || 8080, () => {
   console.log(`server is running on port 8080`);
