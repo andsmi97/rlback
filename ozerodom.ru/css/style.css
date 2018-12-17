@@ -1,5 +1,5 @@
-/* Fonts */
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600,300);
+@import url(
+  https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600,300);
 
 * {
   border-radius: 0px !important;
@@ -268,7 +268,6 @@ header .logo .hmeta {
 
 /* Slider 2 (Nivo slider) */
 
-
 /* Clients page */
 
 /* Image blocks */
@@ -354,17 +353,16 @@ footer .copy {
 /* Responsive */
 
 @media (max-width: 991px) {
-	.feat-inner {
-	  height: 530px;
-	}
-	header .logo {
-	  text-align: center;
-	}
-	.navbar .navbar-collapse {
-	  padding-left: 15px;
-	}
+  .feat-inner {
+    height: 530px;
   }
-  
+  header .logo {
+    text-align: center;
+  }
+  .navbar .navbar-collapse {
+    padding-left: 15px;
+  }
+}
 
 @media (max-width: 767px) {
   .feat-inner {
@@ -393,8 +391,6 @@ footer .copy {
 .divTitle {
   margin-top: 45px;
 }
-
-
 
 .flexslider {
   background: transparent;
@@ -457,7 +453,6 @@ footer .copy {
 .flex-back {
   padding: 10px;
 }
-
 
 /* nav sticky */
 
@@ -549,9 +544,39 @@ footer .copy {
   background-color: transparent;
 }
 
-.collapse.in{
+.collapse.in {
   display: block;
   height: auto;
   overflow-y: hidden;
 }
 
+.mySlides {
+  display: none;
+}
+.w3-left,
+.w3-right,
+.w3-badge {
+  cursor: pointer;
+}
+.w3-badge {
+  height: 13px;
+  width: 13px;
+  padding: 0;
+}
+.w3-hover-white{
+  background-color: black;
+  width: 5px;
+  height: 5px;
+  content: "\0";
+  z-index: 500;
+  position: absolute;
+}
+
+.autoplayphoto{
+  height: 410px;
+}
+
+.autoplayphoto>img{
+  max-width:100%;
+  max-height:100%;
+}
