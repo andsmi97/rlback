@@ -9,8 +9,9 @@
       content="Коттеджный поселок Лесная Гавань находится в Старом Приветнинском. 75 км. от Санкт-Петербурга, 27 км. Приморского шоссе Выборгского района Ленинградской области - 10 км. от границы с Курортным районом Санкт-Петербурга"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <!-- Styles -->
+    <link rel="stylesheet" type="text/css" href="css/slick.css" />
+    <link rel="stylesheet" type="text/css" href="css/slick-theme.css" />
     <!-- Bootstrap CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <!-- Pretty Photo CSS -->
@@ -30,6 +31,45 @@
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="favicon.png" />
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+      (function(m, e, t, r, i, k, a) {
+        m[i] =
+          m[i] ||
+          function() {
+            (m[i].a = m[i].a || []).push(arguments);
+          };
+        m[i].l = 1 * new Date();
+        (k = e.createElement(t)),
+          (a = e.getElementsByTagName(t)[0]),
+          (k.async = 1),
+          (k.src = r),
+          a.parentNode.insertBefore(k, a);
+      })(
+        window,
+        document,
+        "script",
+        "https://mc.yandex.ru/metrika/tag.js",
+        "ym"
+      );
+
+      ym(51593159, "init", {
+        id: 51593159,
+        clickmap: true,
+        trackLinks: true,
+        accurateTrackBounce: true
+      });
+    </script>
+    <noscript
+      ><div>
+        <img
+          src="https://mc.yandex.ru/watch/51593159"
+          style="position:absolute; left:-9999px;"
+          alt=""
+        /></div
+    ></noscript>
+    <!-- /Yandex.Metrika counter -->
   </head>
 
   <body>
@@ -53,10 +93,7 @@
               <div class="col-md-12 headPhone">
                 <span class="navPhone"></span><br />
                 <span class="navPhone1">7 (921) 913-19-18</span><br />
-                <a
-                  href=""
-                  class="navMail"
-                ></a>
+                <a href="" class="navMail"></a>
               </div>
             </div>
           </div>
@@ -97,84 +134,82 @@
         </nav>
       </div>
     </div>
-
+    <!--
+      <img class="mySlides" src="img/air_photo-2.jpg" style="width:100%" />
+      <img class="mySlides" src="img/air_photo-3.jpg" style="width:100%" />
+      <img class="mySlides" src="img/air_photo-4.jpg" style="width:100%" />
+      <img class="mySlides" src="img/slide-4.jpg" style="width:100%" />
+      <img class="mySlides" src="img/IMG_8663.jpg" style="width:100%" />
+      <img class="mySlides" src="img/rsz_dsc02390.jpg" style="width:100%" />
+      <img class="mySlides" src="img/rsz_dsc02401.jpg" style="width:100%" />
+      <img class="mySlides" src="img/IMG_8669.jpg" style="width:100%" />
+    -->
     <!-- Navigation bar ends -->
     <div class="mainContent">
       <!-- Slider starts -->
       <div class="container">
-        <div class="full-slider">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="flexslider">
-                <ul class="slides">
-                  <li>
-                    <div class="flex-caption">
-                      <img src="img/air_photo-2.jpg" alt="" />
-                    </div>
-                  </li>
-                  <li>
-                    <div class="flex-caption">
-                      <img src="img/air_photo-3.jpg" alt="" />
-                    </div>
-                  </li>
-                  <li>
-                    <div class="flex-caption">
-                      <img src="img/air_photo-4.jpg" alt="" />
-                    </div>
-                  </li>
-                  <li>
-                    <div class="flex-caption">
-                      <img src="img/slide-4.jpg" alt="" />
-                    </div>
-                  </li>
-
-                  <li>
-                    <div class="flex-caption">
-                      <img src="img/IMG_8663.jpg" alt="" />
-                    </div>
-                  </li>
-                  <li>
-                    <div class="flex-caption">
-                      <img src="img/rsz_dsc02390.jpg" alt="" />
-                    </div>
-                  </li>
-                  <li>
-                    <div class="flex-caption">
-                      <img src="img/rsz_dsc02401.jpg" alt="" />
-                    </div>
-                  </li>
-                  <li>
-                    <div class="flex-caption">
-                      <img src="img/IMG_8669.jpg" alt="" />
-                    </div>
-                  </li>
-                </ul>
-              </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="autoplay carousel">
+              <!--
+                <div class="autoplayphoto">
+                  <img
+                    class="mySlides"
+                    src="img/air_photo-2.jpg"
+                    style="width:100%; height: 100%;"
+                  />
+                </div>
+                <div class="autoplayphoto">
+                  <img
+                    class="mySlides"
+                    src="img/air_photo-3.jpg"
+                    style="width:100%; height: 100%;"
+                  />
+                </div>
+                <div class="autoplayphoto">
+                  <img
+                    class="mySlides"
+                    src="img/air_photo-4.jpg"
+                    style="width:100%; height: 100%;"
+                  />
+                </div>
+              -->
             </div>
           </div>
         </div>
       </div>
       <!-- Slider Ends -->
 
+      <!--
+        <div class="container">
+        <div class="full-slider">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="flexslider">
+                <ul class="slides">
+      -->
+
       <div class="content" id="about">
         <div class="container">
           <div class="row center">
             <div class="col-md-12">
-              <div class="features-three">
-                <div class="col-md-6">
-                  <img
-                    src="img/banner_1.jpg"
-                    class="img-responsive center-block img-thumbnail"
-                    alt=""
-                  /><br />
-                </div>
-                <div class="col-md-6">
-                  <img
-                    src="img/banner_4.jpg"
-                    class="img-responsive center-block img-thumbnail"
-                    alt=""
-                  /><br />
-                </div>
+              <div class="features-three advertising">
+                <!--
+                  <div class="col-md-6 ">
+                    <img
+                      src="img/banner_1.jpg"
+                      class="img-responsive center-block img-thumbnail"
+                      alt=""
+                    /><br />
+                  </div>
+                  <div class="col-md-6">
+                    <img
+                      src="img/banner_4.jpg"
+                      class="img-responsive center-block img-thumbnail"
+                      alt=""
+                    /><br />
+                  </div>
+                -->
               </div>
 
               <h1>Коттеджный поселок Лесная Гавань</h1>
@@ -230,7 +265,7 @@
               <li class="comunBlue">
                 <div>
                   <img
-                    src="img/water_img.png"
+                    data-src="img/water_img.png"
                     alt=""
                     style="margin:10px 0 -40px 0;"
                   />
@@ -240,7 +275,7 @@
               <li class="comunGreen">
                 <div>
                   <img
-                    src="img/gas_img.png"
+                    data-src="img/gas_img.png"
                     alt=""
                     style="margin:10px 0 -40px 0;"
                   />
@@ -250,7 +285,7 @@
               <li class="comunFiolet">
                 <div>
                   <img
-                    src="/img/electric_img.png"
+                    data-src="/img/electric_img.png"
                     alt=""
                     style="margin:10px 0 -40px 0;"
                   />
@@ -260,7 +295,7 @@
               <li class="comunLantern">
                 <div>
                   <img
-                    src="img/lantern_img.png"
+                    data-src="img/lantern_img.png"
                     alt=""
                     style="margin:10px 0 -40px 0;"
                   />
@@ -270,7 +305,7 @@
               <li class="comunGray">
                 <div>
                   <img
-                    src="img/road_img.png"
+                    data-src="img/road_img.png"
                     alt=""
                     style="margin:10px 0 -40px 0;"
                   />
@@ -300,26 +335,31 @@
       </div>
 
       <div class="content" id="plan">
-        <div class="container">
+        <div class="container genplan">
           <h1>Генеральный план</h1>
           <p class="big grey">
             Общая площадь поселка: <b>10.5 Га. 56 участков</b> площадью от
             <b>11.3 до 28 соток.</b>
           </p>
           <hr />
-          <img
-            src="img/genplan.png"
-            class="img-responsive center-block img-thumbnail"
-            style="max-height: 772px;"
-            alt=""
-          />
-
-          <br />
-          <img
-            src="img/map-photo.jpg"
-            class="img-responsive center-block img-thumbnail"
-            alt=""
-          />
+          <!--
+            <div>
+              <img
+                src="img/genplan.png"
+                class="img-responsive center-block img-thumbnail"
+                style="max-height: 772px;"
+                alt=""
+              />
+            </div>
+            <br />
+            <div>
+              <img
+                src="img/map-photo.jpg"
+                class="img-responsive center-block img-thumbnail"
+                alt=""
+              />
+            </div>
+          -->
         </div>
       </div>
 
@@ -336,9 +376,9 @@
               <div class="feat-inner">
                 <h2><i class="fa fa-fire color"></i> Газоснабжение</h2>
                 <img
-                  src="img/IMG_8686.jpg"
+                  data-src="img/IMG_8686.jpg"
                   alt=""
-                  class="img-responsive center-block img-thumbnail"
+                  class="lazy img-responsive center-block img-thumbnail"
                 />
                 <p>
                   Распределительный газопровод среднего давления проходит вдоль
@@ -353,9 +393,9 @@
               <div class="feat-inner">
                 <h2><i class="fa fa-bolt color"></i> Электричество</h2>
                 <img
-                  src="img/IMG_8484.jpg"
+                  data-src="img/IMG_8484.jpg"
                   alt=""
-                  class="img-responsive center-block img-thumbnail"
+                  class="lazy img-responsive center-block img-thumbnail"
                 />
                 <p>
                   На территории поселка находятся 2 ТП общей максимальной
@@ -375,8 +415,8 @@
                 class="prettyphoto"
                 rel="prettyPhoto[pp_gal]"
                 ><img
-                  src="img/IMG_8487.jpg"
-                  class="img-responsive center-block img-thumbnail"
+                  data-src="img/IMG_8487.jpg"
+                  class="lazy img-responsive center-block img-thumbnail"
                   alt="Водоснабжение"/></a
               ><br />
             </div>
@@ -386,8 +426,8 @@
                 class="prettyphoto"
                 rel="prettyPhoto[pp_gal]"
                 ><img
-                  src="img/IMG_8489.jpg"
-                  class="img-responsive center-block img-thumbnail"
+                  data-src="img/IMG_8489.jpg"
+                  class="lazy img-responsive center-block img-thumbnail"
                   alt="Водоснабжение"/></a
               ><br />
             </div>
@@ -397,8 +437,8 @@
                 class="prettyphoto"
                 rel="prettyPhoto[pp_gal]"
                 ><img
-                  src="img/IMG_8490.jpg"
-                  class="img-responsive center-block img-thumbnail"
+                  data-src="img/IMG_8490.jpg"
+                  class="lazy img-responsive center-block img-thumbnail"
                   alt="Водоснабжение"
               /></a>
             </div>
@@ -415,16 +455,16 @@
           <h2>Фотогалерея</h2>
           <br />
           <div class="clearfix"></div>
-          <div class="row">
-            <div class="col-md-3">
+          <div class="row gallery">
+            <!-- <div class="col-md-3">
               <a
                 href="img/air_photo-2.jpg"
                 class="prettyphoto"
                 rel="prettyPhoto[pp_gal2]"
                 ><img
-                  src="img/air_photo-2.jpg"
+                  data-src="img/air_photo-2.jpg"
                   style="height:122px"
-                  class="img-responsive center-block img-thumbnail"
+                  class="lazy img-responsive center-block img-thumbnail"
                   alt="Фотогаллерея"/></a
               ><br />
             </div>
@@ -434,9 +474,9 @@
                 class="prettyphoto"
                 rel="prettyPhoto[pp_gal2]"
                 ><img
-                  src="img/air_photo-4.jpg"
+                  data-src="img/air_photo-4.jpg"
                   style="height:122px"
-                  class="img-responsive center-block img-thumbnail"
+                  class="lazy img-responsive center-block img-thumbnail"
                   alt="Фотогаллерея"/></a
               ><br />
             </div>
@@ -446,9 +486,9 @@
                 class="prettyphoto"
                 rel="prettyPhoto[pp_gal2]"
                 ><img
-                  src="img/slide-5.jpg"
+                  data-src="img/slide-5.jpg"
                   style="height:122px"
-                  class="img-responsive center-block img-thumbnail"
+                  class="lazy img-responsive center-block img-thumbnail"
                   alt="Фотогаллерея"/></a
               ><br />
             </div>
@@ -458,25 +498,25 @@
                 class="prettyphoto"
                 rel="prettyPhoto[pp_gal2]"
                 ><img
-                  src="img/slide-4.jpg"
+                  data-src="img/slide-4.jpg"
                   style="height:122px"
-                  class="img-responsive center-block img-thumbnail"
+                  class="lazy img-responsive center-block img-thumbnail"
                   alt="Фотогаллерея"/></a
               ><br />
-            </div>
+            </div> -->
 
             <button class="showMore switchCopy primary-link">
               Показать больше
             </button>
-            <div class="accordionGallery">
-              <div class="col-md-3">
+            <div class="accordionGallery gallerySM">
+              <!-- <div class="col-md-3">
                 <a
                   href="img/air_photo.jpg"
                   class="prettyphoto"
                   rel="prettyPhoto[pp_gal2]"
                   ><img
-                    src="img/air_photo.jpg"
-                    class="img-responsive center-block img-thumbnail"
+                    data-src="img/air_photo.jpg"
+                    class="lazy img-responsive center-block img-thumbnail"
                     alt="Фотогаллерея"/></a
                 ><br />
               </div>
@@ -486,9 +526,9 @@
                   class="prettyphoto"
                   rel="prettyPhoto[pp_gal2]"
                   ><img
-                    src="img/rsz_dsc02386.jpg"
+                    data-src="img/rsz_dsc02386.jpg"
                     alt="Фотогаллерея"
-                    class="img-responsive center-block img-thumbnail"/></a
+                    class="lazy img-responsive center-block img-thumbnail"/></a
                 ><br />
               </div>
               <div class="col-md-3">
@@ -497,9 +537,9 @@
                   class="prettyphoto"
                   rel="prettyPhoto[pp_gal2]"
                   ><img
-                    src="img/rsz_dsc02390.jpg"
+                    data-src="img/rsz_dsc02390.jpg"
                     alt="Фотогаллерея"
-                    class="img-responsive center-block img-thumbnail"/></a
+                    class="lazy img-responsive center-block img-thumbnail"/></a
                 ><br />
               </div>
               <div class="col-md-3">
@@ -508,9 +548,9 @@
                   class="prettyphoto"
                   rel="prettyPhoto[pp_gal2]"
                   ><img
-                    src="img/rsz_dsc02401.jpg"
+                    data-src="img/rsz_dsc02401.jpg"
                     alt="Фотогаллерея"
-                    class="img-responsive center-block img-thumbnail"/></a
+                    class="lazy img-responsive center-block img-thumbnail"/></a
                 ><br />
               </div>
               <div class="col-md-3">
@@ -519,9 +559,9 @@
                   class="prettyphoto"
                   rel="prettyPhoto[pp_gal2]"
                   ><img
-                    src="img/rsz_dsc02447.jpg"
+                    data-src="img/rsz_dsc02447.jpg"
                     alt="Фотогаллерея"
-                    class="img-responsive center-block img-thumbnail"/></a
+                    class="lazy img-responsive center-block img-thumbnail"/></a
                 ><br />
               </div>
               <div class="col-md-3">
@@ -530,9 +570,9 @@
                   class="prettyphoto"
                   rel="prettyPhoto[pp_gal2]"
                   ><img
-                    src="img/IMG_8711.jpg"
+                    data-src="img/IMG_8711.jpg"
                     alt="Фотогаллерея"
-                    class="img-responsive center-block img-thumbnail"/></a
+                    class="lazy img-responsive center-block img-thumbnail"/></a
                 ><br />
               </div>
               <div class="col-md-3">
@@ -541,9 +581,9 @@
                   class="prettyphoto"
                   rel="prettyPhoto[pp_gal2]"
                   ><img
-                    src="img/IMG_8712.jpg"
+                    data-src="img/IMG_8712.jpg"
                     alt="Фотогаллерея"
-                    class="img-responsive center-block img-thumbnail"/></a
+                    class="lazy img-responsive center-block img-thumbnail"/></a
                 ><br />
               </div>
               <div class="col-md-3">
@@ -552,9 +592,9 @@
                   class="prettyphoto"
                   rel="prettyPhoto[pp_gal2]"
                   ><img
-                    src="img/IMG_8713.jpg"
+                    data-src="img/IMG_8713.jpg"
                     alt="Фотогаллерея"
-                    class="img-responsive center-block img-thumbnail"/></a
+                    class="lazy img-responsive center-block img-thumbnail"/></a
                 ><br />
               </div>
               <div class="col-md-3">
@@ -563,9 +603,9 @@
                   class="prettyphoto"
                   rel="prettyPhoto[pp_gal2]"
                   ><img
-                    src="img/IMG_8714.jpg"
+                    data-src="img/IMG_8714.jpg"
                     alt="Фотогаллерея"
-                    class="img-responsive center-block img-thumbnail"/></a
+                    class="lazy img-responsive center-block img-thumbnail"/></a
                 ><br />
               </div>
               <div class="col-md-3">
@@ -574,9 +614,9 @@
                   class="prettyphoto"
                   rel="prettyPhoto[pp_gal2]"
                   ><img
-                    src="img/IMG_8715.jpg"
+                    data-src="img/IMG_8715.jpg"
                     alt="Фотогаллерея"
-                    class="img-responsive center-block img-thumbnail"/></a
+                    class="lazy img-responsive center-block img-thumbnail"/></a
                 ><br />
               </div>
               <div class="col-md-3">
@@ -585,9 +625,9 @@
                   class="prettyphoto"
                   rel="prettyPhoto[pp_gal2]"
                   ><img
-                    src="img/IMG_8717.jpg"
+                    data-src="img/IMG_8717.jpg"
                     alt="Фотогаллерея"
-                    class="img-responsive center-block img-thumbnail"/></a
+                    class="lazy img-responsive center-block img-thumbnail"/></a
                 ><br />
               </div>
               <div class="col-md-3">
@@ -596,9 +636,9 @@
                   class="prettyphoto"
                   rel="prettyPhoto[pp_gal2]"
                   ><img
-                    src="img/IMG_8718.jpg"
+                    data-src="img/IMG_8718.jpg"
                     alt="Фотогаллерея"
-                    class="img-responsive center-block img-thumbnail"/></a
+                    class="lazy img-responsive center-block img-thumbnail"/></a
                 ><br />
               </div>
               <div class="col-md-3">
@@ -607,9 +647,9 @@
                   class="prettyphoto"
                   rel="prettyPhoto[pp_gal2]"
                   ><img
-                    src="img/IMG_8663.jpg"
+                    data-src="img/IMG_8663.jpg"
                     alt="Фотогаллерея"
-                    class="img-responsive center-block img-thumbnail"/></a
+                    class="lazy img-responsive center-block img-thumbnail"/></a
                 ><br />
               </div>
               <div class="col-md-3">
@@ -618,9 +658,9 @@
                   class="prettyphoto"
                   rel="prettyPhoto[pp_gal2]"
                   ><img
-                    src="img/IMG_8664.jpg"
+                    data-src="img/IMG_8664.jpg"
                     alt="Фотогаллерея"
-                    class="img-responsive center-block img-thumbnail"/></a
+                    class="lazy img-responsive center-block img-thumbnail"/></a
                 ><br />
               </div>
               <div class="col-md-3">
@@ -629,9 +669,9 @@
                   class="prettyphoto"
                   rel="prettyPhoto[pp_gal2]"
                   ><img
-                    src="img/IMG_8669.jpg"
+                    data-src="img/IMG_8669.jpg"
                     alt="Фотогаллерея"
-                    class="img-responsive center-block img-thumbnail"/></a
+                    class="lazy img-responsive center-block img-thumbnail"/></a
                 ><br />
               </div>
               <div class="col-md-3">
@@ -640,9 +680,9 @@
                   class="prettyphoto"
                   rel="prettyPhoto[pp_gal2]"
                   ><img
-                    src="img/IMG_8673.jpg"
+                    data-src="img/IMG_8673.jpg"
                     alt="Фотогаллерея"
-                    class="img-responsive center-block img-thumbnail"/></a
+                    class="lazy img-responsive center-block img-thumbnail"/></a
                 ><br />
               </div>
               <div class="col-md-3">
@@ -651,9 +691,9 @@
                   class="prettyphoto"
                   rel="prettyPhoto[pp_gal2]"
                   ><img
-                    src="img/IMG_8682.jpg"
+                    data-src="img/IMG_8682.jpg"
                     alt="Фотогаллерея"
-                    class="img-responsive center-block img-thumbnail"/></a
+                    class="lazy img-responsive center-block img-thumbnail"/></a
                 ><br />
               </div>
               <div class="col-md-3">
@@ -662,11 +702,11 @@
                   class="prettyphoto"
                   rel="prettyPhoto[pp_gal2]"
                   ><img
-                    src="img/IMG_8684.jpg"
+                    data-src="img/IMG_8684.jpg"
                     alt="Фотогаллерея"
-                    class="img-responsive center-block img-thumbnail"/></a
+                    class="lazy img-responsive center-block img-thumbnail"/></a
                 ><br />
-              </div>
+              </div> -->
             </div>
           </div>
           <!--
@@ -709,46 +749,50 @@
           <div class="row">
             <div class="col-md-6">
               <div class="img-thumbnail" style="width: 100%;">
-                <script
-                  type="text/javascript"
-                  charset="utf-8"
-                  src="https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=ireWVRccKDI8HnN3yUuyaKmJqdhy14EA&width=100%&height=400&lang=ru_RU&sourceType=constructor"
-                ></script>
+                <!--
+                  <script
+                    type="text/javascript"
+                    charset="utf-8"
+                    src="https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=ireWVRccKDI8HnN3yUuyaKmJqdhy14EA&width=100%&height=400&lang=ru_RU&sourceType=constructor"
+                  ></script>
+                -->
               </div>
             </div>
             <div class="col-md-6">
               <div class="img-thumbnail" style="width: 100%;">
-                <script
-                  type="text/javascript"
-                  charset="utf-8"
-                  src="https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=QE29RNOv1ADKMciVx1JM9TsxWkXtks_9&width=100%&height=400&lang=ru_RU&sourceType=constructor"
-                ></script>
+                <!--
+                  <script
+                    type="text/javascript"
+                    charset="utf-8"
+                    src="https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=QE29RNOv1ADKMciVx1JM9TsxWkXtks_9&width=100%&height=400&lang=ru_RU&sourceType=constructor"
+                  ></script>
+                -->
               </div>
             </div>
           </div>
           <hr />
-          <div class="row">
-            <div class="col-md-4">
+          <div class="row path">
+            <!-- <div class="col-md-4">
               <img
-                src="img/zsd.jpg"
+                data-src="img/zsd.jpg"
                 alt=""
-                class="img-responsive center-block img-thumbnail"
+                class="lazy img-responsive center-block img-thumbnail"
               />
             </div>
             <div class="col-md-4">
               <img
-                src="img/sestroreck.jpg"
+                data-src="img/sestroreck.jpg"
                 alt=""
-                class="img-responsive center-block img-thumbnail"
+                class="lazy img-responsive center-block img-thumbnail"
               />
             </div>
             <div class="col-md-4">
               <img
-                src="img/primorskoe.jpg"
+                data-src="img/primorskoe.jpg"
                 alt=""
-                class="img-responsive center-block img-thumbnail"
+                class="lazy img-responsive center-block img-thumbnail"
               />
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -760,11 +804,13 @@
           <div class="row">
             <div class="col-md-6">
               <div class="gmap">
-                <script
-                  type="text/javascript"
-                  charset="utf-8"
-                  src="//api-maps.yandex.ru/services/constructor/1.0/js/?sid=-CXNWwaadCBgF-bLsfkYQS1Df7b3k9fm&height=520"
-                ></script>
+                <!--
+                  <script
+                    type="text/javascript"
+                    charset="utf-8"
+                    src="//api-maps.yandex.ru/services/constructor/1.0/js/?sid=-CXNWwaadCBgF-bLsfkYQS1Df7b3k9fm&height=520"
+                  ></script>
+                -->
               </div>
             </div>
             <div class="col-md-6">
@@ -919,8 +965,18 @@
     </footer>
 
     <!-- Javascript files -->
+    <script src="js/fetchImgs.js"></script>
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    <script
+      type="text/javascript"
+      src="//code.jquery.com/jquery-1.11.0.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="//code.jquery.com/jquery-migrate-1.2.1.min.js"
+    ></script>
+    <!-- <script src="js/jquery.js"></script> -->
+
     <!-- Bootstrap JS -->
     <!-- <script src="js/bootstrap.min.js"></script> -->
     <!-- Isotope for gallery -->
@@ -945,6 +1001,7 @@
     <!-- HTML5 Support for IE -->
     <!-- <script src="js/html5shiv.js"></script> -->
     <!-- Custom JS -->
+    <script type="text/javascript" src="js/slick.min.js"></script>
     <script src="js/custom.js"></script>
   </body>
 </html>

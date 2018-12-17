@@ -1,19 +1,29 @@
 //TODO replace slider
 /* Slider 1 - Parallax slider*/
 $(window).load(function() {
-  $(".flexslider").flexslider({
-    easing: "easeInOutSine",
-    directionNav: true,
-    animationSpeed: 1000,
-    slideshowSpeed: 2600
+  // $(".flexslider").flexslider({
+  //   easing: "easeInOutSine",
+  //   directionNav: true,
+  //   animationSpeed: 1000,
+  //   slideshowSpeed: 2600
+  // }); 
+
+  $('.autoplay').slick({
+    autoplay: true,
+    fade: true,
+    arrows: true,
+    autoplaySpeed: 5000,
+    speed: 1500,
+    dots: true,
+    slidesToShow: 1
   });
 });
 //TODO replace prettyphoto
 /* Image slideshow */
-jQuery(".prettyphoto").prettyPhoto({
-  overlay_gallery: false,
-  social_tools: false
-});
+// jQuery(".prettyphoto").prettyPhoto({
+//   overlay_gallery: false,
+//   social_tools: false
+// });
 
 // Accordion
 var acc = document.getElementsByClassName("showMore");
@@ -62,6 +72,31 @@ var scrollItems = menuItems
     return item;
   });
 
+//
+
+var lazyloadImages = document.querySelectorAll("img.lazy");
+var lazyloadThrottleTimeout;
+function lazyload() {
+  if (lazyloadThrottleTimeout) {
+    clearTimeout(lazyloadThrottleTimeout);
+  }
+
+  lazyloadThrottleTimeout = setTimeout(function() {
+    var scrollTop = window.pageYOffset;
+    lazyloadImages.forEach(function(img) {
+      if (img.offsetTop < window.innerHeight + scrollTop) {
+        img.src = img.dataset.src;
+        img.classList.remove("lazy");
+      }
+    });
+    if (lazyloadImages.length == 0) {
+      document.removeEventListener("scroll", lazyload);
+      window.removeEventListener("resize", lazyload);
+      window.removeEventListener("orientationChange", lazyload);
+    }
+  }, 20);
+}
+
 // Bind to scroll
 $(window).scroll(function() {
   navFunction();
@@ -84,6 +119,8 @@ $(window).scroll(function() {
     .filter("[href='#" + id + "']")
     .parent()
     .addClass("active");
+
+  lazyload();
 });
 //TODO: change jQuery
 $(".nav").on("click", "a", function(event) {
@@ -125,6 +162,14 @@ function navFunction() {
   }
 }
 
+function createEle(element) {
+  return document.createElement(element);
+}
+
+function append(parent, element) {
+  return parent.appendChild(element);
+}
+
 fetch("https://lesnayagavan.ru/getcontacts")
   .then(function(response) {
     return response.json();
@@ -155,3 +200,6 @@ $(".navbar-toggle").click(function() {
   var nav = document.querySelector(".navbar-collapse");
   nav.classList.toggle("in");
 });
+
+
+//
