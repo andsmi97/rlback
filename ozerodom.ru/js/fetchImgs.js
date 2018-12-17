@@ -1,4 +1,4 @@
-fetch(`https://lesnayagavan.ru/siteContent`, {
+fetch(`http://localhost:8080/siteContent`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -12,7 +12,7 @@ fetch(`https://lesnayagavan.ru/siteContent`, {
     })
     .then(function(photos) {
       //carousel
-      var carousel = document.getElementsByClassName("carousel");
+      var carousel = document.getElementById("carousel");
       var br = createEle("br");
       photos.carousel.map(function(photo){
         var divCarousel = createEle("div");
