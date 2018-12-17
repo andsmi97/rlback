@@ -43,41 +43,32 @@ app.post("/addpost", posts.addPost);
 app.delete("/deletepost", posts.deletePost);
 app.patch("/updatepost", posts.updatePost);
 app.post("/getposts", posts.getPosts); //since i can't use body in GET
-
+app.patch("/updatepostphoto", posts.updatePostPhoto);
+app.delete("/deletePostPhoto", posts.deletePostPhoto);
 //Settings
 app.put("/changeaccountpassword", settings.changeAccountPassword);
 app.put("/updateemailcredentials", settings.updateEmailCredentials);
-
 //Tariffs
 app.put("/changetariffs", tariffs.changeTariffs);
-
 //Auth
 app.post("/createuser", auth.addUser);
 app.post("/login", auth.login);
-
 //TODO: DELETE IN PRODUCTION
 app.get("/users", auth.getUsers);
 app.post("/deleteuser", auth.deleteUser);
 app.get("/getcontacts", auth.getContacts);
 
-app.post("/addimgcarousel", sections.addCarouselPhoto);
+app.post("/addimg", sections.addPhoto);
 app.post("/addsiteSections", sections.addSiteSections);
 app.post("/sectionPhotos", sections.sectionPhotos);
-app.delete("/deletePhoto",sections.deletePhoto);
+app.delete("/deletePhoto", sections.deletePhoto);
 app.post("/updatePhoto", sections.updatePhoto);
+app.post("/siteContent", sections.siteContent);
+
 //Don't stop server in production
 process.on("uncaughtException", err => {
   console.log(err);
 });
-
-// ImageHandler.compress.then(images =>
-//   images.forEach(image => {
-//     sharp(image.data)
-//       .resize(200)
-//       .toFile(image.path);
-//   })
-// );
-
 
 app.listen(process.env.PORT || 8080, () => {
   console.log(`server is running on port 8080`);
