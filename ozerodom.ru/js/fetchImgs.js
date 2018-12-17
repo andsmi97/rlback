@@ -26,7 +26,7 @@ fetch(`http://localhost:8080/siteContent`, {
         append(divCarousel, carousel);        
       });
       //advertising
-      var advertising = document.getElementsByClassName("advertising");
+      var advertising = document.getElementById("advertising");
       //1st photo
       var divAdvertising0 = createEle("div");
       var advertisinglImg0 = createEle("IMG");
@@ -45,7 +45,7 @@ fetch(`http://localhost:8080/siteContent`, {
       append(advertisinglImg1, divAdvertising1);  
       append(divAdvertising1, advertising);  
       //genplan
-      var genplan = document.getElementsByClassName("genplan");
+      var genplan = document.getElementById("genplan");
       photos.genplan.map(function(photo){
         var divGenplan = createEle("div");
         var genplanlImg = createEle("IMG");
@@ -58,7 +58,7 @@ fetch(`http://localhost:8080/siteContent`, {
         append(divGenplan, genplan);        
       });
       //gallery
-      var gallery = document.getElementsByClassName("gallery");
+      var gallery = document.getElementById("gallery");
       //1st photo
       var divGallery0 = createEle("div");
       var galleryImg0 = createEle("IMG");
@@ -124,7 +124,7 @@ fetch(`http://localhost:8080/siteContent`, {
       append(br, divGallery3);  
       append(divGallery3, gallery); 
       //show more
-      var gallerySM = document.getElementsByClassName("gallerySM");
+      var gallerySM = document.getElementById("gallerySM");
       photos.gallery.map(function(photo){
         var divGallerySM = createEle("div");
         var gallerySMImg = createEle("IMG");
@@ -142,7 +142,7 @@ fetch(`http://localhost:8080/siteContent`, {
         append(divGallerySM, gallerySM);       
       });
       //path
-      var path = document.getElementsByClassName("path");
+      var path = document.getElementById("path");
       //1st photo
       var divPath0 = createEle("div");
       var pathImg0 = createEle("IMG");
