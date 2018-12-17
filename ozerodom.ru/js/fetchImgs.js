@@ -19,7 +19,6 @@ fetch(`http://localhost:8080/siteContent`, {
     return response.json();
   })
   .then(function(photos) {
-    // console.log(photos);
     //carousel
     var carousel = document.getElementById("carousel");
     var br = createEle("br");
@@ -39,40 +38,54 @@ fetch(`http://localhost:8080/siteContent`, {
     //1st photo
     var divAdvertising0 = createEle("div");
     var advertisinglImg0 = createEle("IMG");
-    advertisinglImg0.setAttribute("alt", "Лесная гавань");
-    advertisinglImg0.setAttribute("data-src", photos.advertising[0]);
+    advertisinglImg0.setAttribute("src", photos.advertising[0]);
     advertisinglImg0.classList.add(
+      "lazy",
       "img-responsive",
       "center-block",
       "img-thumbnail"
     );
+    advertisinglImg0.setAttribute("alt", "Лесная гавань");
+    divAdvertising0.classList.add("col-md-6");
     append(divAdvertising0, advertisinglImg0);
     append(divAdvertising0, br);
     append(advertising, divAdvertising0);
     //2nd photo
     var divAdvertising1 = createEle("div");
     var advertisinglImg1 = createEle("IMG");
-    advertisinglImg1.setAttribute("alt", "Лесная гавань");
-    advertisinglImg1.setAttribute("data-src", photos.advertising[1]);
+    advertisinglImg1.setAttribute("src", photos.advertising[1]);
     advertisinglImg1.classList.add(
+      "lazy",
       "img-responsive",
       "center-block",
       "img-thumbnail"
     );
+    advertisinglImg1.setAttribute("alt", "Лесная гавань");
+    divAdvertising1.classList.add("col-md-6");
     append(divAdvertising1, advertisinglImg1);
+    append(divAdvertising1, br);
     append(advertising, divAdvertising1);
+    console.log(divAdvertising0);
+    console.log(advertisinglImg0);
+    console.log(divAdvertising1);
+    console.log(divAdvertising1);
     //genplan
     var genplan = document.getElementById("genplan");
     photos.genPlan.map(function(photo) {
       var divGenplan = createEle("div");
-      var genplanlImg = createEle("IMG");
-      genplanlImg.style.maxHeight = "772px";
-      genplanlImg.setAttribute("alt", "Лесная гавань");
-      genplanlImg.setAttribute("data-src", photo);
-      genplan.classList.add("img-responsive", "center-block", "img-thumbnail");
-      append(divGenplan, genplanlImg);
-      append(divAdvertising0, br);
+      var genplanImg = createEle("IMG");
+      genplanImg.style.maxHeight = "772px";
+      genplanImg.setAttribute("alt", "Лесная гавань");
+      genplanImg.setAttribute("data-src", photo);
+      genplanImg.classList.add(
+        "lazy",
+        "img-responsive",
+        "center-block",
+        "img-thumbnail"
+      );
+      append(divGenplan, genplanImg);
       append(genplan, divGenplan);
+      append(genplan, br);
     });
     //gallery
     var gallery = document.getElementById("gallery");
