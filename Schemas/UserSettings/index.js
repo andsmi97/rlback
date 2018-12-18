@@ -12,4 +12,5 @@ const userSettings = new mongoose.Schema({
         gas: { type: Number, default: 0 }
     }
 });
+userSettings.add({ phone2: String }); 
 module.exports = mongoose.model("UserSettings", userSettings);

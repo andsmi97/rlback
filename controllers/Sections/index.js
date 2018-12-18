@@ -28,8 +28,8 @@ const addPhoto = (req, res) => {
     imagemin([file.path], `./${site}/img/${section}`, {
       plugins: [
         imageminJpegtran(),
-        imageminPngquant({ quality: "65-80" }),
-        imageminJpegoptim({ max: 50 })
+        imageminPngquant({ quality: "75-85" }),
+        imageminJpegoptim({ max: 70 })
       ]
     })
       //resize
@@ -96,6 +96,12 @@ const deletePhoto = (req, res) => {
   });
 };
 
+const reorderPhotos = (req, res) => {
+  const { photos, section, site } = req.body;
+  SectionImages.findOneAndUpdate(site, { $set: { [section]: photos } })
+    .then(() => res.status(200).json("Данные обновлены"))
+    .catch(err => res.status(400).json(err));
+};
 const updatePhoto = (req, res) => {
   let form = new formidable.IncomingForm();
   form.uploadDir = path.join(__dirname, "../../Uploads");
@@ -173,5 +179,6 @@ module.exports = {
   sectionPhotos,
   deletePhoto,
   updatePhoto,
-  siteContent
+  siteContent,
+  reorderPhotos
 };

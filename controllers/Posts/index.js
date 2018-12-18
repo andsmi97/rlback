@@ -90,8 +90,8 @@ const updatePostPhoto = (req, res) => {
     imagemin([file.path], `./${site}/img/news`, {
       plugins: [
         imageminJpegtran(),
-        imageminPngquant({ quality: "65-80" }),
-        imageminJpegoptim({ max: 50 })
+        imageminPngquant({ quality: "75-85" }),
+        imageminJpegoptim({ max: 70 })
       ]
     })
       //resize

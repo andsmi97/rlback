@@ -15,9 +15,6 @@ const auth = require("./controllers/Auth");
 const sections = require("./controllers/Sections");
 const app = express();
 
-const ImageHandler = require("./controllers/ImageHandler");
-const sharp = require("sharp");
-
 //Middleware
 app.use(bodyParser.json());
 app.use(cors());
@@ -64,6 +61,7 @@ app.post("/sectionPhotos", sections.sectionPhotos);
 app.delete("/deletePhoto", sections.deletePhoto);
 app.post("/updatePhoto", sections.updatePhoto);
 app.post("/siteContent", sections.siteContent);
+app.patch("/reorderPhotos", sections.reorderPhotos);
 
 //Don't stop server in production
 process.on("uncaughtException", err => {

@@ -29,12 +29,14 @@ const changeAccountPassword = (req, res) => {
 };
 
 getEmailService("firstname@google.com");
+
 const updateEmailCredentials = (req, res) => {
-  const { user, email, password,phone } = req.body;
+  const { user, email, password,phone,phone2 } = req.body;
   if (isCorrectEmail(email)) {
     UserSettings.findOneAndUpdate(user, {
       $set: {
         phone:phone,
+        phone2: phone2,
         MAIL: {
           USER: email,
           PASSWORD: password,
