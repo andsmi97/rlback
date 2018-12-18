@@ -188,11 +188,11 @@
               <div class="flexslider">
                 <ul class="slides">
       -->
-
       <div class="content" id="about">
         <div class="container">
           <div class="row center">
             <div class="col-md-12">
+              <!-- change name -->
               <div class="features-three" id="advertising">
                 <!--
                   <div class="col-md-6 ">
@@ -211,8 +211,7 @@
                   </div>
                 -->
               </div>
-
-              <h1>Коттеджный поселок Лесная Гавань</h1>
+              <h1 class="titleName">Коттеджный поселок Лесная Гавань</h1>
               <p>
                 Ленинградская обл., Выборгский р-н, 27км. Приморского ш.,
                 коттеджный поселок «Лесная Гавань» (ДНП Старое Приветнинское)
@@ -266,6 +265,7 @@
                 <div>
                   <img
                     data-src="img/water_img.png"
+                    class="lazy"
                     alt=""
                     style="margin:10px 0 -40px 0;"
                   />
@@ -276,6 +276,7 @@
                 <div>
                   <img
                     data-src="img/gas_img.png"
+                    class="lazy"
                     alt=""
                     style="margin:10px 0 -40px 0;"
                   />
@@ -286,6 +287,7 @@
                 <div>
                   <img
                     data-src="/img/electric_img.png"
+                    class="lazy"
                     alt=""
                     style="margin:10px 0 -40px 0;"
                   />
@@ -296,6 +298,7 @@
                 <div>
                   <img
                     data-src="img/lantern_img.png"
+                    class="lazy"
                     alt=""
                     style="margin:10px 0 -40px 0;"
                   />
@@ -306,6 +309,7 @@
                 <div>
                   <img
                     data-src="img/road_img.png"
+                    class="lazy"
                     alt=""
                     style="margin:10px 0 -40px 0;"
                   />
@@ -333,7 +337,7 @@
           </div>
         </div>
       </div>
-
+      <hr />
       <div class="content" id="plan">
         <div class="container" id="genplan">
           <h1>Генеральный план</h1>
@@ -341,7 +345,6 @@
             Общая площадь поселка: <b>10.5 Га. 56 участков</b> площадью от
             <b>11.3 до 28 соток.</b>
           </p>
-          <hr />
           <!--
             <div>
               <img
@@ -362,7 +365,7 @@
           -->
         </div>
       </div>
-
+      <hr />
       <div class="content" id="info">
         <div class="container">
           <h1>Инженерная инфраструктура</h1>
@@ -370,7 +373,6 @@
             Общая площадь поселка: <b>10.5 Га. 56 участков</b> площадью от
             <b>11.3 до 28 соток.</b>
           </p>
-          <hr />
           <div class="features-three">
             <div class="col-md-6">
               <div class="feat-inner">
@@ -451,65 +453,69 @@
               подземном инженерном коридоре, вдоль всех участков.
             </p>
           </div>
-          <br />
+          <hr />
           <h2>Фотогалерея</h2>
           <br />
           <div class="clearfix"></div>
           <div class="row" id="gallery">
-            <!-- <div class="col-md-3">
-              <a
-                href="img/air_photo-2.jpg"
-                class="prettyphoto"
-                rel="prettyPhoto[pp_gal2]"
-                ><img
-                  data-src="img/air_photo-2.jpg"
-                  style="height:122px"
-                  class="lazy img-responsive center-block img-thumbnail"
-                  alt="Фотогаллерея"/></a
-              ><br />
-            </div>
-            <div class="col-md-3">
-              <a
-                href="img/air_photo-4.jpg"
-                class="prettyphoto"
-                rel="prettyPhoto[pp_gal2]"
-                ><img
-                  data-src="img/air_photo-4.jpg"
-                  style="height:122px"
-                  class="lazy img-responsive center-block img-thumbnail"
-                  alt="Фотогаллерея"/></a
-              ><br />
-            </div>
-            <div class="col-md-3">
-              <a
-                href="img/slide-5.jpg"
-                class="prettyphoto"
-                rel="prettyPhoto[pp_gal2]"
-                ><img
-                  data-src="img/slide-5.jpg"
-                  style="height:122px"
-                  class="lazy img-responsive center-block img-thumbnail"
-                  alt="Фотогаллерея"/></a
-              ><br />
-            </div>
-            <div class="col-md-3">
-              <a
-                href="img/slide-4.jpg"
-                class="prettyphoto"
-                rel="prettyPhoto[pp_gal2]"
-                ><img
-                  data-src="img/slide-4.jpg"
-                  style="height:122px"
-                  class="lazy img-responsive center-block img-thumbnail"
-                  alt="Фотогаллерея"/></a
-              ><br />
-            </div> -->
-
-            <button class="showMore switchCopy primary-link">
-              Показать больше
-            </button>
-            <div class="accordionGallery" id="gallerySM">
-              <!-- <div class="col-md-3">
+            <!--
+              <div class="col-md-3">
+                <a
+                  href="img/air_photo-2.jpg"
+                  class="prettyphoto"
+                  rel="prettyPhoto[pp_gal2]"
+                  ><img
+                    data-src="img/air_photo-2.jpg"
+                    style="height:122px"
+                    class="lazy img-responsive center-block img-thumbnail"
+                    alt="Фотогаллерея"/></a
+                ><br />
+              </div>
+              <div class="col-md-3">
+                <a
+                  href="img/air_photo-4.jpg"
+                  class="prettyphoto"
+                  rel="prettyPhoto[pp_gal2]"
+                  ><img
+                    data-src="img/air_photo-4.jpg"
+                    style="height:122px"
+                    class="lazy img-responsive center-block img-thumbnail"
+                    alt="Фотогаллерея"/></a
+                ><br />
+              </div>
+              <div class="col-md-3">
+                <a
+                  href="img/slide-5.jpg"
+                  class="prettyphoto"
+                  rel="prettyPhoto[pp_gal2]"
+                  ><img
+                    data-src="img/slide-5.jpg"
+                    style="height:122px"
+                    class="lazy img-responsive center-block img-thumbnail"
+                    alt="Фотогаллерея"/></a
+                ><br />
+              </div>
+              <div class="col-md-3">
+                <a
+                  href="img/slide-4.jpg"
+                  class="prettyphoto"
+                  rel="prettyPhoto[pp_gal2]"
+                  ><img
+                    data-src="img/slide-4.jpg"
+                    style="height:122px"
+                    class="lazy img-responsive center-block img-thumbnail"
+                    alt="Фотогаллерея"/></a
+                ><br />
+              </div>
+            -->
+          </div>
+          <br />
+          <button class="showMore switchCopy primary-link">
+            Показать больше
+          </button>
+          <div class="accordionGallery" id="gallerySM">
+            <!--
+              <div class="col-md-3">
                 <a
                   href="img/air_photo.jpg"
                   class="prettyphoto"
@@ -706,8 +712,8 @@
                     alt="Фотогаллерея"
                     class="lazy img-responsive center-block img-thumbnail"/></a
                 ><br />
-              </div> -->
-            </div>
+              </div>
+            -->
           </div>
           <!--
             <div id="carousel-example-generic" class="carousel slide">
@@ -735,7 +741,7 @@
           -->
         </div>
       </div>
-
+      <hr />
       <div class="content" id="schema">
         <div class="container">
           <h1>Схема проезда</h1>
@@ -745,7 +751,6 @@
             Приморскому ш. до Зеленогорска, затем по Приморскому ш. до поселка
             Пески, далее по указателям.
           </p>
-          <hr />
           <div class="row">
             <div class="col-md-6">
               <div class="img-thumbnail" style="width: 100%;">
@@ -772,31 +777,33 @@
           </div>
           <hr />
           <div class="row" id="path">
-            <!-- <div class="col-md-4">
-              <img
-                data-src="img/zsd.jpg"
-                alt=""
-                class="lazy img-responsive center-block img-thumbnail"
-              />
-            </div>
-            <div class="col-md-4">
-              <img
-                data-src="img/sestroreck.jpg"
-                alt=""
-                class="lazy img-responsive center-block img-thumbnail"
-              />
-            </div>
-            <div class="col-md-4">
-              <img
-                data-src="img/primorskoe.jpg"
-                alt=""
-                class="lazy img-responsive center-block img-thumbnail"
-              />
-            </div> -->
+            <!--
+              <div class="col-md-4">
+                <img
+                  data-src="img/zsd.jpg"
+                  alt=""
+                  class="lazy img-responsive center-block img-thumbnail"
+                />
+              </div>
+              <div class="col-md-4">
+                <img
+                  data-src="img/sestroreck.jpg"
+                  alt=""
+                  class="lazy img-responsive center-block img-thumbnail"
+                />
+              </div>
+              <div class="col-md-4">
+                <img
+                  data-src="img/primorskoe.jpg"
+                  alt=""
+                  class="lazy img-responsive center-block img-thumbnail"
+                />
+              </div>
+            -->
           </div>
         </div>
       </div>
-
+      <hr />
       <div class="content" id="contacts">
         <div class="container">
           <h1>Контакты</h1>
@@ -982,7 +989,6 @@
     <!-- Isotope for gallery -->
     <!-- <script src="js/jquery.isotope.js"></script> -->
     <!-- prettyPhoto for images -->
-    <script src="js/jquery.prettyPhoto.js"></script>
     <!-- Parallax slider -->
     <!--
       <script src="js/jquery.cslider.js"></script>
@@ -993,9 +999,8 @@
     <!-- Cycle slider -->
     <!-- <script src="js/cycle.js"></script> -->
     <!-- Flex slider -->
-    <script src="js/jquery.flexslider-min.js"></script>
+    <!-- <script src="js/jquery.flexslider-min.js"></script> -->
     <!-- Easing -->
-    <script src="js/easing.js"></script>
     <!-- Respond JS for IE8 -->
     <!-- <script src="js/respond.min.js"></script> -->
     <!-- HTML5 Support for IE -->
@@ -1003,5 +1008,7 @@
     <!-- Custom JS -->
     <script type="text/javascript" src="js/slick.min.js"></script>
     <script src="js/custom.js"></script>
+    <script src="js/jquery.prettyPhoto.js"></script>
+    <script src="js/easing.js"></script>
   </body>
 </html>

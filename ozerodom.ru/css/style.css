@@ -46,12 +46,6 @@ p {
   margin: 2px 0px;
 }
 
-a {
-}
-
-a:hover {
-}
-
 a:hover,
 a:active,
 a:focus {
@@ -350,9 +344,15 @@ footer .copy {
   margin-top: 10px;
 }
 
+.titleName{
+  margin-top: 210px;
+}
 /* Responsive */
 
 @media (max-width: 991px) {
+  .titleName{
+    margin-top: 10px;
+  }
   .feat-inner {
     height: 530px;
   }
@@ -365,6 +365,9 @@ footer .copy {
 }
 
 @media (max-width: 767px) {
+  .titleName{
+    margin-top: 10px;
+  }
   .feat-inner {
     height: 530px;
   }
@@ -377,12 +380,18 @@ footer .copy {
 }
 
 @media (max-width: 480px) {
+  .titleName{
+    margin-top: 10px;
+  }
   .feat-inner {
     height: 560px;
   }
 }
 
 @media (max-width: 320px) {
+  .titleName{
+    margin-top: 10px;
+  }
   .feat-inner {
     height: 600px;
   }
@@ -572,9 +581,9 @@ footer .copy {
   position: absolute;
 }
 
-.autoplayphoto{
+/* .autoplayphoto{
   height: 410px;
-}
+} */
 
 .autoplayphoto>img{
   max-width:100%;

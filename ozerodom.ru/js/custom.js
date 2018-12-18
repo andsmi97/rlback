@@ -19,7 +19,6 @@ fetch(`http://localhost:8080/siteContent`, {
     return response.json();
   })
   .then(function(photos) {
-    // console.log(photos);
     //carousel
     var carousel = document.getElementById("carousel");
     var br = createEle("br");
@@ -34,43 +33,51 @@ fetch(`http://localhost:8080/siteContent`, {
       append(divCarousel, carouselImg);
       append(carousel, divCarousel);
     });
+    //change name
     //advertising
     var advertising = document.getElementById("advertising");
     //1st photo
     var divAdvertising0 = createEle("div");
-    var advertisinglImg0 = createEle("IMG");
-    advertisinglImg0.setAttribute("alt", "Лесная гавань");
-    advertisinglImg0.setAttribute("data-src", photos.advertising[0]);
-    advertisinglImg0.classList.add(
+    var advertisingImg0 = createEle("IMG");
+    advertisingImg0.setAttribute("alt", "Лесная гавань");
+    advertisingImg0.setAttribute("src", photos.advertising[0]);
+    advertisingImg0.classList.add(
       "img-responsive",
       "center-block",
       "img-thumbnail"
     );
-    append(divAdvertising0, advertisinglImg0);
+    divAdvertising0.classList.add("col-md-6");
+    append(divAdvertising0, advertisingImg0);
     append(divAdvertising0, br);
     append(advertising, divAdvertising0);
     //2nd photo
     var divAdvertising1 = createEle("div");
     var advertisinglImg1 = createEle("IMG");
     advertisinglImg1.setAttribute("alt", "Лесная гавань");
-    advertisinglImg1.setAttribute("data-src", photos.advertising[1]);
+    advertisinglImg1.setAttribute("src", photos.advertising[1]);
     advertisinglImg1.classList.add(
       "img-responsive",
       "center-block",
       "img-thumbnail"
     );
+    divAdvertising1.classList.add("col-md-6");
     append(divAdvertising1, advertisinglImg1);
     append(advertising, divAdvertising1);
     //genplan
     var genplan = document.getElementById("genplan");
     photos.genPlan.map(function(photo) {
       var divGenplan = createEle("div");
-      var genplanlImg = createEle("IMG");
-      genplanlImg.style.maxHeight = "772px";
-      genplanlImg.setAttribute("alt", "Лесная гавань");
-      genplanlImg.setAttribute("data-src", photo);
-      genplan.classList.add("img-responsive", "center-block", "img-thumbnail");
-      append(divGenplan, genplanlImg);
+      var genplanImg = createEle("IMG");
+      // genplanImg.style.maxHeight = "772px";
+      genplanImg.setAttribute("alt", "Лесная гавань");
+      genplanImg.setAttribute("data-src", photo);
+      genplanImg.classList.add(
+        "lazy",
+        "img-responsive",
+        "center-block",
+        "img-thumbnail"
+      );
+      append(divGenplan, genplanImg);
       append(divAdvertising0, br);
       append(genplan, divGenplan);
     });
@@ -178,10 +185,10 @@ fetch(`http://localhost:8080/siteContent`, {
         "center-block",
         "img-thumbnail"
       );
-      append(gallerySMImg, gallerySMAnch);
-      append(gallerySMAnch, divGallerySM);
+      append(gallerySMAnch, gallerySMImg);
+      append(divGallerySM, gallerySMAnch);
       append(divGallerySM, br);
-      append(gallerySM,divGallerySM);
+      append(gallerySM, divGallerySM);
     });
     //path
     var path = document.getElementById("path");
@@ -230,6 +237,24 @@ fetch(`http://localhost:8080/siteContent`, {
     console.log("fetched");
   })
   .then(function() {
+    $(window).load(function() {
+      // $(".flexslider").flexslider({
+      //   easing: "easeInOutSine",
+      //   directionNav: true,
+      //   animationSpeed: 1000,
+      //   slideshowSpeed: 2600
+      // });
+
+      $(".autoplay").slick({
+        autoplay: true,
+        fade: true,
+        arrows: true,
+        autoplaySpeed: 5000,
+        speed: 1500,
+        dots: true,
+        slidesToShow: 1
+      });
+    });
     var lazyloadImages = document.querySelectorAll("img.lazy");
     var lazyloadThrottleTimeout;
     function lazyload() {
@@ -280,24 +305,7 @@ fetch(`http://localhost:8080/siteContent`, {
 
 //TODO replace slider
 /* Slider 1 - Parallax slider*/
-$(window).load(function() {
-  // $(".flexslider").flexslider({
-  //   easing: "easeInOutSine",
-  //   directionNav: true,
-  //   animationSpeed: 1000,
-  //   slideshowSpeed: 2600
-  // });
 
-  $(".autoplay").slick({
-    autoplay: true,
-    fade: true,
-    arrows: true,
-    autoplaySpeed: 5000,
-    speed: 1500,
-    dots: true,
-    slidesToShow: 1
-  });
-});
 //TODO replace prettyphoto
 /* Image slideshow */
 // jQuery(".prettyphoto").prettyPhoto({
