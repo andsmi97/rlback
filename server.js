@@ -9,6 +9,7 @@ const helmet = require("helmet");
 const email = require("./controllers/Email");
 const tenant = require("./controllers/Tenant");
 const posts = require("./controllers/Posts");
+const projects = require("./controllers/Projects");
 const settings = require("./controllers/Settings");
 const tariffs = require("./controllers/Tariffs");
 const auth = require("./controllers/Auth");
@@ -42,6 +43,13 @@ app.patch("/updatepost", posts.updatePost);
 app.post("/getposts", posts.getPosts); //since i can't use body in GET
 app.patch("/updatepostphoto", posts.updatePostPhoto);
 app.delete("/deletePostPhoto", posts.deletePostPhoto);
+//Projects
+app.post("/addproject", projects.addProject);
+app.delete("/deleteproject", projects.deleteProject);
+app.patch("/updateproject", projects.updateProject);
+app.post("/getprojects", projects.getProjects); //since i can't use body in GET
+app.patch("/updateprojectphoto", projects.updateProjectPhoto);
+app.delete("/deleteProjectPhoto", projects.deleteProjectPhoto);
 //Settings
 app.put("/changeaccountpassword", settings.changeAccountPassword);
 app.put("/updateemailcredentials", settings.updateEmailCredentials);
