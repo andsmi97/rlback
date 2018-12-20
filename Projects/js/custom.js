@@ -1,9 +1,7 @@
-
 // Bind to scroll
 $(window).scroll(function() {
   navFunction();
 });
-
 
 var navbar = document.getElementById("navbarSticky");
 
@@ -23,7 +21,7 @@ function navFunction() {
   }
 }
 
-function createPost(element) {
+function createEle(element) {
   return document.createElement(element);
 }
 
@@ -31,7 +29,42 @@ function append(parent, element) {
   return parent.appendChild(element);
 }
 
-// fetch(`http://185.220.34.243/getposts`, {
+fetch(`http://localhost:8080/getprojects`, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    site: "ozerodom.ru"
+  })
+})
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(photos) {
+    var projects = document.getElementById("projects");
+    var br = createEle("br");
+    photos.projects.map(function(photo) {
+      var divProjects = createEle("div");
+      var projectsImg = createEle("IMG");
+      var article = createEle("article");
+      var h2 = createEle("h2");
+      article.innerHTML = project.body;
+      h2.innerHTML = project.title;
+      projectsImg.setAttribute("width", "100%");
+      projectsImg.setAttribute("height", "100%");
+      projectsImg.setAttribute("alt", "Лесная гавань");
+      projectsImg.setAttribute("src", photo);
+      // projects.classList.add("autoplayphoto");
+      append(divProjects, h2);
+      append(divProjects, article);
+      append(divProjects, projectsImg);
+      append(divProjects, br);
+      append(projects, divProjects);
+    });
+  });
+
+// fetch(`http://185.220.34.243/getprojects`, {
 //   method: "POST",
 //   headers: {
 //     "Content-Type": "application/json"
@@ -43,13 +76,13 @@ function append(parent, element) {
 //   .then(function(response) {
 //     return response.json();
 //   })
-//   .then(function(posts) {
-//     return posts.map(function(post) {
+//   .then(function(projects) {
+//     return projects.map(function(project) {
 //       var div = createPost("div");
 //       var article = createPost("article");
 //       var h2 = createPost("h2");
-//       article.innerHTML = post.body;
-//       h2.innerHTML = post.title;
+//       article.innerHTML = project.body;
+//       h2.innerHTML = project.title;
 //       append(div, h2);
 //       append(div, article);
 //       append(document.getElementById("news"), div);
@@ -68,7 +101,7 @@ fetch("https://lesnayagavan.ru/getcontacts")
       for (var i = 0; i < phone.length; i++) {
         phone[i].innerHTML = contacts.phone;
       }
-      for (var i = 0; i < mail.length; i++){
+      for (var i = 0; i < mail.length; i++) {
         mail[i].innerHTML = contacts.MAIL.USER;
         mail[i].href = "mailto:" + contacts.MAIL.USER;
       }
