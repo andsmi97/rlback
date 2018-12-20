@@ -14,7 +14,7 @@ mongoose.connect(connectionString);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 
-const addPost = (req, res) => {
+const addProject = (req, res) => {
   let form = new formidable.IncomingForm();
   form.uploadDir = path.join(__dirname, "../../Uploads");
   form.keepExtensions = true;
@@ -25,7 +25,7 @@ const addPost = (req, res) => {
     const { site, title, body } = fields;
     if (err) return res.status(400).json(`Возникла ошибка: ${err}`);
     //compress
-    imagemin([file.path], `./${site}/img/news`, {
+    imagemin([file.path], `./${site}/img/projects`, {
       plugins: [
         imageminJpegtran(),
         imageminPngquant({ quality: "65-80" }),
@@ -39,20 +39,20 @@ const addPost = (req, res) => {
           .toFile(images[0].path)
       )
       .then(() => {
-        let newPost = new Project({
+        let newProject = new Project({
           title: title,
           body: body,
           date: Date.now(),
-          image: `/img/news${file.path.substring(file.path.lastIndexOf("/"))}`
+          image: `/img/projects${file.path.substring(file.path.lastIndexOf("/"))}`
         });
-        newPost
+        newProject
           .save()
           .then(() => {
             fs.unlink(file.path, err => {
               if (err) console.error(err.toString());
             });
           })
-          .then(() => res.status(200).json(newPost))
+          .then(() => res.status(200).json(newProject))
           .catch(err => {
             res.status(400).json(err);
           });
@@ -61,7 +61,7 @@ const addPost = (req, res) => {
   });
 };
 
-const getPosts = (req, res) => {
+const getProjects = (req, res) => {
   let { date } = req.body;
   Project.find({ date: { $lt: date } }, null, { limit: 50 })
     .sort({ date: "desc" })
@@ -70,13 +70,13 @@ const getPosts = (req, res) => {
     });
 };
 
-const deletePost = (req, res) => {
+const deleteProject = (req, res) => {
   Project.findByIdAndDelete(req.body.id)
     .then(project => res.status(200).json(project))
     .catch(err => res.status(400).json(err));
 };
 
-const updatePostPhoto = (req, res) => {
+const updateProjectPhoto = (req, res) => {
   let form = new formidable.IncomingForm();
   form.uploadDir = path.join(__dirname, "../../Uploads");
   form.keepExtensions = true;
@@ -87,7 +87,7 @@ const updatePostPhoto = (req, res) => {
     const { site, image, id } = fields;
     if (err) return res.status(400).json(`Возникла ошибка: ${err}`);
     //compress
-    imagemin([file.path], `./${site}/img/news`, {
+    imagemin([file.path], `./${site}/img/projects`, {
       plugins: [
         imageminJpegtran(),
         imageminPngquant({ quality: "75-85" }),
@@ -105,7 +105,7 @@ const updatePostPhoto = (req, res) => {
           id,
           {
             $set: {
-              image: `/img/news${file.path.substring(
+              image: `/img/projects${file.path.substring(
                 file.path.lastIndexOf("/")
               )}`
             }
@@ -121,7 +121,7 @@ const updatePostPhoto = (req, res) => {
       .then(() => {
         if (image.length) {
           fs.unlink(
-            `${__dirname}/../../img/news${image.substring(
+            `${__dirname}/../../img/projects${image.substring(
               image.lastIndexOf("/")
             )}`,
             err => {
@@ -134,7 +134,7 @@ const updatePostPhoto = (req, res) => {
   });
 };
 
-const deletePostPhoto = (req, res) => {
+const deleteProjectPhoto = (req, res) => {
   const { id, image } = req.body;
   Project.findByIdAndUpdate(id, { $set: { image: `` } }, (err, dbRes) => {
     Project.findById(id)
@@ -143,13 +143,13 @@ const deletePostPhoto = (req, res) => {
     if (err) res.status(400).json(err);
   });
   fs.unlink(
-    `${__dirname}/../../img/news${image.substring(image.lastIndexOf("/"))}`,
+    `${__dirname}/../../img/projects${image.substring(image.lastIndexOf("/"))}`,
     err => {
       if (err) console.error(err.toString());
     }
   );
 };
-const updatePost = (req, res) => {
+const updateProject = (req, res) => {
   let { id, title, body } = req.body;
   // console.log(id, title, body);
   // let Project = mongoose.model("Project", news);
@@ -172,10 +172,10 @@ const updatePost = (req, res) => {
 };
 
 module.exports = {
-  addPost,
-  getPosts,
-  deletePost,
-  updatePost,
-  updatePostPhoto,
-  deletePostPhoto
+  addProject,
+  getProjects,
+  deleteProject,
+  updateProject,
+  updateProjectPhoto,
+  deleteProjectPhoto
 };
