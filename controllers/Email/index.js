@@ -91,13 +91,15 @@ const handleSend = (req, res) => {
     }
 
     //Interpolate to template string
-    String.prototype.interpolate = function(params) {
+    String.prototype.interpolate = function (params) {
       const names = Object.keys(params);
       const vals = Object.values(params);
       return new Function(...names, `return \`${this}\`;`)(...vals);
     };
     // let Config = mongoose.model("config", userSettings);
-    UserSettings.findOne({ user: "admin" }, "MAIL", (err, dbRes) => {
+    UserSettings.findOne({
+      user: "admin"
+    }, "MAIL", (err, dbRes) => {
       let transporter = nodemailer.createTransport({
         service: dbRes.MAIL.SERVICE,
         auth: {

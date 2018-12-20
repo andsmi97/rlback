@@ -24,7 +24,12 @@ const addPhoto = (req, res) => {
     const { file } = files;
     const { site, section } = fields;
     if (err) return res.status(400).json(`Возникла ошибка: ${err}`);
-    //compress
+    let imageSize = 900;
+    if (section=="carousel") imageSize=930;
+    else if(section=="genPlan") imageSize=930;
+    else if(section=="advertising") imageSize = 195; //425:195
+    else if(section="gallery") imageSize = 930;
+    else if(section="path") imageSize = 280;
     imagemin([file.path], `./${site}/img/${section}`, {
       plugins: [
         imageminJpegtran(),
@@ -35,7 +40,7 @@ const addPhoto = (req, res) => {
       //resize
       .then(images =>
         sharp(images[0].data)
-          .resize(900)
+          .resize(imageSize)
           .toFile(images[0].path)
       )
       //save to DB
@@ -118,6 +123,12 @@ const updatePhoto = (req, res) => {
       });
     }
     const { site, section, oldPhoto } = fields;
+    let imageSize = 900;
+    if (section=="carousel") imageSize=900;
+    else if(section=="genPlan") imageSize=900;
+    else if(section=="advertising") imageSize = 195; //425:195
+    else if(section="gallery") imageSize = 930;
+    else if(section="path") imageSize = 280;
     let arrayOfFiles = [];
     for (let file in files) {
       arrayOfFiles.push(files[file]);
@@ -134,7 +145,7 @@ const updatePhoto = (req, res) => {
         .then(images =>
           images.forEach(image => {
             sharp(image.data)
-              .resize(900)
+              .resize(imageSize)
               .toFile(image.path);
           })
         )
