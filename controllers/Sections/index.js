@@ -25,15 +25,16 @@ const addPhoto = (req, res) => {
     const { site, section } = fields;
     if (err) return res.status(400).json(`Возникла ошибка: ${err}`);
     let imageSize = 900;
-    if (section=="carousel") imageSize=930;
-    else if(section=="genPlan") imageSize=930;
-    else if(section=="advertising") imageSize = 195; //425:195
-    else if(section="gallery") imageSize = 930;
-    else if(section="path") imageSize = 280;
+    if (section == "carousel") imageSize = 930;
+    else if (section == "genPlan") imageSize = 930;
+    else if (section == "advertising") imageSize = 195;
+    //425:195
+    else if ((section = "gallery")) imageSize = 930;
+    else if ((section = "path")) imageSize = 280;
     imagemin([file.path], `./${site}/img/${section}`, {
       plugins: [
         imageminJpegtran(),
-        imageminPngquant({ quality: "75-85" }),
+        imageminPngquant({ quality: "75-85" })
         // imageminJpegoptim({ max: 70 })
       ]
     })
@@ -124,11 +125,12 @@ const updatePhoto = (req, res) => {
     }
     const { site, section, oldPhoto } = fields;
     let imageSize = 900;
-    if (section=="carousel") imageSize=900;
-    else if(section=="genPlan") imageSize=900;
-    else if(section=="advertising") imageSize = 195; //425:195
-    else if(section="gallery") imageSize = 930;
-    else if(section="path") imageSize = 280;
+    if (section == "carousel") imageSize = 900;
+    else if (section == "genPlan") imageSize = 900;
+    else if (section == "advertising") imageSize = 195;
+    //425:195
+    else if ((section = "gallery")) imageSize = 930;
+    else if ((section = "path")) imageSize = 280;
     let arrayOfFiles = [];
     for (let file in files) {
       arrayOfFiles.push(files[file]);
@@ -138,7 +140,7 @@ const updatePhoto = (req, res) => {
       imagemin([file.path], `./${site}/img/${section}`, {
         plugins: [
           imageminJpegtran(),
-          imageminPngquant({ quality: "65-80" }),
+          imageminPngquant({ quality: "65-80" })
           // imageminJpegoptim({ max: 50 })
         ]
       })
@@ -168,7 +170,16 @@ const updatePhoto = (req, res) => {
               file.path.lastIndexOf("/")
             )}`;
             SectionImages.update({ site }, { $set: query })
-              .then(() => res.status(200).json("Фотография обновлена"))
+              // .then(()=>SectionImages.findOne({site,section,}))
+              .then(() =>
+                res
+                  .status(200)
+                  .json(
+                    `/img/${section}${file.path.substring(
+                      file.path.lastIndexOf("/")
+                    )}`
+                  )
+              )
               .then(() => {
                 fs.unlink(file.path, err => {
                   if (err) {

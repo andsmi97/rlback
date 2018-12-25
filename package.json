@@ -12,7 +12,6 @@
     "fs-extra": "^7.0.0",
     "helmet": "^3.15.0",
     "imagemin": "^6.0.0",
-    "imagemin-jpegoptim": "^6.0.0",
     "imagemin-jpegtran": "^6.0.0",
     "imagemin-pngquant": "^6.0.0",
     "localtunnel": "^1.9.1",
