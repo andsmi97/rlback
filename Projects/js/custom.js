@@ -1,9 +1,7 @@
-
 // Bind to scroll
 $(window).scroll(function() {
   navFunction();
 });
-
 
 var navbar = document.getElementById("navbarSticky");
 

@@ -65,10 +65,6 @@ fetch(`http://localhost:8080/siteContent`, {
     append(divAdvertising1, advertisinglImg1);
     append(divAdvertising1, br);
     append(advertising, divAdvertising1);
-    console.log(divAdvertising0);
-    console.log(advertisinglImg0);
-    console.log(divAdvertising1);
-    console.log(divAdvertising1);
     //genplan
     var genplan = document.getElementById("genplan");
     photos.genPlan.map(function(photo) {

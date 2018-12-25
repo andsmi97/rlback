@@ -3,7 +3,7 @@ const formidable = require("formidable");
 const imagemin = require("imagemin");
 const imageminJpegtran = require("imagemin-jpegtran");
 const imageminPngquant = require("imagemin-pngquant");
-const imageminJpegoptim = require("imagemin-jpegoptim");
+// const imageminJpegoptim = require("imagemin-jpegoptim");
 const sharp = require("sharp");
 const fs = require("fs");
 const path = require("path");
@@ -29,7 +29,7 @@ const addProject = (req, res) => {
       plugins: [
         imageminJpegtran(),
         imageminPngquant({ quality: "65-80" }),
-        imageminJpegoptim({ max: 50 })
+        // imageminJpegoptim({ max: 50 })
       ]
     })
       //resize
@@ -100,7 +100,7 @@ const updateProjectPhoto = (req, res) => {
       plugins: [
         imageminJpegtran(),
         imageminPngquant({ quality: "75-85" }),
-        imageminJpegoptim({ max: 70 })
+        // imageminJpegoptim({ max: 70 })
       ]
     })
       //resize
@@ -114,10 +114,10 @@ const updateProjectPhoto = (req, res) => {
           id,
           {
             $set: {
-              image1: `/img/projects${file.path.substring(
+              image1: `/img/Projects${file.path.substring(
                 file.path.lastIndexOf("/")
               )}`,
-              image2: `/img/projects${file1.path.substring(
+              image2: `/img/Projects${file1.path.substring(
                 file1.path.lastIndexOf("/")
               )}`
             }
@@ -133,7 +133,7 @@ const updateProjectPhoto = (req, res) => {
       .then(() => {
         if (image.length) {
           fs.unlink(
-            `${__dirname}/../../img/news${image.substring(
+            `${__dirname}/../../img/Projects${image.substring(
               image.lastIndexOf("/")
             )}`,
             err => {
@@ -155,7 +155,7 @@ const deleteProjectPhoto = (req, res) => {
     if (err) res.status(400).json(err);
   });
   fs.unlink(
-    `${__dirname}/../../img/news${image.substring(image.lastIndexOf("/"))}`,
+    `${__dirname}/../../img/Projects${image.substring(image.lastIndexOf("/"))}`,
     err => {
       if (err) console.error(err.toString());
     }
@@ -180,7 +180,7 @@ const updateProject = (req, res) => {
         plugins: [
           imageminJpegtran(),
           imageminPngquant({ quality: "75-85" }),
-          imageminJpegoptim({ max: 70 })
+          // imageminJpegoptim({ max: 70 })
         ]
       })
         //resize
@@ -241,7 +241,7 @@ const updateProject = (req, res) => {
         plugins: [
           imageminJpegtran(),
           imageminPngquant({ quality: "75-85" }),
-          imageminJpegoptim({ max: 70 })
+          // imageminJpegoptim({ max: 70 })
         ]
       })
         //resize
@@ -289,7 +289,7 @@ const updateProject = (req, res) => {
         plugins: [
           imageminJpegtran(),
           imageminPngquant({ quality: "75-85" }),
-          imageminJpegoptim({ max: 70 })
+          // imageminJpegoptim({ max: 70 })
         ]
       })
         //resize

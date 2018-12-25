@@ -6,7 +6,7 @@ const formidable = require("formidable");
 const imagemin = require("imagemin");
 const imageminJpegtran = require("imagemin-jpegtran");
 const imageminPngquant = require("imagemin-pngquant");
-const imageminJpegoptim = require("imagemin-jpegoptim");
+// const imageminJpegoptim = require("imagemin-jpegoptim");
 const sharp = require("sharp");
 const SectionImages = require("../../Schemas/Sections");
 
@@ -34,7 +34,7 @@ const addPhoto = (req, res) => {
       plugins: [
         imageminJpegtran(),
         imageminPngquant({ quality: "75-85" }),
-        imageminJpegoptim({ max: 70 })
+        // imageminJpegoptim({ max: 70 })
       ]
     })
       //resize
@@ -139,7 +139,7 @@ const updatePhoto = (req, res) => {
         plugins: [
           imageminJpegtran(),
           imageminPngquant({ quality: "65-80" }),
-          imageminJpegoptim({ max: 50 })
+          // imageminJpegoptim({ max: 50 })
         ]
       })
         .then(images =>

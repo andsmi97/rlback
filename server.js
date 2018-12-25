@@ -52,7 +52,6 @@ app.post("/getprojects", projects.getProjects); //since i can't use body in GET
 app.patch("/updateprojectphoto", projects.updateProjectPhoto);
 app.delete("/deleteProjectPhoto", projects.deleteProjectPhoto);
 
-
 //Settings
 app.put("/changeaccountpassword", settings.changeAccountPassword);
 app.put("/updateemailcredentials", settings.updateEmailCredentials);
