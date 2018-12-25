@@ -26,7 +26,7 @@ fetch(`http://localhost:8080/siteContent`, {
       var divCarousel = createEle("div");
       var carouselImg = createEle("IMG");
       carouselImg.setAttribute("width", "100%");
-      carouselImg.setAttribute("height", "100%");
+      carouselImg.setAttribute("height", "400px");
       carouselImg.setAttribute("alt", "Лесная гавань");
       carouselImg.setAttribute("src", photo);
       carousel.classList.add("autoplayphoto");
@@ -169,26 +169,29 @@ fetch(`http://localhost:8080/siteContent`, {
     append(gallery, divGallery3);
     //show more
     var gallerySM = document.getElementById("gallerySM");
-    photos.gallery.map(function(photo) {
-      var divGallerySM = createEle("div");
-      var gallerySMImg = createEle("IMG");
-      var gallerySMAnch = createEle("a");
-      divGallerySM.classList.add("col-md-3");
-      gallerySMImg.setAttribute("alt", "Лесная гавань");
-      gallerySMImg.setAttribute("data-src", photo);
-      gallerySMAnch.classList.add("prettyphoto");
-      gallerySMAnch.setAttribute("rel", "prettyPhoto[pp_gal2]");
-      gallerySMAnch.setAttribute("href", photo);
-      gallerySMImg.classList.add(
-        "lazy",
-        "img-responsive",
-        "center-block",
-        "img-thumbnail"
-      );
-      append(gallerySMAnch, gallerySMImg);
-      append(divGallerySM, gallerySMAnch);
-      append(divGallerySM, br);
-      append(gallerySM, divGallerySM);
+    photos.gallery.forEach(function(photo, index) {
+      if (index > 3) {
+        var divGallerySM = createEle("div");
+        var gallerySMImg = createEle("IMG");
+        var gallerySMAnch = createEle("a");
+        divGallerySM.classList.add("col-md-3");
+        gallerySMImg.setAttribute("alt", "Лесная гавань");
+        galleryImg2.style.height = "122px";
+        gallerySMImg.setAttribute("data-src", photo);
+        gallerySMAnch.classList.add("prettyphoto");
+        gallerySMAnch.setAttribute("rel", "prettyPhoto[pp_gal2]");
+        gallerySMAnch.setAttribute("href", photo);
+        gallerySMImg.classList.add(
+          "lazy",
+          "img-responsive",
+          "center-block",
+          "img-thumbnail"
+        );
+        append(gallerySMAnch, gallerySMImg);
+        append(divGallerySM, gallerySMAnch);
+        append(divGallerySM, br);
+        append(gallerySM, divGallerySM);
+      }
     });
     //path
     var path = document.getElementById("path");
@@ -238,13 +241,6 @@ fetch(`http://localhost:8080/siteContent`, {
   })
   .then(function() {
     $(window).load(function() {
-      // $(".flexslider").flexslider({
-      //   easing: "easeInOutSine",
-      //   directionNav: true,
-      //   animationSpeed: 1000,
-      //   slideshowSpeed: 2600
-      // });
-
       $(".autoplay").slick({
         autoplay: true,
         fade: true,
@@ -254,6 +250,7 @@ fetch(`http://localhost:8080/siteContent`, {
         dots: true,
         slidesToShow: 1
       });
+      $("a[rel^='prettyPhoto']").prettyPhoto({ social_tools:false});
     });
     var lazyloadImages = document.querySelectorAll("img.lazy");
     var lazyloadThrottleTimeout;
@@ -403,16 +400,21 @@ function navFunction() {
     navNumber.classList.remove("phoneHidden");
   }
 }
-fetch("https://lesnayagavan.ru/getcontacts")
+fetch("http://localhost:8080/getcontacts")
   .then(function(response) {
     return response.json();
   })
+  // .then((response)=>console.log(response))
   .then(function(settings) {
     return settings.map(function(contacts) {
       var phone = document.getElementsByClassName("navPhone");
+      var phone2 = document.getElementsByClassName("navPhone2");
       var mail = document.getElementsByClassName("navMail");
       for (var i = 0; i < phone.length; i++) {
         phone[i].innerHTML = contacts.phone;
+      }
+      for (var i = 0; i < phone2.length; i++) {
+        phone2[i].innerHTML = contacts.phone2;
       }
       for (var i = 0; i < mail.length; i++) {
         mail[i].innerHTML = contacts.MAIL.USER;
@@ -434,4 +436,4 @@ $(".navbar-toggle").click(function() {
   nav.classList.toggle("in");
 });
 
-//
+
