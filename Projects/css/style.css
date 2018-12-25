@@ -821,12 +821,12 @@ line-height: 25px;
 	margin: 0px 0px 4px 0px;
 }
 
-.blog .post-foot{
+.blog .project-foot{
 	border-left: 2px solid #eee;
 	padding: 15px 15px;
 }
 
-.blog .post-foot .social{
+.blog .project-foot .social{
 	margin-top: 0px;
 }
 
@@ -1330,9 +1330,9 @@ color:#888;
 font-size:12px;
 }
 
-/* Make post */
+/* Make project */
 
-.make-post hr{
+.make-project hr{
 	margin: 10px 0px;
 }
 

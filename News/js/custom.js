@@ -23,7 +23,7 @@ function navFunction() {
   }
 }
 
-function createPost(element) {
+function createEle(element) {
   return document.createElement(element);
 }
 
@@ -31,7 +31,7 @@ function append(parent, element) {
   return parent.appendChild(element);
 }
 
-fetch(`https://lesnayagavan.ru/getposts`, {
+fetch(`http://localhost:8080/getposts`, {
   method: "POST",
   headers: {
     "Content-Type": "application/json"
@@ -45,28 +45,36 @@ fetch(`https://lesnayagavan.ru/getposts`, {
   })
   .then(function(posts) {
     return posts.map(function(post) {
-      var div = createPost("div");
-      var article = createPost("article");
-      var h2 = createPost("h2");
+      var div = createEle("div");
+      var article = createEle("article");
+      var h2 = createEle("h2");
+      var img1 = createEle("img");
       article.innerHTML = post.body;
       h2.innerHTML = post.title;
+      img1.setAttribute("alt", "Проект дома лесная гавань");
+      img1.setAttribute("src", post.image);
       append(div, h2);
+      append(div, img1);
       append(div, article);
       append(document.getElementById("news"), div);
       div.classList.add("col-md-12");
     });
   });
 
-fetch("https://lesnayagavan.ru/getcontacts")
+fetch("https://localhost:8080/getcontacts")
   .then(function (response) {
     return response.json();
   })
   .then(function(settings) {
     return settings.map(function(contacts) {
       var phone = document.getElementsByClassName("navPhone");
+      var phone2 = document.getElementsByClassName("navPhone2");
       var mail = document.getElementsByClassName("navMail");
       for (var i = 0; i < phone.length; i++) {
         phone[i].innerHTML = contacts.phone;
+      }
+      for (var i = 0; i < phone2.length; i++) {
+        phone2[i].innerHTML = contacts.phone;
       }
       for (var i = 0; i < mail.length; i++) {
         mail[i].innerHTML = contacts.MAIL.USER;

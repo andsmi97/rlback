@@ -43,6 +43,10 @@ app.patch("/updatepost", posts.updatePost);
 app.post("/getposts", posts.getPosts); //since i can't use body in GET
 app.patch("/updatepostphoto", posts.updatePostPhoto);
 app.delete("/deletePostPhoto", posts.deletePostPhoto);
+<<<<<<< server.js
+
+=======
+>>>>>>> server.js
 //Projects
 app.post("/addproject", projects.addProject);
 app.delete("/deleteproject", projects.deleteProject);
@@ -50,6 +54,11 @@ app.patch("/updateproject", projects.updateProject);
 app.post("/getprojects", projects.getProjects); //since i can't use body in GET
 app.patch("/updateprojectphoto", projects.updateProjectPhoto);
 app.delete("/deleteProjectPhoto", projects.deleteProjectPhoto);
+<<<<<<< server.js
+
+
+=======
+>>>>>>> server.js
 //Settings
 app.put("/changeaccountpassword", settings.changeAccountPassword);
 app.put("/updateemailcredentials", settings.updateEmailCredentials);

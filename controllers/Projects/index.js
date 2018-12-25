@@ -21,11 +21,11 @@ const addProject = (req, res) => {
   form.maxFieldsSize = 50 * 1024 * 1024; //50 MB
   //parse
   form.parse(req, (err, fields, files) => {
-    const { file } = files;
+    const { file1, file2 } = files;
     const { site, title, body } = fields;
     if (err) return res.status(400).json(`Возникла ошибка: ${err}`);
     //compress
-    imagemin([file.path], `./${site}/img/projects`, {
+    imagemin([file1.path, file2.path], `./${site}/img/Projects`, {
       plugins: [
         imageminJpegtran(),
         imageminPngquant({ quality: "65-80" }),
@@ -34,21 +34,31 @@ const addProject = (req, res) => {
     })
       //resize
       .then(images =>
-        sharp(images[0].data)
-          .resize(900)
-          .toFile(images[0].path)
+        images.forEach(image =>
+          sharp(image.data)
+            .resize(900)
+            .toFile(image.path)
+        )
       )
       .then(() => {
         let newProject = new Project({
           title: title,
           body: body,
           date: Date.now(),
-          image: `/img/projects${file.path.substring(file.path.lastIndexOf("/"))}`
+          image1: `/img/Projects${file1.path.substring(
+            file1.path.lastIndexOf("/")
+          )}`,
+          image2: `/img/Projects${file2.path.substring(
+            file2.path.lastIndexOf("/")
+          )}`
         });
         newProject
           .save()
           .then(() => {
-            fs.unlink(file.path, err => {
+            fs.unlink(file1.path, err => {
+              if (err) console.error(err.toString());
+            });
+            fs.unlink(file2.path, err => {
               if (err) console.error(err.toString());
             });
           })
@@ -83,11 +93,10 @@ const updateProjectPhoto = (req, res) => {
   form.maxFieldsSize = 50 * 1024 * 1024; //50 MB
   //parse
   form.parse(req, (err, fields, files) => {
-    const { file } = files;
+    const { file, file1 } = files;
     const { site, image, id } = fields;
     if (err) return res.status(400).json(`Возникла ошибка: ${err}`);
-    //compress
-    imagemin([file.path], `./${site}/img/projects`, {
+    imagemin([file.path, file1.path], `./${site}/img/projects`, {
       plugins: [
         imageminJpegtran(),
         imageminPngquant({ quality: "75-85" }),
@@ -105,8 +114,11 @@ const updateProjectPhoto = (req, res) => {
           id,
           {
             $set: {
-              image: `/img/projects${file.path.substring(
+              image1: `/img/projects${file.path.substring(
                 file.path.lastIndexOf("/")
+              )}`,
+              image2: `/img/projects${file1.path.substring(
+                file1.path.lastIndexOf("/")
               )}`
             }
           },
@@ -121,7 +133,7 @@ const updateProjectPhoto = (req, res) => {
       .then(() => {
         if (image.length) {
           fs.unlink(
-            `${__dirname}/../../img/projects${image.substring(
+            `${__dirname}/../../img/news${image.substring(
               image.lastIndexOf("/")
             )}`,
             err => {
@@ -143,32 +155,209 @@ const deleteProjectPhoto = (req, res) => {
     if (err) res.status(400).json(err);
   });
   fs.unlink(
-    `${__dirname}/../../img/projects${image.substring(image.lastIndexOf("/"))}`,
+    `${__dirname}/../../img/news${image.substring(image.lastIndexOf("/"))}`,
     err => {
       if (err) console.error(err.toString());
     }
   );
 };
 const updateProject = (req, res) => {
-  let { id, title, body } = req.body;
-  // console.log(id, title, body);
-  // let Project = mongoose.model("Project", news);
-  Project.findByIdAndUpdate(
-    id,
-    {
-      $set: {
-        title: title,
-        body: body
-      }
-    },
-    (err, dbRes) => {
-      console.log(dbRes);
-      Project.findById(id)
-        .then(project => res.status(200).json(project))
-        .catch(err => res.status(400).json(err));
-      if (err) res.status(400).json(err);
+  let form = new formidable.IncomingForm();
+  form.uploadDir = path.join(__dirname, "../../Uploads");
+  form.keepExtensions = true;
+  form.maxFieldsSize = 50 * 1024 * 1024; //50 MB
+  //parse
+  form.parse(req, (err, fields, files) => {
+    const { file1, file2 } = files;
+    console.log(file1, file2);
+    const { site, image1, id, title, body, image2 } = fields;
+    console.log(site, image1, id, title, body, image2);
+    if (err) return res.status(400).json(`Возникла ошибка: ${err}`);
+    //compress
+    if (file1 && file2) {
+      console.log("bothfiles");
+      imagemin([file1.path, file2.path], `./${site}/img/Projects`, {
+        plugins: [
+          imageminJpegtran(),
+          imageminPngquant({ quality: "75-85" }),
+          imageminJpegoptim({ max: 70 })
+        ]
+      })
+        //resize
+        .then(images =>
+          sharp(images[0].data)
+            .resize(900)
+            .toFile(images[0].path)
+        )
+        .then(() => {
+          Project.findByIdAndUpdate(
+            id,
+            {
+              $set: {
+                image1: `/img/Projects${file1.path.substring(
+                  file1.path.lastIndexOf("/")
+                )}`,
+                image2: `/img/Projects${file2.path.substring(
+                  file2.path.lastIndexOf("/")
+                )}`,
+                title,
+                body
+              }
+            },
+            (err, dbRes) => {
+              Project.findById(id)
+                .then(project => res.status(200).json(project))
+                .catch(err => res.status(400).json(err));
+              if (err) res.status(400).json(err);
+            }
+          );
+        })
+        .then(() => {
+          if (image1.length) {
+            fs.unlink(
+              `${__dirname}/../../img/Projects${image1.substring(
+                image1.lastIndexOf("/")
+              )}`,
+              err => {
+                if (err) console.error(err.toString());
+              }
+            );
+          }
+          if (image2.length) {
+            fs.unlink(
+              `${__dirname}/../../img/Projects${image2.substring(
+                image2.lastIndexOf("/")
+              )}`,
+              err => {
+                if (err) console.error(err.toString());
+              }
+            );
+          }
+        })
+        .catch(err => console.error(err));
+    } else if (file1) {
+      console.log("file1");
+      imagemin([file1.path], `./${site}/img/Projects`, {
+        plugins: [
+          imageminJpegtran(),
+          imageminPngquant({ quality: "75-85" }),
+          imageminJpegoptim({ max: 70 })
+        ]
+      })
+        //resize
+        .then(images =>
+          sharp(images[0].data)
+            .resize(900)
+            .toFile(images[0].path)
+        )
+        .then(() => {
+          Project.findByIdAndUpdate(
+            id,
+            {
+              $set: {
+                image1: `/img/Projects${file1.path.substring(
+                  file1.path.lastIndexOf("/")
+                )}`,
+                title,
+                body
+              }
+            },
+            (err, dbRes) => {
+              Project.findById(id)
+                .then(project => res.status(200).json(project))
+                .catch(err => res.status(400).json(err));
+              if (err) res.status(400).json(err);
+            }
+          );
+        })
+        .then(() => {
+          if (image1.length) {
+            fs.unlink(
+              `${__dirname}/../../img/Projects${image1.substring(
+                image1.lastIndexOf("/")
+              )}`,
+              err => {
+                if (err) console.error(err.toString());
+              }
+            );
+          }
+        })
+        .catch(err => console.error(err));
+    } else if (file2) {
+      console.log("file2");
+      imagemin([file2.path], `./${site}/img/Projects`, {
+        plugins: [
+          imageminJpegtran(),
+          imageminPngquant({ quality: "75-85" }),
+          imageminJpegoptim({ max: 70 })
+        ]
+      })
+        //resize
+        .then(images =>
+          sharp(images[0].data)
+            .resize(900)
+            .toFile(images[0].path)
+        )
+        .then(() => {
+          Project.findByIdAndUpdate(
+            id,
+            {
+              $set: {
+                image2: `/img/Projects${file2.path.substring(
+                  file2.path.lastIndexOf("/")
+                )}`,
+                title,
+                body
+              }
+            },
+            (err, dbRes) => {
+              Project.findById(id)
+                .then(project => res.status(200).json(project))
+                .catch(err => res.status(400).json(err));
+              if (err) res.status(400).json(err);
+            }
+          );
+        })
+        .then(() => {
+          if (image2.length) {
+            fs.unlink(
+              `${__dirname}/../../img/Projects${image2.substring(
+                image2.lastIndexOf("/")
+              )}`,
+              err => {
+                if (err) console.error(err.toString());
+              }
+            );
+          }
+        })
+        .catch(err => console.error(err));
+    } else {
+      console.log("none");
+      Project.findByIdAndUpdate(id, { $set: { title, body } }, (err, dbRes) => {
+        Project.findById(id)
+          .then(project => res.status(200).json(project))
+          .catch(err => res.status(400).json(err));
+        if (err) res.status(400).json(err);
+      });
     }
-  );
+  });
+  // let { id, title, body } = req.body;
+
+  // Project.findByIdAndUpdate(
+  //   id,
+  //   {
+  //     $set: {
+  //       title: title,
+  //       body: body
+  //     }
+  //   },
+  //   (err, dbRes) => {
+  //     Project.findById(id)
+  //       .then(project => res.status(200).json(project))
+  //       .catch(err => res.status(400).json(err));
+  //     if (err) res.status(400).json(err);
+  //   }
+  // );
 };
 
 module.exports = {
