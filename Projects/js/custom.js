@@ -35,73 +35,50 @@ fetch(`http://localhost:8080/getprojects`, {
     "Content-Type": "application/json"
   },
   body: JSON.stringify({
-    site: "ozerodom.ru"
+    date: Date.now()
   })
 })
   .then(function(response) {
     return response.json();
   })
-  .then(function(photos) {
-    var projects = document.getElementById("projects");
-    var br = createEle("br");
-    photos.projects.map(function(photo) {
-      var divProjects = createEle("div");
-      var projectsImg = createEle("IMG");
+  .then(function(projects) {
+    return projects.map(function(project) {
+      var div = createEle("div");
       var article = createEle("article");
       var h2 = createEle("h2");
+      var img1 = createEle("img");
+      var img2 = createEle("img");
       article.innerHTML = project.body;
       h2.innerHTML = project.title;
-      projectsImg.setAttribute("width", "100%");
-      projectsImg.setAttribute("height", "100%");
-      projectsImg.setAttribute("alt", "Лесная гавань");
-      projectsImg.setAttribute("src", photo);
-      // projects.classList.add("autoplayphoto");
-      append(divProjects, h2);
-      append(divProjects, article);
-      append(divProjects, projectsImg);
-      append(divProjects, br);
-      append(projects, divProjects);
+      img1.setAttribute("alt", "Проект дома лесная гавань");
+      img1.setAttribute("src", project.image1);
+      img2.setAttribute("alt", "Проект дома лесная гавань");
+      img2.setAttribute("src", project.image2);
+      append(div, h2);
+      append(div, img1)
+      append(div, img2)
+      append(div, article);
+      append(document.getElementById("projects"), div);
+      div.classList.add("col-md-12");
     });
   });
 
-// fetch(`http://185.220.34.243/getprojects`, {
-//   method: "POST",
-//   headers: {
-//     "Content-Type": "application/json"
-//   },
-//   body: JSON.stringify({
-//     date: Date.now()
-//   })
-// })
-//   .then(function(response) {
-//     return response.json();
-//   })
-//   .then(function(projects) {
-//     return projects.map(function(project) {
-//       var div = createPost("div");
-//       var article = createPost("article");
-//       var h2 = createPost("h2");
-//       article.innerHTML = project.body;
-//       h2.innerHTML = project.title;
-//       append(div, h2);
-//       append(div, article);
-//       append(document.getElementById("news"), div);
-//       div.classList.add("col-md-12");
-//     });
-//   });
-
-fetch("https://lesnayagavan.ru/getcontacts")
+fetch("https://localhost:8080/getcontacts")
   .then(function(response) {
     return response.json();
   })
   .then(function(settings) {
     return settings.map(function(contacts) {
       var phone = document.getElementsByClassName("navPhone");
+      var phone2 = document.getElementsByClassName("navPhone2");
       var mail = document.getElementsByClassName("navMail");
       for (var i = 0; i < phone.length; i++) {
         phone[i].innerHTML = contacts.phone;
       }
-      for (var i = 0; i < mail.length; i++) {
+      for (var i = 0; i < phone2.length; i++) {
+        phone2[i].innerHTML = contacts.phone;
+      }
+      for (var i = 0; i < mail.length; i++){
         mail[i].innerHTML = contacts.MAIL.USER;
         mail[i].href = "mailto:" + contacts.MAIL.USER;
       }

@@ -55,7 +55,7 @@ const login = (req, res) => {
 };
 const getContacts = (req,res) =>{
     // let UserSettings = mongoose.model("UserSettings", userSettings);
-    UserSettings.find({user:"admin"},{"_id":0,"phone":1, "MAIL.USER":1}).then(users => {
+    UserSettings.find({user:"admin"},{"_id":0,"phone":1, "MAIL.USER":1,"phone2":1}).then(users => {
       res.status(200).json(users);
     });
 }
