@@ -72,7 +72,7 @@ const addPhoto = (req, res) => {
   });
 };
 
-const addDefaultPhotos = (req, res) => {
+const clearAll = (req, res) => {
   const { site } = req.body;
   SectionImages.findOneAndUpdate(
     { site },
