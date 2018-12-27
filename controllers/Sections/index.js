@@ -77,6 +77,22 @@ const addDefaultPhotos = (req, res) => {
   SectionImages.findOneAndUpdate(
     { site },
     {
+      carousel: [],
+      advertising: [],
+      genPlan: [],
+      infrastructures: [],
+      gallery: [],
+      path: []
+    }
+  )
+    .then(() => res.status(200).json("Фотографии удалены"))
+    .catch(err => res.status(400).json(err));
+};
+const addDefaultPhotos = (req, res) => {
+  const { site } = req.body;
+  SectionImages.findOneAndUpdate(
+    { site },
+    {
       carousel: [
         "/img/carousel/upload_fb005863b2350e338bcb8b6c00ba9086.jpg",
         "/img/carousel/upload_9990a8483163608b1b60096fa9b49825.jpg",
@@ -255,5 +271,7 @@ module.exports = {
   deletePhoto,
   updatePhoto,
   siteContent,
-  reorderPhotos
+  reorderPhotos,
+  addDefaultPhotos,
+  clearAll
 };

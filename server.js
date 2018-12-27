@@ -71,6 +71,8 @@ app.post("/sectionPhotos", sections.sectionPhotos);
 app.delete("/deletePhoto", sections.deletePhoto);
 app.post("/updatePhoto", sections.updatePhoto);
 app.post("/siteContent", sections.siteContent);
+app.post("/uploaddefault", sections.addDefaultPhotos);
+app.post("/clearall", sections.clearAll);
 app.patch("/reorderPhotos", sections.reorderPhotos);
 
 //Don't stop server in production
