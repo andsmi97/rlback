@@ -1,9 +1,7 @@
-
 // Bind to scroll
 $(window).scroll(function() {
   navFunction();
 });
-
 
 var navbar = document.getElementById("navbarSticky");
 
@@ -54,7 +52,9 @@ fetch(`https://lesnayagavan.ru/getposts`, {
       img1.setAttribute("alt", "Проект дома лесная гавань");
       img1.setAttribute("src", post.image);
       append(div, h2);
-      append(div, img1);
+      if (post.image) {
+        append(div, img1);
+      }
       append(div, article);
       append(document.getElementById("news"), div);
       div.classList.add("col-md-12");
@@ -62,12 +62,12 @@ fetch(`https://lesnayagavan.ru/getposts`, {
   });
 
 fetch("https://lesnayagavan.ru/getcontacts")
-  .then(function (response) {
+  .then(function(response) {
     return response.json();
   })
   // .then((response)=>console.log(response))
-  .then(function (settings) {
-    return settings.map(function (contacts) {
+  .then(function(settings) {
+    return settings.map(function(contacts) {
       var phone = document.getElementsByClassName("navPhone");
       var phone2 = document.getElementsByClassName("navPhone2");
       var mail = document.getElementsByClassName("navMail");

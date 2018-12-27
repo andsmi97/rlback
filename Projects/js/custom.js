@@ -55,8 +55,12 @@ fetch(`https://lesnayagavan.ru/getprojects`, {
       img2.setAttribute("alt", "Проект дома лесная гавань");
       img2.setAttribute("src", project.image2);
       append(div, h2);
-      append(div, img1);
-      append(div, img2);
+      if (project.image1) {
+        append(div, img1);
+      }
+      if (project.image2) {
+        append(div, img2);
+      }
       append(div, article);
       append(document.getElementById("projects"), div);
       div.classList.add("col-md-12");
