@@ -25,39 +25,53 @@ const addPost = (req, res) => {
     const { site, title, body } = fields;
     if (err) return res.status(400).json(`Возникла ошибка: ${err}`);
     //compress
-    imagemin([file.path], `./${site}/img/news`, {
-      plugins: [
-        imageminJpegtran(),
-        imageminPngquant({ quality: "65-80" })
-        // imageminJpegoptim({ max: 50 })
-      ]
-    })
-      //resize
-      .then(images =>
-        sharp(images[0].data)
-          .resize(900)
-          .toFile(images[0].path)
-      )
-      .then(() => {
-        let newPost = new Post({
-          title: title,
-          body: body,
-          date: Date.now(),
-          image: `/img/news${file.path.substring(file.path.lastIndexOf("/"))}`
-        });
-        newPost
-          .save()
-          .then(() => {
-            fs.unlink(file.path, err => {
-              if (err) console.error(err.toString());
-            });
-          })
-          .then(() => res.status(200).json(newPost))
-          .catch(err => {
-            res.status(400).json(err);
-          });
+    if (file) {
+      imagemin([file.path], `./${site}/img/news`, {
+        plugins: [
+          imageminJpegtran(),
+          imageminPngquant({ quality: "65-80" })
+          // imageminJpegoptim({ max: 50 })
+        ]
       })
-      .catch(err => console.error(err));
+        //resize
+        .then(images =>
+          sharp(images[0].data)
+            .resize(900)
+            .toFile(images[0].path)
+        )
+        .then(() => {
+          let newPost = new Post({
+            title: title,
+            body: body,
+            date: Date.now(),
+            image: `/img/news${file.path.substring(file.path.lastIndexOf("/"))}`
+          });
+          newPost
+            .save()
+            .then(() => {
+              fs.unlink(file.path, err => {
+                if (err) console.error(err.toString());
+              });
+            })
+            .then(() => res.status(200).json(newPost))
+            .catch(err => {
+              res.status(400).json(err);
+            });
+        })
+        .catch(err => console.error(err));
+    } else {
+      let newPost = new Post({
+        title: title,
+        body: body,
+        date: Date.now()
+      });
+      newPost
+        .save()
+        .then(() => res.status(200).json(newPost))
+        .catch(err => {
+          res.status(400).json(err);
+        });
+    }
   });
 };
 

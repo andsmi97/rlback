@@ -25,49 +25,139 @@ const addProject = (req, res) => {
     const { site, title, body } = fields;
     if (err) return res.status(400).json(`Возникла ошибка: ${err}`);
     //compress
-    imagemin([file1.path, file2.path], `./${site}/img/Projects`, {
-      plugins: [
-        imageminJpegtran(),
-        imageminPngquant({ quality: "65-80" }),
-        // imageminJpegoptim({ max: 50 })
-      ]
-    })
-      //resize
-      .then(images =>
-        images.forEach(image =>
-          sharp(image.data)
-            .resize(900)
-            .toFile(image.path)
-        )
-      )
-      .then(() => {
-        let newProject = new Project({
-          title: title,
-          body: body,
-          date: Date.now(),
-          image1: `/img/Projects${file1.path.substring(
-            file1.path.lastIndexOf("/")
-          )}`,
-          image2: `/img/Projects${file2.path.substring(
-            file2.path.lastIndexOf("/")
-          )}`
-        });
-        newProject
-          .save()
-          .then(() => {
-            fs.unlink(file1.path, err => {
-              if (err) console.error(err.toString());
-            });
-            fs.unlink(file2.path, err => {
-              if (err) console.error(err.toString());
-            });
-          })
-          .then(() => res.status(200).json(newProject))
-          .catch(err => {
-            res.status(400).json(err);
-          });
+    if (file1 && file2) {
+      imagemin([file1.path, file2.path], `./${site}/img/Projects`, {
+        plugins: [
+          imageminJpegtran(),
+          imageminPngquant({ quality: "65-80" })
+          // imageminJpegoptim({ max: 50 })
+        ]
       })
-      .catch(err => console.error(err));
+        //resize
+        .then(images =>
+          images.forEach(image =>
+            sharp(image.data)
+              .resize(900)
+              .toFile(image.path)
+          )
+        )
+        .then(() => {
+          let newProject = new Project({
+            title: title,
+            body: body,
+            date: Date.now(),
+            image1: `/img/Projects${file1.path.substring(
+              file1.path.lastIndexOf("/")
+            )}`,
+            image2: `/img/Projects${file2.path.substring(
+              file2.path.lastIndexOf("/")
+            )}`
+          });
+          newProject
+            .save()
+            .then(() => {
+              fs.unlink(file1.path, err => {
+                if (err) console.error(err.toString());
+              });
+              fs.unlink(file2.path, err => {
+                if (err) console.error(err.toString());
+              });
+            })
+            .then(() => res.status(200).json(newProject))
+            .catch(err => {
+              res.status(400).json(err);
+            });
+        })
+        .catch(err => console.error(err));
+    } else if (file1) {
+      imagemin([file1.path], `./${site}/img/Projects`, {
+        plugins: [
+          imageminJpegtran(),
+          imageminPngquant({ quality: "65-80" })
+          // imageminJpegoptim({ max: 50 })
+        ]
+      })
+        //resize
+        .then(images =>
+          images.forEach(image =>
+            sharp(image.data)
+              .resize(900)
+              .toFile(image.path)
+          )
+        )
+        .then(() => {
+          let newProject = new Project({
+            title: title,
+            body: body,
+            date: Date.now(),
+            image1: `/img/Projects${file1.path.substring(
+              file1.path.lastIndexOf("/")
+            )}`
+          });
+          newProject
+            .save()
+            .then(() => {
+              fs.unlink(file1.path, err => {
+                if (err) console.error(err.toString());
+              });
+            })
+            .then(() => res.status(200).json(newProject))
+            .catch(err => {
+              res.status(400).json(err);
+            });
+        })
+        .catch(err => console.error(err));
+    } else if (file2) {
+      imagemin([file2.path], `./${site}/img/Projects`, {
+        plugins: [
+          imageminJpegtran(),
+          imageminPngquant({ quality: "65-80" })
+          // imageminJpegoptim({ max: 50 })
+        ]
+      })
+        //resize
+        .then(images =>
+          images.forEach(image =>
+            sharp(image.data)
+              .resize(900)
+              .toFile(image.path)
+          )
+        )
+        .then(() => {
+          let newProject = new Project({
+            title: title,
+            body: body,
+            date: Date.now(),
+            image2: `/img/Projects${file2.path.substring(
+              file2.path.lastIndexOf("/")
+            )}`
+          });
+          newProject
+            .save()
+            .then(() => {
+              fs.unlink(file2.path, err => {
+                if (err) console.error(err.toString());
+              });
+            })
+            .then(() => res.status(200).json(newProject))
+            .catch(err => {
+              res.status(400).json(err);
+            });
+        })
+        .catch(err => console.error(err));
+    } else {
+      let newProject = new Project({
+        title: title,
+        body: body,
+        date: Date.now()
+      });
+      newProject
+        .save()
+        .then(() => res.status(200).json(newProject))
+        .catch(err => {
+          res.status(400).json(err);
+        });
+    }
   });
 };
 
@@ -99,7 +189,7 @@ const updateProjectPhoto = (req, res) => {
     imagemin([file.path, file1.path], `./${site}/img/projects`, {
       plugins: [
         imageminJpegtran(),
-        imageminPngquant({ quality: "75-85" }),
+        imageminPngquant({ quality: "75-85" })
         // imageminJpegoptim({ max: 70 })
       ]
     })
@@ -179,7 +269,7 @@ const updateProject = (req, res) => {
       imagemin([file1.path, file2.path], `./${site}/img/Projects`, {
         plugins: [
           imageminJpegtran(),
-          imageminPngquant({ quality: "75-85" }),
+          imageminPngquant({ quality: "75-85" })
           // imageminJpegoptim({ max: 70 })
         ]
       })
@@ -228,7 +318,7 @@ const updateProject = (req, res) => {
               `${__dirname}/../../img/Projects${image2.substring(
                 image2.lastIndexOf("/")
               )}`,
-              
+
               err => {
                 if (err) console.error(err.toString());
               }
@@ -241,7 +331,7 @@ const updateProject = (req, res) => {
       imagemin([file1.path], `./${site}/img/Projects`, {
         plugins: [
           imageminJpegtran(),
-          imageminPngquant({ quality: "75-85" }),
+          imageminPngquant({ quality: "75-85" })
           // imageminJpegoptim({ max: 70 })
         ]
       })
@@ -289,7 +379,7 @@ const updateProject = (req, res) => {
       imagemin([file2.path], `./${site}/img/Projects`, {
         plugins: [
           imageminJpegtran(),
-          imageminPngquant({ quality: "75-85" }),
+          imageminPngquant({ quality: "75-85" })
           // imageminJpegoptim({ max: 70 })
         ]
       })
