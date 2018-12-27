@@ -29,7 +29,7 @@ function append(parent, element) {
   return parent.appendChild(element);
 }
 
-fetch(`http://localhost:8080/getprojects`, {
+fetch(`https://lesnayagavan.ru/getprojects`, {
   method: "POST",
   headers: {
     "Content-Type": "application/json"
@@ -55,18 +55,19 @@ fetch(`http://localhost:8080/getprojects`, {
       img2.setAttribute("alt", "Проект дома лесная гавань");
       img2.setAttribute("src", project.image2);
       append(div, h2);
-      append(div, img1)
-      append(div, img2)
+      append(div, img1);
+      append(div, img2);
       append(div, article);
       append(document.getElementById("projects"), div);
       div.classList.add("col-md-12");
     });
   });
 
-fetch("https://localhost:8080/getcontacts")
+fetch("https://lesnayagavan.ru/getcontacts")
   .then(function(response) {
     return response.json();
   })
+  // .then((response)=>console.log(response))
   .then(function(settings) {
     return settings.map(function(contacts) {
       var phone = document.getElementsByClassName("navPhone");
@@ -76,9 +77,9 @@ fetch("https://localhost:8080/getcontacts")
         phone[i].innerHTML = contacts.phone;
       }
       for (var i = 0; i < phone2.length; i++) {
-        phone2[i].innerHTML = contacts.phone;
+        phone2[i].innerHTML = contacts.phone2;
       }
-      for (var i = 0; i < mail.length; i++){
+      for (var i = 0; i < mail.length; i++) {
         mail[i].innerHTML = contacts.MAIL.USER;
         mail[i].href = "mailto:" + contacts.MAIL.USER;
       }

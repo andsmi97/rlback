@@ -31,7 +31,7 @@ function append(parent, element) {
   return parent.appendChild(element);
 }
 
-fetch(`http://localhost:8080/getposts`, {
+fetch(`https://lesnayagavan.ru/getposts`, {
   method: "POST",
   headers: {
     "Content-Type": "application/json"
@@ -61,12 +61,13 @@ fetch(`http://localhost:8080/getposts`, {
     });
   });
 
-fetch("https://localhost:8080/getcontacts")
+fetch("https://lesnayagavan.ru/getcontacts")
   .then(function (response) {
     return response.json();
   })
-  .then(function(settings) {
-    return settings.map(function(contacts) {
+  // .then((response)=>console.log(response))
+  .then(function (settings) {
+    return settings.map(function (contacts) {
       var phone = document.getElementsByClassName("navPhone");
       var phone2 = document.getElementsByClassName("navPhone2");
       var mail = document.getElementsByClassName("navMail");
@@ -74,7 +75,7 @@ fetch("https://localhost:8080/getcontacts")
         phone[i].innerHTML = contacts.phone;
       }
       for (var i = 0; i < phone2.length; i++) {
-        phone2[i].innerHTML = contacts.phone;
+        phone2[i].innerHTML = contacts.phone2;
       }
       for (var i = 0; i < mail.length; i++) {
         mail[i].innerHTML = contacts.MAIL.USER;

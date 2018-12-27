@@ -6,7 +6,7 @@ function append(parent, element) {
   return parent.appendChild(element);
 }
 
-fetch(`http://localhost:8080/siteContent`, {
+fetch(`https://lesnayagavan.ru/siteContent`, {
   method: "POST",
   headers: {
     "Content-Type": "application/json"

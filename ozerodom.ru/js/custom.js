@@ -6,7 +6,7 @@ function append(parent, element) {
   return parent.appendChild(element);
 }
 
-fetch(`http://localhost:8080/siteContent`, {
+fetch(`https://lesnayagavan.ru/siteContent`, {
   method: "POST",
   headers: {
     "Content-Type": "application/json"
@@ -35,7 +35,7 @@ fetch(`http://localhost:8080/siteContent`, {
     });
     //change name
     //advertising
-    var advertising = document.getElementById("advertising");
+    var goods = document.getElementById("goods");
     //1st photo
     var divAdvertising0 = createEle("div");
     var advertisingImg0 = createEle("IMG");
@@ -49,7 +49,7 @@ fetch(`http://localhost:8080/siteContent`, {
     divAdvertising0.classList.add("col-md-6");
     append(divAdvertising0, advertisingImg0);
     append(divAdvertising0, br);
-    append(advertising, divAdvertising0);
+    append(goods, divAdvertising0);
     //2nd photo
     var divAdvertising1 = createEle("div");
     var advertisinglImg1 = createEle("IMG");
@@ -62,7 +62,7 @@ fetch(`http://localhost:8080/siteContent`, {
     );
     divAdvertising1.classList.add("col-md-6");
     append(divAdvertising1, advertisinglImg1);
-    append(advertising, divAdvertising1);
+    append(goods, divAdvertising1);
     //genplan
     var genplan = document.getElementById("genplan");
     photos.genPlan.map(function(photo) {
@@ -250,7 +250,7 @@ fetch(`http://localhost:8080/siteContent`, {
         dots: true,
         slidesToShow: 1
       });
-      $("a[rel^='prettyPhoto']").prettyPhoto({ social_tools:false});
+      $("a[rel^='prettyPhoto']").prettyPhoto({ social_tools: false });
     });
     var lazyloadImages = document.querySelectorAll("img.lazy");
     var lazyloadThrottleTimeout;
@@ -400,7 +400,7 @@ function navFunction() {
     navNumber.classList.remove("phoneHidden");
   }
 }
-fetch("http://localhost:8080/getcontacts")
+fetch("https://lesnayagavan.ru/getcontacts")
   .then(function(response) {
     return response.json();
   })
@@ -435,5 +435,3 @@ $(".navbar-toggle").click(function() {
   var nav = document.querySelector(".navbar-collapse");
   nav.classList.toggle("in");
 });
-
-

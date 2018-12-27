@@ -28,7 +28,7 @@ const addPost = (req, res) => {
     imagemin([file.path], `./${site}/img/news`, {
       plugins: [
         imageminJpegtran(),
-        imageminPngquant({ quality: "65-80" }),
+        imageminPngquant({ quality: "65-80" })
         // imageminJpegoptim({ max: 50 })
       ]
     })
@@ -90,7 +90,7 @@ const updatePostPhoto = (req, res) => {
     imagemin([file.path], `./${site}/img/news`, {
       plugins: [
         imageminJpegtran(),
-        imageminPngquant({ quality: "75-85" }),
+        imageminPngquant({ quality: "75-85" })
         // imageminJpegoptim({ max: 70 })
       ]
     })
@@ -157,13 +157,14 @@ const updatePost = (req, res) => {
   //parse
   form.parse(req, (err, fields, files) => {
     const { file } = files;
+    console.log(file);
     const { site, image, id, title, body } = fields;
     if (err) return res.status(400).json(`Возникла ошибка: ${err}`);
     //compress
     imagemin([file.path], `./${site}/img/news`, {
       plugins: [
         imageminJpegtran(),
-        imageminPngquant({ quality: "75-85" }),
+        imageminPngquant({ quality: "75-85" })
         // imageminJpegoptim({ max: 70 })
       ]
     })
@@ -208,7 +209,7 @@ const updatePost = (req, res) => {
       .catch(err => console.error(err));
   });
   // let { id, title, body } = req.body;
-  
+
   // Post.findByIdAndUpdate(
   //   id,
   //   {

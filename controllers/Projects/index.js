@@ -228,6 +228,7 @@ const updateProject = (req, res) => {
               `${__dirname}/../../img/Projects${image2.substring(
                 image2.lastIndexOf("/")
               )}`,
+              
               err => {
                 if (err) console.error(err.toString());
               }
