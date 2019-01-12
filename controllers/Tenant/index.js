@@ -7,16 +7,6 @@ mongoose.connect(connectionString);
 const db = mongoose.connection;
 
 const Tenant = require('../../Schemas/Tenants');
-// let tenants = new mongoose.Schema({
-//   houseNumber: { type: Number, unique: true },
-//   email: {
-//     type: String,
-//   },
-//   name: {
-//     type: String,
-//   },
-// });
-
 db.on('error', console.error.bind(console, 'connection error:'));
 
 const isCorrectEmail = email => {
@@ -94,7 +84,6 @@ const backUpTenants = tenants => {
 
 const handleInsert = (req, res) => {
   const { name, email, houseNumber } = req.body;
-  console.log(name, email, houseNumber);
   const expectedReq = {
     name: '',
     email: '',
@@ -102,7 +91,6 @@ const handleInsert = (req, res) => {
   };
   let errors = getReqErrors(req, expectedReq);
   if (!isErrors(errors)) {
-    let Tenant = mongoose.model('Tenant', tenants);
     let newTenant = new Tenant({
       houseNumber,
       email,

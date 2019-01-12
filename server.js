@@ -4,7 +4,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const helmet = require('helmet');
-
+const { body } = require('express-validator/check');
+const { sanitizeBody } = require('express-validator/filter');
 //Controllers
 const email = require('./controllers/Email');
 const tenant = require('./controllers/Tenant');
@@ -21,6 +22,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(morgan('combined'));
 app.use(helmet());
+app.use(express.json());
 app.use('/admin', express.static('build'));
 app.use('/', express.static('ozerodom.ru'));
 app.use('/news', express.static('News'));
@@ -28,7 +30,8 @@ app.use('/projects', express.static('Projects'));
 //Routes
 
 //Tenants
-app.post('/tenantinsert', tenant.handleInsert);
+
+app.post('/tenantinsert', [check('name').isAlpha('ru-RU'),check('email').isEmail(),check('houseNumber').isNumeric()] tenant.handleInsert);
 app.post('/tenantupdate', tenant.handleUpdate);
 app.delete('/tenantdelete', tenant.handleDelete);
 app.get('/tenants', tenant.handleSelect);
