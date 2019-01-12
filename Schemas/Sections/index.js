@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
+
 const sectionImages = new mongoose.Schema({
-  site: { type: String, unique: true, required: true, dropDups: true },
+  site: {
+    type: String, unique: true, required: true, dropDups: true
+  },
   carousel: [String],
   advertising: [String],
   genPlan: [String],

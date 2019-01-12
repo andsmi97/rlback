@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-let posts = new mongoose.Schema({
+
+const posts = new mongoose.Schema({
   title: String,
   body: String,
   date: { type: Date, default: Date.now },

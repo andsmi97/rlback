@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-let projects = new mongoose.Schema({
+
+const projects = new mongoose.Schema({
   title: String,
   body: String,
   date: { type: Date, default: Date.now },

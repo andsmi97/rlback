@@ -1,12 +1,12 @@
-//libs
+// libs
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const helmet = require('helmet');
-const { body } = require('express-validator/check');
+const { body, check, validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
-//Controllers
+// Controllers
 const email = require('./controllers/Email');
 const tenant = require('./controllers/Tenant');
 const posts = require('./controllers/Posts');
@@ -15,9 +15,10 @@ const settings = require('./controllers/Settings');
 const tariffs = require('./controllers/Tariffs');
 const auth = require('./controllers/Auth');
 const sections = require('./controllers/Sections');
+
 const app = express();
 
-//Middleware
+// Middleware
 app.use(bodyParser.json());
 app.use(cors());
 app.use(morgan('combined'));
@@ -27,43 +28,51 @@ app.use('/admin', express.static('build'));
 app.use('/', express.static('ozerodom.ru'));
 app.use('/news', express.static('News'));
 app.use('/projects', express.static('Projects'));
-//Routes
+// Routes
 
-//Tenants
+// Tenants
 
-app.post('/tenantinsert', [check('name').isAlpha('ru-RU'),check('email').isEmail(),check('houseNumber').isNumeric()] tenant.handleInsert);
+app.post(
+  '/tenantinsert',
+  [
+    check('name').isAlpha('ru-RU'),
+    check('email').isEmail(),
+    check('houseNumber').isNumeric(),
+  ],
+  tenant.handleInsert
+);
 app.post('/tenantupdate', tenant.handleUpdate);
 app.delete('/tenantdelete', tenant.handleDelete);
 app.get('/tenants', tenant.handleSelect);
 
-//Mail
+// Mail
 app.post('/mail', email.handleSend);
 
-//Posts
+// Posts
 app.post('/addpost', posts.addPost);
 app.delete('/deletepost', posts.deletePost);
 app.patch('/updatepost', posts.updatePost);
-app.post('/getposts', posts.getPosts); //since i can't use body in GET
+app.post('/getposts', posts.getPosts); // since i can't use body in GET
 app.patch('/updatepostphoto', posts.updatePostPhoto);
 app.delete('/deletePostPhoto', posts.deletePostPhoto);
 
-//Projects
+// Projects
 app.post('/addproject', projects.addProject);
 app.delete('/deleteproject', projects.deleteProject);
 app.patch('/updateproject', projects.updateProject);
-app.post('/getprojects', projects.getProjects); //since i can't use body in GET
+app.post('/getprojects', projects.getProjects); // since i can't use body in GET
 app.patch('/updateprojectphoto', projects.updateProjectPhoto);
 app.delete('/deleteProjectPhoto', projects.deleteProjectPhoto);
 
-//Settings
+// Settings
 app.put('/changeaccountpassword', settings.changeAccountPassword);
 app.put('/updateemailcredentials', settings.updateEmailCredentials);
-//Tariffs
+// Tariffs
 app.put('/changetariffs', tariffs.changeTariffs);
-//Auth
+// Auth
 app.post('/createuser', auth.addUser);
 app.post('/login', auth.login);
-//TODO: DELETE IN PRODUCTION
+// TODO: DELETE IN PRODUCTION
 app.get('/users', auth.getUsers);
 app.post('/deleteuser', auth.deleteUser);
 app.get('/getcontacts', auth.getContacts);
@@ -78,11 +87,11 @@ app.post('/uploaddefault', sections.addDefaultPhotos);
 app.post('/clearall', sections.clearAll);
 app.patch('/reorderPhotos', sections.reorderPhotos);
 
-//Don't stop server in production
-process.on('uncaughtException', err => {
+// Don't stop server in production
+process.on('uncaughtException', (err) => {
   console.log(err);
 });
 
 app.listen(process.env.PORT || 8080, () => {
-  console.log(`server is running on port 8080`);
+  console.log('server is running on port 8080');
 });
