@@ -1,22 +1,23 @@
-const mongoose = require("mongoose");
-const formidable = require("formidable");
-const imagemin = require("imagemin");
-const imageminJpegtran = require("imagemin-jpegtran");
-const imageminPngquant = require("imagemin-pngquant");
-// const imageminJpegoptim = require("imagemin-jpegoptim");
-const sharp = require("sharp");
-const fs = require("fs");
-const path = require("path");
+const mongoose = require('mongoose');
+const formidable = require('formidable');
+const imagemin = require('imagemin');
+const imageminJpegtran = require('imagemin-jpegtran');
+const imageminPngquant = require('imagemin-pngquant');
+const sharp = require('sharp');
+const fs = require('fs');
+const path = require('path');
 
-const Post = require("../../Schemas/Posts");
+const Post = require('../../Schemas/Posts');
+
 const connectionString = `mongodb://localhost:27017/TenantsDB`;
+
 mongoose.connect(connectionString);
 const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
+db.on('error', console.error.bind(console, 'connection error:'));
 
 const addPost = (req, res) => {
   let form = new formidable.IncomingForm();
-  form.uploadDir = path.join(__dirname, "../../Uploads");
+  form.uploadDir = path.join(__dirname, '../../Uploads');
   form.keepExtensions = true;
   form.maxFieldsSize = 50 * 1024 * 1024; //50 MB
   //parse
@@ -29,9 +30,9 @@ const addPost = (req, res) => {
       imagemin([file.path], `./${site}/img/news`, {
         plugins: [
           imageminJpegtran(),
-          imageminPngquant({ quality: "65-80" })
+          imageminPngquant({ quality: '65-80' }),
           // imageminJpegoptim({ max: 50 })
-        ]
+        ],
       })
         //resize
         .then(images =>
@@ -44,7 +45,9 @@ const addPost = (req, res) => {
             title: title,
             body: body,
             date: Date.now(),
-            image: `/img/news${file.path.substring(file.path.lastIndexOf("/"))}`
+            image: `/img/news${file.path.substring(
+              file.path.lastIndexOf('/')
+            )}`,
           });
           newPost
             .save()
@@ -63,7 +66,7 @@ const addPost = (req, res) => {
       let newPost = new Post({
         title: title,
         body: body,
-        date: Date.now()
+        date: Date.now(),
       });
       newPost
         .save()
@@ -78,7 +81,7 @@ const addPost = (req, res) => {
 const getPosts = (req, res) => {
   let { date } = req.body;
   Post.find({ date: { $lt: date } }, null, { limit: 50 })
-    .sort({ date: "desc" })
+    .sort({ date: 'desc' })
     .then(posts => {
       res.status(200).json(posts);
     });
@@ -92,7 +95,7 @@ const deletePost = (req, res) => {
 
 const updatePostPhoto = (req, res) => {
   let form = new formidable.IncomingForm();
-  form.uploadDir = path.join(__dirname, "../../Uploads");
+  form.uploadDir = path.join(__dirname, '../../Uploads');
   form.keepExtensions = true;
   form.maxFieldsSize = 50 * 1024 * 1024; //50 MB
   //parse
@@ -104,9 +107,9 @@ const updatePostPhoto = (req, res) => {
     imagemin([file.path], `./${site}/img/news`, {
       plugins: [
         imageminJpegtran(),
-        imageminPngquant({ quality: "75-85" })
+        imageminPngquant({ quality: '75-85' }),
         // imageminJpegoptim({ max: 70 })
-      ]
+      ],
     })
       //resize
       .then(images =>
@@ -120,9 +123,9 @@ const updatePostPhoto = (req, res) => {
           {
             $set: {
               image: `/img/news${file.path.substring(
-                file.path.lastIndexOf("/")
-              )}`
-            }
+                file.path.lastIndexOf('/')
+              )}`,
+            },
           },
           (err, dbRes) => {
             Post.findById(id)
@@ -136,7 +139,7 @@ const updatePostPhoto = (req, res) => {
         if (image.length) {
           fs.unlink(
             `${__dirname}/../../img/news${image.substring(
-              image.lastIndexOf("/")
+              image.lastIndexOf('/')
             )}`,
             err => {
               if (err) console.error(err.toString());
@@ -157,7 +160,7 @@ const deletePostPhoto = (req, res) => {
     if (err) res.status(400).json(err);
   });
   fs.unlink(
-    `${__dirname}/../../img/news${image.substring(image.lastIndexOf("/"))}`,
+    `${__dirname}/../../img/news${image.substring(image.lastIndexOf('/'))}`,
     err => {
       if (err) console.error(err.toString());
     }
@@ -165,7 +168,7 @@ const deletePostPhoto = (req, res) => {
 };
 const updatePost = (req, res) => {
   let form = new formidable.IncomingForm();
-  form.uploadDir = path.join(__dirname, "../../Uploads");
+  form.uploadDir = path.join(__dirname, '../../Uploads');
   form.keepExtensions = true;
   form.maxFieldsSize = 50 * 1024 * 1024; //50 MB
   //parse
@@ -178,9 +181,9 @@ const updatePost = (req, res) => {
     imagemin([file.path], `./${site}/img/news`, {
       plugins: [
         imageminJpegtran(),
-        imageminPngquant({ quality: "75-85" })
+        imageminPngquant({ quality: '75-85' }),
         // imageminJpegoptim({ max: 70 })
-      ]
+      ],
     })
       //resize
       .then(images =>
@@ -194,11 +197,11 @@ const updatePost = (req, res) => {
           {
             $set: {
               image: `/img/news${file.path.substring(
-                file.path.lastIndexOf("/")
+                file.path.lastIndexOf('/')
               )}`,
               title,
-              body
-            }
+              body,
+            },
           },
           (err, dbRes) => {
             Post.findById(id)
@@ -212,7 +215,7 @@ const updatePost = (req, res) => {
         if (image.length) {
           fs.unlink(
             `${__dirname}/../../img/news${image.substring(
-              image.lastIndexOf("/")
+              image.lastIndexOf('/')
             )}`,
             err => {
               if (err) console.error(err.toString());
@@ -247,5 +250,5 @@ module.exports = {
   deletePost,
   updatePost,
   updatePostPhoto,
-  deletePostPhoto
+  deletePostPhoto,
 };

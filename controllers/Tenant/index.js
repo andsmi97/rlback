@@ -1,31 +1,23 @@
-const fs = require("fs");
-const path = require("path");
-
-// const config = require("../../config");
-const mongoose = require("mongoose");
-// const connectionString = `mongodb://${config.DB.LOGIN}:${
-//   config.DB.PASSWORD
-// }@freecluster-shard-00-00-rec05.mongodb.net:27017,freecluster-shard-00-01-rec05.mongodb.net:27017,freecluster-shard-00-02-rec05.mongodb.net:27017/test?ssl=true&replicaSet=FreeCluster-shard-0&authSource=admin&retryWrites=true/${
-//   config.DB.NAME
-// }`;
+const fs = require('fs');
+const path = require('path');
+const mongoose = require('mongoose');
 
 const connectionString = `mongodb://localhost:27017/TenantsDB`;
-mongoose.connect(
-  connectionString
-);
+mongoose.connect(connectionString);
 const db = mongoose.connection;
-let tenants = new mongoose.Schema({
-  houseNumber: { type: Number, unique: true },
-  email: {
-    type: String
-    // match: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-  },
-  name: {
-    type: String
-    // match: /^((?:[а-яА-ЯёЁ]+\s){2}[а-яА-ЯёЁ]+)$/g
-  }
-});
-db.on("error", console.error.bind(console, "connection error:"));
+
+const Tenant = require('../../Schemas/Tenants');
+// let tenants = new mongoose.Schema({
+//   houseNumber: { type: Number, unique: true },
+//   email: {
+//     type: String,
+//   },
+//   name: {
+//     type: String,
+//   },
+// });
+
+db.on('error', console.error.bind(console, 'connection error:'));
 
 const isCorrectEmail = email => {
   let regExp = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -52,21 +44,21 @@ const compareKeys = (a, b) => {
 const getReqErrors = (req, expectedReq) => {
   let error = [];
   if (compareKeys(req, expectedReq)) {
-    error.push("Неверные данные");
+    error.push('Неверные данные');
   }
-  if (req.hasOwnProperty("email")) {
+  if (req.hasOwnProperty('email')) {
     if (!isCorrectEmail(req.email)) {
-      error.push("Неверный формат email");
+      error.push('Неверный формат email');
     }
   }
-  if (req.hasOwnProperty("houseNumber")) {
+  if (req.hasOwnProperty('houseNumber')) {
     if (!isHouseInRange(req.houseNumber)) {
-      error.push("Неверный номер дома");
+      error.push('Неверный номер дома');
     }
   }
-  if (req.hasOwnProperty("name")) {
+  if (req.hasOwnProperty('name')) {
     if (!isNameCorrect(req.name)) {
-      error.push("Неверный формат имени");
+      error.push('Неверный формат имени');
     }
   }
   return error;
@@ -82,17 +74,17 @@ const backUpTenants = tenants => {
   let fileToWrite = date
     .toString()
     .slice(4, 24)
-    .split(" ")
-    .join("-")
-    .split(":")
-    .join("_")
-    .concat(".json");
+    .split(' ')
+    .join('-')
+    .split(':')
+    .join('_')
+    .concat('.json');
   fs.writeFile(
     path.join(__dirname, `../../tenants/${fileToWrite}`),
     JSON.stringify(tenants),
     err => {
       if (err) throw err;
-      console.log("file saved");
+      console.log('file saved');
     }
   );
 };
@@ -104,17 +96,17 @@ const handleInsert = (req, res) => {
   const { name, email, houseNumber } = req.body;
   console.log(name, email, houseNumber);
   const expectedReq = {
-    name: "",
-    email: "",
-    houseNumber: 0
+    name: '',
+    email: '',
+    houseNumber: 0,
   };
   let errors = getReqErrors(req, expectedReq);
   if (!isErrors(errors)) {
-    let Tenant = mongoose.model("Tenant", tenants);
+    let Tenant = mongoose.model('Tenant', tenants);
     let newTenant = new Tenant({
       houseNumber,
       email,
-      name
+      name,
     });
     newTenant.save(err => {
       if (err) {
@@ -130,26 +122,25 @@ const handleInsert = (req, res) => {
 };
 
 const handleUpdate = (req, res) => {
-  console.log(req.body);
   const { name, email, houseNumber } = req.body;
   const expectedReq = {
-    name: "",
-    email: "",
-    houseNumber: 0
+    name: '',
+    email: '',
+    houseNumber: 0,
   };
 
   let errors = getReqErrors(req, expectedReq);
   if (!isErrors(errors)) {
-    let Tenant = mongoose.model("Tenant", tenants);
+    // let Tenant = mongoose.model('Tenant', tenants);
     Tenant.findOneAndUpdate(
       {
-        houseNumber
+        houseNumber,
       },
       {
         $set: {
           name,
-          email
-        }
+          email,
+        },
       },
       () => {
         Tenant.find()
@@ -189,11 +180,11 @@ const handleUpdate = (req, res) => {
 const handleDelete = (req, res) => {
   const { houseNumber } = req.body;
   const expectedReq = {
-    houseNumber: 0
+    houseNumber: 0,
   };
   let errors = getReqErrors(req, expectedReq);
   if (!isErrors(errors)) {
-    let Tenant = mongoose.model("Tenants", tenants);
+    let Tenant = mongoose.model('Tenants', tenants);
     Tenant.findOneAndDelete({ houseNumber: houseNumber }, err => {
       if (err) res.status(400).json(err);
       Tenant.find()
@@ -231,7 +222,7 @@ const handleDelete = (req, res) => {
 
 const handleSelect = (req, res) => {
   //check if correct request data()
-  let Tenant = mongoose.model("Tenant", tenants);
+  let Tenant = mongoose.model('Tenant', tenants);
   Tenant.find({})
     .then(tenants => res.status(200).json(tenants))
     .catch(err => res.status(400).json(err));
@@ -259,5 +250,5 @@ module.exports = {
   handleInsert: handleInsert,
   handleUpdate: handleUpdate,
   handleDelete: handleDelete,
-  handleSelect: handleSelect
+  handleSelect: handleSelect,
 };
