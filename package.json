@@ -26,11 +26,12 @@
     "nodemon": "^1.18.5",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
+    "redis": "^2.8.0",
     "sharp": "^0.21.1",
     "validator": "^10.10.0"
   },
   "scripts": {
-    "start": "nodemon server.js --no-deprecation"
+    "start": "nodemon -L server.js --no-deprecation"
   },
   "devDependencies": {
     "eslint": "^5.12.0",
