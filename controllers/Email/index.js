@@ -22,7 +22,7 @@ const recreateTenantsObject = (parsedReq) => {
   return tenants;
 };
 
-const handleSend = (req, res) => {
+const send = (req, res) => {
   // Распарсить запрос
   // const
   // Проверка данных
@@ -97,9 +97,12 @@ const handleSend = (req, res) => {
           arrayOfFiles.forEach((file) => {
             if (file.name.match(/^(\d*)/)[0] === tenant[0]) {
               mailOptions.attachments.push({
-                path: `${file.path.substring(0, file.path.lastIndexOf('/'))}/${
-                  file.name
-                }`,
+                path: `${file.path.substring(
+                  0,
+                  file.path.lastIndexOf('/') !== -1
+                    ? file.path.lastIndexOf('/')
+                    : file.path.lastIndexOf('\\')
+                )}/${file.name}`,
               });
             }
           });
@@ -119,5 +122,5 @@ const handleSend = (req, res) => {
 };
 
 module.exports = {
-  handleSend,
+  send,
 };

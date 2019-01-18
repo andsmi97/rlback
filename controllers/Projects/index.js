@@ -14,7 +14,7 @@ mongoose.connect(connectionString);
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
-const addProject = (req, res) => {
+const insert = (req, res) => {
   const form = new formidable.IncomingForm();
   form.uploadDir = path.join(__dirname, '../../Uploads');
   form.keepExtensions = true;
@@ -28,10 +28,7 @@ const addProject = (req, res) => {
     if (file1 && file2) {
       return (
         imagemin([file1.path, file2.path], `./${site}/img/Projects`, {
-          plugins: [
-            imageminJpegtran(),
-            imageminPngquant({ quality: '65-80' }),
-          ],
+          plugins: [imageminJpegtran(), imageminPngquant({ quality: '65-80' })],
         })
           // resize
           .then(images => images.forEach(image => sharp(image.data)
@@ -70,10 +67,7 @@ const addProject = (req, res) => {
     if (file1) {
       return (
         imagemin([file1.path], `./${site}/img/Projects`, {
-          plugins: [
-            imageminJpegtran(),
-            imageminPngquant({ quality: '65-80' }),
-          ],
+          plugins: [imageminJpegtran(), imageminPngquant({ quality: '65-80' })],
         })
           // resize
           .then(images => images.forEach(image => sharp(image.data)
@@ -106,10 +100,7 @@ const addProject = (req, res) => {
     if (file2) {
       return (
         imagemin([file2.path], `./${site}/img/Projects`, {
-          plugins: [
-            imageminJpegtran(),
-            imageminPngquant({ quality: '65-80' }),
-          ],
+          plugins: [imageminJpegtran(), imageminPngquant({ quality: '65-80' })],
         })
           // resize
           .then(images => images.forEach(image => sharp(image.data)
@@ -153,7 +144,7 @@ const addProject = (req, res) => {
   });
 };
 
-const getProjects = (req, res) => {
+const select = (req, res) => {
   const { date } = req.body;
   Project.find({ date: { $lt: date } }, null, { limit: 50 })
     .sort({ date: 'desc' })
@@ -162,13 +153,13 @@ const getProjects = (req, res) => {
     });
 };
 
-const deleteProject = (req, res) => {
+const remove = (req, res) => {
   Project.findByIdAndDelete(req.body.id)
     .then(project => res.status(200).json(project))
     .catch(err => res.status(400).json(err));
 };
 
-const updateProjectPhoto = (req, res) => {
+const updatePhoto = (req, res) => {
   const form = new formidable.IncomingForm();
   form.uploadDir = path.join(__dirname, '../../Uploads');
   form.keepExtensions = true;
@@ -180,10 +171,7 @@ const updateProjectPhoto = (req, res) => {
     if (err) return res.status(400).json(`Возникла ошибка: ${err}`);
     return (
       imagemin([file.path, file1.path], `./${site}/img/projects`, {
-        plugins: [
-          imageminJpegtran(),
-          imageminPngquant({ quality: '75-85' }),
-        ],
+        plugins: [imageminJpegtran(), imageminPngquant({ quality: '75-85' })],
       })
         // resize
         .then(images => sharp(images[0].data)
@@ -195,7 +183,9 @@ const updateProjectPhoto = (req, res) => {
             {
               $set: {
                 image1: `/img/Projects${file.path.substring(
-                  file.path.lastIndexOf('/')
+                  file.path.lastIndexOf('/') !== -1
+                    ? file.path.lastIndexOf('/')
+                    : file.path.lastIndexOf('\\')
                 )}`,
                 image2: `/img/Projects${file1.path.substring(
                   file1.path.lastIndexOf('/')
@@ -227,7 +217,7 @@ const updateProjectPhoto = (req, res) => {
   });
 };
 
-const deleteProjectPhoto = (req, res) => {
+const removePhoto = (req, res) => {
   const { id, image } = req.body;
   Project.findByIdAndUpdate(id, { $set: { image: '' } }, (err, dbRes) => {
     Project.findById(id)
@@ -242,7 +232,7 @@ const deleteProjectPhoto = (req, res) => {
     }
   );
 };
-const updateProject = (req, res) => {
+const update = (req, res) => {
   const form = new formidable.IncomingForm();
   form.uploadDir = path.join(__dirname, '../../Uploads');
   form.keepExtensions = true;
@@ -316,10 +306,7 @@ const updateProject = (req, res) => {
     if (file1) {
       return (
         imagemin([file1.path], `./${site}/img/Projects`, {
-          plugins: [
-            imageminJpegtran(),
-            imageminPngquant({ quality: '75-85' }),
-          ],
+          plugins: [imageminJpegtran(), imageminPngquant({ quality: '75-85' })],
         })
           // resize
           .then(images => sharp(images[0].data)
@@ -363,10 +350,7 @@ const updateProject = (req, res) => {
     if (file2) {
       return (
         imagemin([file2.path], `./${site}/img/Projects`, {
-          plugins: [
-            imageminJpegtran(),
-            imageminPngquant({ quality: '75-85' }),
-          ],
+          plugins: [imageminJpegtran(), imageminPngquant({ quality: '75-85' })],
         })
           // resize
           .then(images => sharp(images[0].data)
@@ -407,24 +391,20 @@ const updateProject = (req, res) => {
           .catch(err => console.error(err))
       );
     }
-    return Project.findByIdAndUpdate(
-      id,
-      { $set: { title, body } },
-      (err) => {
-        Project.findById(id)
-          .then(project => res.status(200).json(project))
-          .catch(err => res.status(400).json(err));
-        if (err) res.status(400).json(err);
-      }
-    );
+    return Project.findByIdAndUpdate(id, { $set: { title, body } }, (err) => {
+      Project.findById(id)
+        .then(project => res.status(200).json(project))
+        .catch(err => res.status(400).json(err));
+      if (err) res.status(400).json(err);
+    });
   });
 };
 
 module.exports = {
-  addProject,
-  getProjects,
-  deleteProject,
-  updateProject,
-  updateProjectPhoto,
-  deleteProjectPhoto,
+  insert,
+  select,
+  remove,
+  update,
+  updatePhoto,
+  removePhoto,
 };

@@ -29,8 +29,6 @@ const changeAccountPassword = (req, res) => {
   });
 };
 
-getEmailService('firstname@google.com');
-
 const updateEmailCredentials = (req, res) => {
   const {
     user, email, password, phone, phone2

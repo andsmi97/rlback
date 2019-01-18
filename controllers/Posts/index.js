@@ -6,6 +6,7 @@ const imageminPngquant = require('imagemin-pngquant');
 const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');
+const validator = require('validator');
 
 const Post = require('../../Schemas/Posts');
 
@@ -15,7 +16,8 @@ mongoose.connect(connectionString);
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
-const addPost = (req, res) => {
+const insert = (req, res) => {
+  console.log(req.body.data);
   const form = new formidable.IncomingForm();
   form.uploadDir = path.join(__dirname, '../../Uploads');
   form.keepExtensions = true;
@@ -29,10 +31,7 @@ const addPost = (req, res) => {
     if (file) {
       return (
         imagemin([file.path], `./${site}/img/news`, {
-          plugins: [
-            imageminJpegtran(),
-            imageminPngquant({ quality: '65-80' }),
-          ],
+          plugins: [imageminJpegtran(), imageminPngquant({ quality: '65-80' })],
         })
           // resize
           .then(images => sharp(images[0].data)
@@ -44,7 +43,9 @@ const addPost = (req, res) => {
               body,
               date: Date.now(),
               image: `/img/news${file.path.substring(
-                file.path.lastIndexOf('/')
+                file.path.lastIndexOf('/') !== -1
+                  ? file.path.lastIndexOf('/')
+                  : file.path.lastIndexOf('\\')
               )}`,
             });
             newPost
@@ -76,7 +77,7 @@ const addPost = (req, res) => {
   });
 };
 
-const getPosts = (req, res) => {
+const select = (req, res) => {
   const { date } = req.body;
   Post.find({ date: { $lt: date } }, null, { limit: 50 })
     .sort({ date: 'desc' })
@@ -85,13 +86,13 @@ const getPosts = (req, res) => {
     });
 };
 
-const deletePost = (req, res) => {
+const remove = (req, res) => {
   Post.findByIdAndDelete(req.body.id)
     .then(post => res.status(200).json(post))
     .catch(err => res.status(400).json(err));
 };
 
-const updatePostPhoto = (req, res) => {
+const updatePhoto = (req, res) => {
   const form = new formidable.IncomingForm();
   form.uploadDir = path.join(__dirname, '../../Uploads');
   form.keepExtensions = true;
@@ -104,10 +105,7 @@ const updatePostPhoto = (req, res) => {
     // compress
     return (
       imagemin([file.path], `./${site}/img/news`, {
-        plugins: [
-          imageminJpegtran(),
-          imageminPngquant({ quality: '75-85' }),
-        ],
+        plugins: [imageminJpegtran(), imageminPngquant({ quality: '75-85' })],
       })
         // resize
         .then(images => sharp(images[0].data)
@@ -119,7 +117,9 @@ const updatePostPhoto = (req, res) => {
             {
               $set: {
                 image: `/img/news${file.path.substring(
-                  file.path.lastIndexOf('/')
+                  file.path.lastIndexOf('/') !== -1
+                    ? file.path.lastIndexOf('/')
+                    : file.path.lastIndexOf('\\')
                 )}`,
               },
             },
@@ -148,7 +148,7 @@ const updatePostPhoto = (req, res) => {
   });
 };
 
-const deletePostPhoto = (req, res) => {
+const deletePhoto = (req, res) => {
   const { id, image } = req.body;
   Post.findByIdAndUpdate(id, { $set: { image: '' } }, (err, dbRes) => {
     Post.findById(id)
@@ -163,7 +163,7 @@ const deletePostPhoto = (req, res) => {
     }
   );
 };
-const updatePost = (req, res) => {
+const update = (req, res) => {
   const form = new formidable.IncomingForm();
   form.uploadDir = path.join(__dirname, '../../Uploads');
   form.keepExtensions = true;
@@ -178,10 +178,7 @@ const updatePost = (req, res) => {
     // compress
     return (
       imagemin([file.path], `./${site}/img/news`, {
-        plugins: [
-          imageminJpegtran(),
-          imageminPngquant({ quality: '75-85' }),
-        ],
+        plugins: [imageminJpegtran(), imageminPngquant({ quality: '75-85' })],
       })
         // resize
         .then(images => sharp(images[0].data)
@@ -193,7 +190,9 @@ const updatePost = (req, res) => {
             {
               $set: {
                 image: `/img/news${file.path.substring(
-                  file.path.lastIndexOf('/')
+                  file.path.lastIndexOf('/') !== -1
+                    ? file.path.lastIndexOf('/')
+                    : file.path.lastIndexOf('\\')
                 )}`,
                 title,
                 body,
@@ -224,11 +223,12 @@ const updatePost = (req, res) => {
   });
 };
 
+console.log(validator.isNumeric('87'));
 module.exports = {
-  addPost,
-  getPosts,
-  deletePost,
-  updatePost,
-  updatePostPhoto,
-  deletePostPhoto,
+  insert,
+  select,
+  remove,
+  update,
+  updatePhoto,
+  deletePhoto,
 };

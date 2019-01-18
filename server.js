@@ -4,9 +4,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
 const helmet = require('helmet');
-const { body, check, validationResult } = require('express-validator/check');
-const { sanitizeBody } = require('express-validator/filter');
 // Controllers
+const passport = require('passport');
 const email = require('./controllers/Email');
 const tenant = require('./controllers/Tenant');
 const posts = require('./controllers/Posts');
@@ -29,46 +28,39 @@ app.use('/', express.static('ozerodom.ru'));
 app.use('/news', express.static('News'));
 app.use('/projects', express.static('Projects'));
 // Routes
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Tenants
-
-app.post(
-  '/tenantinsert',
-  [
-    check('name').isAlpha('ru-RU'),
-    check('email').isEmail(),
-    check('houseNumber').isNumeric(),
-  ],
-  tenant.handleInsert
-);
-app.post('/tenantupdate', tenant.handleUpdate);
-app.delete('/tenantdelete', tenant.handleDelete);
-app.get('/tenants', tenant.handleSelect);
+app.post('/tenantinsert', tenant.validateInsert, tenant.insert);
+app.post('/tenantupdate', tenant.validateUpdate, tenant.update);
+app.delete('/tenantdelete', tenant.validateRemove, tenant.remove);
+app.get('/tenants', tenant.select);
 
 // Mail
-app.post('/mail', email.handleSend);
+app.post('/mail', email.send);
 
 // Posts
-app.post('/addpost', posts.addPost);
-app.delete('/deletepost', posts.deletePost);
-app.patch('/updatepost', posts.updatePost);
-app.post('/getposts', posts.getPosts); // since i can't use body in GET
-app.patch('/updatepostphoto', posts.updatePostPhoto);
-app.delete('/deletePostPhoto', posts.deletePostPhoto);
+app.post('/addpost', posts.insert);
+app.delete('/deletepost', posts.remove);
+app.patch('/updatepost', posts.update);
+app.post('/getposts', posts.select); // since i can't use body in GET
+app.patch('/updatepostphoto', posts.updatePhoto);
+app.delete('/deletePostPhoto', posts.deletePhoto);
 
 // Projects
-app.post('/addproject', projects.addProject);
-app.delete('/deleteproject', projects.deleteProject);
-app.patch('/updateproject', projects.updateProject);
-app.post('/getprojects', projects.getProjects); // since i can't use body in GET
-app.patch('/updateprojectphoto', projects.updateProjectPhoto);
-app.delete('/deleteProjectPhoto', projects.deleteProjectPhoto);
+app.post('/addproject', projects.insert);
+app.delete('/deleteproject', projects.remove);
+app.patch('/updateproject', projects.update);
+app.post('/getprojects', projects.select); // since i can't use body in GET
+app.patch('/updateprojectphoto', projects.updatePhoto);
+app.delete('/deleteProjectPhoto', projects.removePhoto);
 
 // Settings
 app.put('/changeaccountpassword', settings.changeAccountPassword);
 app.put('/updateemailcredentials', settings.updateEmailCredentials);
 // Tariffs
-app.put('/changetariffs', tariffs.changeTariffs);
+app.put('/changetariffs', tariffs.change);
 // Auth
 app.post('/createuser', auth.addUser);
 app.post('/login', auth.login);

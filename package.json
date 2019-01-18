@@ -6,8 +6,10 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
+    "crypto": "^1.0.1",
     "express": "^4.16.4",
     "express-form-data": "^2.0.6",
+    "express-jwt": "^5.3.1",
     "express-validator": "^5.3.1",
     "formidable": "^1.2.1",
     "fs-extra": "^7.0.0",
@@ -15,13 +17,17 @@
     "imagemin": "^6.0.0",
     "imagemin-jpegtran": "^6.0.0",
     "imagemin-pngquant": "^6.0.0",
+    "jsonwebtoken": "^8.4.0",
     "localtunnel": "^1.9.1",
     "mongoose": "^5.3.13",
     "morgan": "^1.9.1",
     "multer": "^1.4.1",
     "nodemailer": "^4.6.8",
     "nodemon": "^1.18.5",
-    "sharp": "^0.21.1"
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "sharp": "^0.21.1",
+    "validator": "^10.10.0"
   },
   "scripts": {
     "start": "nodemon server.js --no-deprecation"

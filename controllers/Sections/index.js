@@ -41,15 +41,11 @@ const addPhoto = (req, res) => {
         // save to DB
         .then(() => {
           const query = {};
-          query[section] = `/img/${section}${file.path.substring(
-            file.path.lastIndexOf('/')
-          )}`;
+          query[section] = `/img/${section}${file.path.substring()}`;
           SectionImages.findOneAndUpdate({ site }, { $push: query })
             .then(() => res.status(200).json({
               section,
-              content: `/img/${section}${file.path.substring(
-                file.path.lastIndexOf('/')
-              )}`,
+              content: `/img/${section}${file.path.substring()}`,
             }))
             .then(() => {
               fs.unlink(file.path, (err) => {
@@ -220,40 +216,43 @@ const updatePhoto = (req, res) => {
           .toFile(image.path);
       }))
       .then(() => {
-        const query = {};
-        query._id = 0;
-        query[section] = {
-          $indexOfArray: [`$${section}`, oldPhoto],
-        };
         SectionImages.aggregate([
           { $match: { site } },
           {
-            $project: query,
+            $project: {
+              _id: 0,
+              [section]: {
+                $indexOfArray: [`$${section}`, oldPhoto],
+              },
+            },
           },
         ]).then((result) => {
-          const query = {};
-          query[
-            `${section}.${result[0][section]}`
-          ] = `/img/${section}${file.path.substring(
+          console.log(result);
+          const imageIndex = `${section}.${result[0][section]}`;
+          const imageRoute = `/img/${section}${file.path.substring(
             file.path.lastIndexOf('/')
           )}`;
-          SectionImages.update({ site }, { $set: query })
+          SectionImages.findOneAndUpdate(
+            { site },
+            {
+              $set: {
+                [imageIndex]: imageRoute,
+              },
+            },
+            { new: true }
+          )
+            // .then(SectionImages.findOne({ site }))
+            .then(result => res.status(200).json(result[section]))
             .then(() => {
               fs.unlink(file.path, (err) => {
                 if (err) {
-                  console.error(err.toString());
+                  console.error('here', err.toString());
                 }
               });
             })
-            .catch(err => res.status(400).json(err));
+            .catch(err => console.log(err));
         });
-      })
-      .then(() => res
-        .status(200)
-        .json(
-          `/img/${section}${file.path.substring(file.path.lastIndexOf('/'))}`
-        ))
-      .catch(err => console.error(err));
+      });
   });
 };
 

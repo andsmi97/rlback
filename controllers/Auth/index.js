@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const jwt = require('express-jwt');
 
 const connectionString = 'mongodb://localhost:27017/TenantsDB';
 
@@ -65,10 +66,52 @@ const deleteUser = (req, res) => {
     .catch(err => res.status(400).json(err));
 };
 
+const getTokenFromHeaders = (req) => {
+  const {
+    headers: { authorization },
+  } = req;
+
+  if (authorization && authorization.split(' ')[0] === 'Token') {
+    return authorization.split(' ')[1];
+  }
+  return null;
+};
+
+const auth = {
+  required: jwt({
+    secret: 'secret',
+    userProperty: 'payload',
+    getToken: getTokenFromHeaders,
+  }),
+  optional: jwt({
+    secret: 'secret',
+    userProperty: 'payload',
+    getToken: getTokenFromHeaders,
+    credentialsRequired: false,
+  }),
+};
+
+const { redisClient } = require('../SignIn');
+
+const requireAuth = (req, res, next) => {
+  const { authorization } = req.headers;
+  if (!authorization) {
+    return res.status(401).send('Unauthorized');
+  }
+  return redisClient.get(authorization, (err, reply) => {
+    if (err || !reply) {
+      return res.status(401).send('Unauthorized');
+    }
+    return next();
+  });
+};
+
 module.exports = {
+  requireAuth,
   login,
   addUser,
   getUsers,
   deleteUser,
   getContacts,
+  auth,
 };

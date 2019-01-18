@@ -1,0 +1,43 @@
+version: "3.6"
+services:
+  # MongoDb
+  mongo:
+    container_name: mongo
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - "8081"
+
+  # Redis
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+      - "6379"
+
+  # Backend
+  node_container:
+    # env_file:
+    #   - ./.private/api-keys.env "Another way to insert env variables"
+    container_name: node_container
+    restart: always
+    build: .
+    volumes:
+      - ./:/usr/src/backend
+    command: yarn start
+    working_dir: /usr/src/backend
+    ports:
+      - "3001:3001"
+    environment:
+      MONGO_URI: "mongodb://mongo:27017/coker-node-mongo"
+      REDIS_URI: redis://redis:6379
+    # Heads up! Docker has updated this feature and now you don't need to define the links property in order for things to work - https://docs.docker.com/compose/networking/
+    # links:
+    #   - postgres
+    #   - redis

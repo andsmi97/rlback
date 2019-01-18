@@ -11,5 +11,7 @@ module.exports = {
     'no-shadow': 0,
     'no-underscore-dangle': 0,
     'no-extend-native': 0,
+    'prefer-promise-reject-errors': 0,
+    'func-names': 0,
   },
 };
