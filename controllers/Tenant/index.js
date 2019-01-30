@@ -13,7 +13,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 const validateInsert = [
   body('name')
-    .custom((name) => {
+    .custom(name => {
       const regExp = /^((?:[а-яА-ЯёЁ]+\s){2}[а-яА-ЯёЁ]+)$/g;
       return regExp.test(name);
     })
@@ -22,19 +22,21 @@ const validateInsert = [
     .isEmail()
     .withMessage('Введите правильный email'),
   body('houseNumber')
-    .custom(houseNumber => Tenant.find({ houseNumber }).then((tenant) => {
-      if (tenant.length) {
-        return Promise.reject('В данном доме уже есть жилец');
-      }
-      return Promise.resolve();
-    }))
+    .custom(houseNumber =>
+      Tenant.find({ houseNumber }).then(tenant => {
+        if (tenant.length) {
+          return Promise.reject('В данном доме уже есть жилец');
+        }
+        return Promise.resolve();
+      })
+    )
     .isNumeric()
     .withMessage('Номер дома - число'),
 ];
 
 const validateUpdate = [
   body('name')
-    .custom((name) => {
+    .custom(name => {
       const regExp = /^((?:[а-яА-ЯёЁ]+\s){2}[а-яА-ЯёЁ]+)$/g;
       return regExp.test(name);
     })
@@ -44,13 +46,7 @@ const validateUpdate = [
     .withMessage('Введите правильный email'),
   body('houseNumber')
     .isNumeric()
-    .withMessage('Номер дома - число')
-    .custom(houseNumber => Tenant.find({ houseNumber }).then((tenant) => {
-      if (!tenant.length) {
-        return Promise.reject('В данном нет жильца');
-      }
-      return Promise.resolve();
-    })),
+    .withMessage('Номер дома - число'),
 ];
 
 const validateRemove = [
@@ -59,7 +55,7 @@ const validateRemove = [
     .withMessage('Номер дома - число'),
 ];
 
-const backUpTenants = (tenants) => {
+const backUpTenants = tenants => {
   const date = new Date();
   const fileToWrite = date
     .toString()
@@ -72,7 +68,7 @@ const backUpTenants = (tenants) => {
   fs.writeFile(
     path.join(__dirname, `../../tenants/${fileToWrite}`),
     JSON.stringify(tenants),
-    (err) => {
+    err => {
       if (err) throw err;
       console.log('file saved');
     }
@@ -86,7 +82,7 @@ const insert = (req, res) => {
   }
   const { name, email, houseNumber } = req.body;
   const newTenant = new Tenant({ houseNumber, email, name });
-  return newTenant.save((err) => {
+  return newTenant.save(err => {
     if (err) {
       return res.status(400).json(err);
     }
@@ -105,9 +101,10 @@ const update = (req, res) => {
   return Tenant.findOneAndUpdate(
     { houseNumber },
     { $set: { name, email } },
-    () => Tenant.find()
-      .then(tenant => res.status(200).json(tenant))
-      .catch(err => res.status(400).json(err))
+    () =>
+      Tenant.find()
+        .then(tenant => res.status(200).json(tenant))
+        .catch(err => res.status(400).json(err))
   );
 };
 
@@ -117,7 +114,7 @@ const remove = (req, res) => {
     return res.status(422).json({ errors: errors.array() });
   }
   const { houseNumber } = req.body;
-  return Tenant.findOneAndDelete({ houseNumber }, (err) => {
+  return Tenant.findOneAndDelete({ houseNumber }, err => {
     if (err) res.status(400).json(err);
     Tenant.find()
       .then(tenant => res.status(200).json(tenant))

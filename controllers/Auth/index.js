@@ -46,6 +46,7 @@ const login = (req, res) => {
     }
   });
 };
+
 const getContacts = (req, res) => {
   UserSettings.find(
     { user: 'admin' },

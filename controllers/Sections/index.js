@@ -35,20 +35,26 @@ const addPhoto = (req, res) => {
         plugins: [imageminJpegtran(), imageminPngquant({ quality: '75-85' })],
       })
         // resize
-        .then(images => sharp(images[0].data)
-          .resize(imageSize)
-          .toFile(images[0].path))
+        .then(images =>
+          sharp(images[0].data)
+            .resize(imageSize)
+            .toFile(images[0].path)
+        )
         // save to DB
         .then(() => {
           const query = {};
           query[section] = `/img/${section}${file.path.substring()}`;
           SectionImages.findOneAndUpdate({ site }, { $push: query })
-            .then(() => res.status(200).json({
-              section,
-              content: `/img/${section}${file.path.substring()}`,
-            }))
+            .then(() =>
+              res.status(200).json({
+                section,
+                content: `/img/${section}${file.path.substring(
+                  file.path.lastIndexOf('/')
+                )}`,
+              })
+            )
             .then(() => {
-              fs.unlink(file.path, (err) => {
+              fs.unlink(file.path, err => {
                 if (err) console.error(err.toString());
               });
             })
@@ -139,7 +145,7 @@ const addSiteSections = (req, res) => {
   const sectionImages = new SectionImages({
     site,
   });
-  sectionImages.save((err) => {
+  sectionImages.save(err => {
     if (err) res.status(400).json(err);
     res.status(200).json(sectionImages);
   });
@@ -150,7 +156,7 @@ const sectionPhotos = (req, res) => {
   const query = {};
   query[section] = 1;
   query._id = 0;
-  SectionImages.find({ site }, query).then((images) => {
+  SectionImages.find({ site }, query).then(images => {
     res.status(200).json(images[0][section]);
   });
 };
@@ -165,7 +171,7 @@ const siteContent = (req, res) => {
       __v: 0,
       projects: 0,
     }
-  ).then((images) => {
+  ).then(images => {
     res.status(200).json(images[0]);
   });
 };
@@ -210,11 +216,13 @@ const updatePhoto = (req, res) => {
     return imagemin([file.path], `./${site}/img/${section}`, {
       plugins: [imageminJpegtran(), imageminPngquant({ quality: '65-80' })],
     })
-      .then(images => images.forEach((image) => {
-        sharp(image.data)
-          .resize(imageSize)
-          .toFile(image.path);
-      }))
+      .then(images =>
+        images.forEach(image => {
+          sharp(image.data)
+            .resize(imageSize)
+            .toFile(image.path);
+        })
+      )
       .then(() => {
         SectionImages.aggregate([
           { $match: { site } },
@@ -226,8 +234,8 @@ const updatePhoto = (req, res) => {
               },
             },
           },
-        ]).then((result) => {
-          console.log(result);
+        ]).then(result => {
+          // console.log(result);
           const imageIndex = `${section}.${result[0][section]}`;
           const imageRoute = `/img/${section}${file.path.substring(
             file.path.lastIndexOf('/')
@@ -242,9 +250,13 @@ const updatePhoto = (req, res) => {
             { new: true }
           )
             // .then(SectionImages.findOne({ site }))
-            .then(result => res.status(200).json(result[section]))
+            .then(result =>
+              setTimeout(() => {
+                res.status(200).json(result[section]);
+              }, 2000)
+            )
             .then(() => {
-              fs.unlink(file.path, (err) => {
+              fs.unlink(file.path, err => {
                 if (err) {
                   console.error('here', err.toString());
                 }

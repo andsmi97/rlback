@@ -34,9 +34,11 @@ const insert = (req, res) => {
           plugins: [imageminJpegtran(), imageminPngquant({ quality: '65-80' })],
         })
           // resize
-          .then(images => sharp(images[0].data)
-            .resize(900)
-            .toFile(images[0].path))
+          .then(images =>
+            sharp(images[0].data)
+              .resize(900)
+              .toFile(images[0].path)
+          )
           .then(() => {
             const newPost = new Post({
               title,
@@ -51,12 +53,12 @@ const insert = (req, res) => {
             newPost
               .save()
               .then(() => {
-                fs.unlink(file.path, (err) => {
+                fs.unlink(file.path, err => {
                   if (err) console.error(err.toString());
                 });
               })
               .then(() => res.status(200).json(newPost))
-              .catch((err) => {
+              .catch(err => {
                 res.status(400).json(err);
               });
           })
@@ -71,7 +73,7 @@ const insert = (req, res) => {
     return newPost
       .save()
       .then(() => res.status(200).json(newPost))
-      .catch((err) => {
+      .catch(err => {
         res.status(400).json(err);
       });
   });
@@ -81,7 +83,7 @@ const select = (req, res) => {
   const { date } = req.body;
   Post.find({ date: { $lt: date } }, null, { limit: 50 })
     .sort({ date: 'desc' })
-    .then((posts) => {
+    .then(posts => {
       res.status(200).json(posts);
     });
 };
@@ -108,9 +110,11 @@ const updatePhoto = (req, res) => {
         plugins: [imageminJpegtran(), imageminPngquant({ quality: '75-85' })],
       })
         // resize
-        .then(images => sharp(images[0].data)
-          .resize(900)
-          .toFile(images[0].path))
+        .then(images =>
+          sharp(images[0].data)
+            .resize(900)
+            .toFile(images[0].path)
+        )
         .then(() => {
           Post.findByIdAndUpdate(
             id,
@@ -123,7 +127,7 @@ const updatePhoto = (req, res) => {
                 )}`,
               },
             },
-            (err) => {
+            err => {
               Post.findById(id)
                 .then(post => res.status(200).json(post))
                 .catch(err => res.status(400).json(err));
@@ -137,7 +141,7 @@ const updatePhoto = (req, res) => {
               `${__dirname}/../../img/news${image.substring(
                 image.lastIndexOf('/')
               )}`,
-              (err) => {
+              err => {
                 if (err) console.error(err.toString());
               }
             );
@@ -158,7 +162,7 @@ const deletePhoto = (req, res) => {
   });
   fs.unlink(
     `${__dirname}/../../img/news${image.substring(image.lastIndexOf('/'))}`,
-    (err) => {
+    err => {
       if (err) console.error(err.toString());
     }
   );
@@ -171,59 +175,78 @@ const update = (req, res) => {
   // parse
   form.parse(req, (err, fields, files) => {
     const { file } = files;
-    const {
-      site, image, id, title, body
-    } = fields;
+    const { site, image, id, title, body, deleteimage } = fields;
     if (err) return res.status(400).json(`Возникла ошибка: ${err}`);
     // compress
-    return (
-      imagemin([file.path], `./${site}/img/news`, {
-        plugins: [imageminJpegtran(), imageminPngquant({ quality: '75-85' })],
-      })
-        // resize
-        .then(images => sharp(images[0].data)
-          .resize(900)
-          .toFile(images[0].path))
-        .then(() => {
-          Post.findByIdAndUpdate(
-            id,
-            {
-              $set: {
-                image: `/img/news${file.path.substring(
-                  file.path.lastIndexOf('/') !== -1
-                    ? file.path.lastIndexOf('/')
-                    : file.path.lastIndexOf('\\')
-                )}`,
-                title,
-                body,
-              },
-            },
-            (err) => {
-              Post.findById(id)
-                .then(post => res.status(200).json(post))
-                .catch(err => res.status(400).json(err));
-              if (err) res.status(400).json(err);
-            }
-          );
+    if (file) {
+      return (
+        imagemin([file.path], `./${site}/img/news`, {
+          plugins: [imageminJpegtran(), imageminPngquant({ quality: '75-85' })],
         })
-        .then(() => {
-          if (image.length) {
-            fs.unlink(
-              `${__dirname}/../../img/news${image.substring(
-                image.lastIndexOf('/')
-              )}`,
-              (err) => {
-                if (err) console.error(err.toString());
+          // resize
+          .then(images =>
+            sharp(images[0].data)
+              .resize(900)
+              .toFile(images[0].path)
+          )
+          .then(() => {
+            Post.findByIdAndUpdate(
+              id,
+              {
+                $set: {
+                  image: `/img/news${file.path.substring(
+                    file.path.lastIndexOf('/') !== -1
+                      ? file.path.lastIndexOf('/')
+                      : file.path.lastIndexOf('\\')
+                  )}`,
+                  title,
+                  body,
+                },
+              },
+              err => {
+                Post.findById(id)
+                  .then(post => res.status(200).json(post))
+                  .catch(err => res.status(400).json(err));
+                if (err) res.status(400).json(err);
               }
             );
-          }
-        })
-        .catch(err => console.error(err))
-    );
+          })
+          .then(() => {
+            if (image.length) {
+              fs.unlink(
+                `${__dirname}/../../img/news${image.substring(
+                  image.lastIndexOf('/')
+                )}`,
+                err => {
+                  if (err) console.error(err.toString());
+                }
+              );
+            }
+          })
+          .catch(err => console.error(err))
+      );
+    } else if (!file && deleteimage) {
+      return Post.findByIdAndUpdate(
+        id,
+        { $set: { image: '', title, body } },
+        err => {
+          if (err) res.status(400).json(err);
+          Post.findById(id)
+            .then(post => res.status(200).json(post))
+            .catch(err => res.status(400).json(err));
+        }
+      ).catch(err => console.error(err));
+    } else {
+      return Post.findByIdAndUpdate(id, { $set: { title, body } }, err => {
+        if (err) res.status(400).json(err);
+        Post.findById(id)
+          .then(post => res.status(200).json(post))
+          .catch(err => res.status(400).json(err));
+      }).catch(err => console.error(err));
+    }
   });
 };
 
-console.log(validator.isNumeric('87'));
 module.exports = {
   insert,
   select,
