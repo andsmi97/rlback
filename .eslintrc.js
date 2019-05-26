@@ -14,4 +14,5 @@ module.exports = {
     'prefer-promise-reject-errors': 0,
     'func-names': 0,
   },
+  packageManager: 'yarn',
 };
