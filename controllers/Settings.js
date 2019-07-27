@@ -1,18 +1,12 @@
-const mongoose = require('mongoose');
-
-const connectionString = 'mongodb://localhost:27017/TenantsDB';
-
+db.on('error', console.error.bind(console, 'connection error:'));
 const isCorrectEmail = email => {
   const regExp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return regExp.test(email);
 };
 
 const getEmailService = email => email.match(/(?<=@)[^.]+(?=\.)/g).join('');
-mongoose.connect(connectionString);
-const db = mongoose.connection;
-const User = require('../Schemas/User');
 
-db.on('error', console.error.bind(console, 'connection error:'));
+const User = require('../Schemas/User');
 
 const changeAccountPassword = async (req, res) => {
   const { user, currentPassword, newPassword } = req.body;

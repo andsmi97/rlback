@@ -20,6 +20,8 @@ const user = new mongoose.Schema({
     PASSWORD: String,
     SERVICE: String,
   },
+  lastBillDate: Date,
+  isInitialValuesSet: { type: Boolean, default: false },
 });
 
 user.methods.setPassword = function(password) {

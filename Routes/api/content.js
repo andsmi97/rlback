@@ -5,6 +5,7 @@ const auth = require('../auth');
 router.post('/', auth.required, content.addPhoto);
 router.delete('/', auth.required, content.deletePhoto);
 router.put('/', auth.required, content.updatePhoto);
+router.put('/salesText', auth.required, content.changeSalesText);
 router.get('/', auth.optional, content.siteContent);
 router.patch('/reorder', auth.required, content.reorderPhotos);
 

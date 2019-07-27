@@ -1,11 +1,5 @@
-const mongoose = require('mongoose');
 const passport = require('passport');
 const User = require('../Schemas/User');
-
-const connectionString = 'mongodb://localhost:27017/TenantsDB';
-mongoose.connect(connectionString);
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
 
 const getEmailService = email => email.match(/(?<=@)[^.]+(?=\.)/g).join('');
 
@@ -71,6 +65,7 @@ const getCredentials = async (req, res) => {
         phone: user.phone,
         phone2: user.phone2,
         emailAccount: user.MAIL.USER,
+        isInitialValuesSet: user.isInitialValuesSet,
       },
     });
   } catch (e) {
@@ -78,14 +73,15 @@ const getCredentials = async (req, res) => {
   }
 };
 const register = async (req, res) => {
-  const { username, email, password, phone } = req.body.user;
-  const user = new User({ username, email, phone, user });
+  const { username, email, password, phone, MAIL } = req.body.user;
+  const user = new User({ username, email, phone, MAIL });
   user.setPassword(password);
   try {
     await user.save();
-    return res.staus(200).json({ user: user.toAuthJSON() });
+    return res.status(200).json({ user: user.toAuthJSON() });
   } catch (e) {
-    return res.status(403);
+    console.log(e);
+    return res.sendStatus(403);
   }
 };
 
@@ -97,6 +93,7 @@ const login = (req, res, next) => {
   if (!password) {
     return res.status(422).json({ errors: { password: "can't be blank" } });
   }
+
   passport.authenticate('local', { session: false }, (err, user, info) => {
     if (err) {
       return next(err);
@@ -113,8 +110,8 @@ const login = (req, res, next) => {
 //TODO: change to multy user request
 const getContacts = async (req, res) => {
   try {
-    const user = await User.find(
-      { user: 'admin' },
+    const user = await User.findOne(
+      { email: 'admin' },
       {
         _id: 0,
         phone: 1,

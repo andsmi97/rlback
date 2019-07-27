@@ -21,7 +21,7 @@ const upload = (req, res) => {
           res.status(200).json({
             url:
               process.env.MODE === 'development'
-                ? `http://localhost:8080${outputFile.slice(1)}`
+                ? `http://localhost:8082${outputFile.slice(1)}`
                 : `${outputFile.slice(1)}`,
           });
           fs.unlink(file.path, err => {

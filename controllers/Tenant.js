@@ -1,16 +1,9 @@
-const mongoose = require('mongoose');
 const {
   body,
   validationResult,
   checkSchema,
 } = require('express-validator/check');
-const connectionString = 'mongodb://localhost:27017/TenantsDB';
-mongoose.connect(connectionString);
-
 const Tenant = require('../Schemas/Tenant');
-// const User = require('../Schemas/User');
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
 
 const validateInsert = [
   body('name')
@@ -69,9 +62,17 @@ const insert = async (req, res) => {
     return res.status(422).json({ errors: errors.array() });
   }
   try {
-    const { name, email, houseNumber } = req.body;
+    const { name, email, houseNumber, postIndex, contract, address } = req.body;
     const owner = req.payload.id;
-    const tenant = new Tenant({ houseNumber, email, name, owner });
+    const tenant = new Tenant({
+      houseNumber,
+      email,
+      name,
+      owner,
+      postIndex,
+      contract,
+      address,
+    });
     return res.status(200).json(await tenant.save());
   } catch (e) {
     return res.sendStatus(403);
@@ -96,10 +97,6 @@ const update = async (req, res) => {
 };
 
 const remove = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(422).json({ errors: errors.array() });
-  }
   try {
     const { _id } = req.params;
     await Tenant.findOneAndDelete({ _id });
@@ -112,8 +109,25 @@ const remove = async (req, res) => {
 const select = async (req, res) => {
   try {
     const owner = req.payload.id;
-    return res.status(200).json(await Tenant.find({ owner }));
+    return res.status(200).json(
+      await Tenant.find({ owner })
+        .sort({ houseNumber: 1 })
+        .populate('documents')
+    );
   } catch (e) {
+    return res.sendStatus(403);
+  }
+};
+const selectHouses = async (req, res) => {
+  try {
+    const owner = req.payload.id;
+    return res.status(200).json(
+      await Tenant.find({ owner })
+        .select({ houseNumber: 1, _id: 0, lastDayValue: 1, lastNightValue: 1 })
+        .sort({ houseNumber: 1 })
+    );
+  } catch (e) {
+    console.error(e);
     return res.sendStatus(403);
   }
 };
@@ -126,4 +140,5 @@ module.exports = {
   validateInsert,
   validateUpdate,
   validateRemove,
+  selectHouses,
 };

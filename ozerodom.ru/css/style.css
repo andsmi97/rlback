@@ -1,5 +1,4 @@
-@import url(
-  https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600,300);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600,300);
 
 * {
   border-radius: 0px !important;
@@ -10,7 +9,7 @@ body {
   font-size: 15px;
   line-height: 25px;
   font-weight: 400;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 h1,
@@ -75,7 +74,7 @@ hr {
 
 .big {
   font-size: 20px !important;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   margin-bottom: 10px;
   font-weight: 300;
 }
@@ -230,7 +229,7 @@ header .logo .hmeta {
 }
 
 .feat-inner {
-  height: 530px;
+  height: 570px;
 }
 
 .features-three i {
@@ -344,13 +343,16 @@ footer .copy {
   margin-top: 10px;
 }
 
-.titleName{
+.titleName {
   margin-top: 210px;
 }
 /* Responsive */
-
+.carouselImg{
+  height:400px;
+  object-fit: cover;
+}
 @media (max-width: 991px) {
-  .titleName{
+  .titleName {
     margin-top: 10px;
   }
   .feat-inner {
@@ -365,7 +367,11 @@ footer .copy {
 }
 
 @media (max-width: 767px) {
-  .titleName{
+  .carouselImg{
+    object-fit: cover;
+    height:200px
+  }
+  .titleName {
     margin-top: 10px;
   }
   .feat-inner {
@@ -380,7 +386,7 @@ footer .copy {
 }
 
 @media (max-width: 480px) {
-  .titleName{
+  .titleName {
     margin-top: 10px;
   }
   .feat-inner {
@@ -389,7 +395,7 @@ footer .copy {
 }
 
 @media (max-width: 320px) {
-  .titleName{
+  .titleName {
     margin-top: 10px;
   }
   .feat-inner {
@@ -572,11 +578,11 @@ footer .copy {
   width: 13px;
   padding: 0;
 }
-.w3-hover-white{
+.w3-hover-white {
   background-color: black;
   width: 5px;
   height: 5px;
-  content: "\0";
+  content: '\0';
   z-index: 500;
   position: absolute;
 }
@@ -585,11 +591,15 @@ footer .copy {
   height: 410px;
 } */
 
-.autoplayphoto>img{
-  max-width:100%;
-  max-height:100%;
+.autoplayphoto > img {
+  max-width: 100%;
+  max-height: 100%;
 }
 
-.img-thumbnail{
+.img-thumbnail {
   margin-bottom: 25px;
+}
+
+.accordionGallery .col-md-3 {
+  min-height: 150px;
 }

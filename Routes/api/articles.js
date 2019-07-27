@@ -5,7 +5,7 @@ const auth = require('../auth');
 router.post('/', auth.required, article.create);
 router.delete('/:id', auth.required, article.remove);
 router.patch('/:id', auth.required, article.update);
-router.get('/', auth.required, article.all);
+router.get('/', article.all);
 router.get('/:id', auth.required, article.one);
 
 module.exports = router;
