@@ -19,10 +19,7 @@ const upload = (req, res) => {
         .toFile(outputFile)
         .then(() => {
           res.status(200).json({
-            url:
-              process.env.MODE === 'development'
-                ? `http://localhost:8082${outputFile.slice(1)}`
-                : `${outputFile.slice(1)}`,
+            url:`${outputFile.slice(1)}`,
           });
           fs.unlink(file.path, err => {
             if (err) console.error(err.toString());

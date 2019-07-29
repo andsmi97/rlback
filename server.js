@@ -71,6 +71,6 @@ process.on('uncaughtException', err => {
   console.log(err);
 });
 
-const server = app.listen(process.env.PORT || 8082, () => {
+const server = app.listen(8080, () => {
   console.log(`Listening on port ${server.address().port}`);
 });
