@@ -599,7 +599,7 @@ const removeLastBills = async (req, res) => {
       { owner },
       { documents: 1, initialDayValue: 1, initialNightValue: 1 }
     );
-
+    
     //we need to wait for every update, so we use Promise all
     return Promise.all(
       tenantsForUpdate.map(async tenant => {
@@ -621,6 +621,7 @@ const removeLastBills = async (req, res) => {
             }
           );
         } else {
+          
           const updatedTenant = await Tenant.findOneAndUpdate(
             { _id: tenant._id },
             {

@@ -7,7 +7,7 @@ $(document).ready(function() {
     return parent.appendChild(element);
   }
 
-  fetch(`http://localhost:8082/api/content?site=ozerodom.ru`)
+  fetch(`https://lesnayagavan.ru/api/content?site=ozerodom.ru`)
     .then(function(response) {
       return response.json();
     })
@@ -385,7 +385,7 @@ $(document).ready(function() {
       navNumber.classList.remove('phoneHidden');
     }
   }
-  fetch('http://localhost:8082/api/users/contacts')
+  fetch('https://lesnayagavan.ru/api/users/contacts')
     .then(function(response) {
       return response.json();
     })

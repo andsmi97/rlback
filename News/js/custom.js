@@ -29,7 +29,7 @@ function append(parent, element) {
   return parent.appendChild(element);
 }
 
-fetch('http://localhost:8082/api/articles?type=Post&limit=50&skip=0')
+fetch('https://lesnayagavan.ru/api/articles?type=Post&limit=50&skip=0')
   .then(response => response.json())
   .then(posts =>
     posts.map(post => {
@@ -42,7 +42,7 @@ fetch('http://localhost:8082/api/articles?type=Post&limit=50&skip=0')
     })
   );
 
-fetch('http://localhost:8082/api/users/contacts')
+fetch('http://lesnayagavan.ru/api/users/contacts')
   .then(response => response.json())
   .then(settings => {
     const phone = document.getElementsByClassName('navPhone');
