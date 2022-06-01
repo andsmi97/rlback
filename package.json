@@ -24,7 +24,7 @@
     "nodemon": "^1.18.11",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "sharp": "^0.21.1",
+    "sharp": "^0.30.5",
     "uuidv4": "^4.0.0",
     "validator": "^10.10.0",
     "xlsx": "^0.14.3",
